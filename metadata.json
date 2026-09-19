@@ -1,0 +1,6 @@
+{
+  "name": "Studio Master",
+  "description": "The complete software solution for modern wedding photography studios. Manage, deliver, and grow your wedding studio.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
