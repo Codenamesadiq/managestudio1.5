@@ -139,7 +139,7 @@ export default function ManageStudioHero({ onNavigatePricing, onNavigateAbout, o
               ManageStudio brings wedding photography workflows together, from camera ingest and photo delivery to client selections, bookings, billing, and expenses.
             </p>
 
-            {/* 3 Compact Benefit Items with blue icons */}
+            {/* 3 Compact Benefit Items with primary green icons */}
             <div className="hero-benefits-row">
               <div className="hero-benefit-item">
                 <div className="hero-benefit-icon-box">
@@ -189,7 +189,7 @@ export default function ManageStudioHero({ onNavigatePricing, onNavigateAbout, o
                   className="hero-secondary-btn"
                   onClick={handleOpenWatchVideo}
                 >
-                  <Play size={14} fill="#2997ff" stroke="#2997ff" />
+                  <Play size={14} fill="#1ABC9C" stroke="#1ABC9C" />
                   <span>Watch Video</span>
                 </button>
               </div>

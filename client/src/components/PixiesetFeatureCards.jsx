@@ -71,7 +71,7 @@ export default function PixiesetFeatureCards({ onLearnMore }) {
           <div className="ms-card ms-card-booking" id="booking">
             <div className="ms-card-header">
               <div className="ms-card-title-row">
-                <div className="ms-card-icon" style={{ background: 'var(--apple-primary, #0066cc)' }}>
+                <div className="ms-card-icon" style={{ background: 'var(--apple-primary, #1ABC9C)' }}>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
                     <line x1="16" y1="2" x2="16" y2="6" />
@@ -432,7 +432,7 @@ export default function PixiesetFeatureCards({ onLearnMore }) {
           <div className="ms-card ms-card-square" id="album-selection">
             <div className="ms-card-header">
               <div className="ms-card-title-row">
-                <div className="ms-card-icon" style={{ background: '#2563EB' }}>
+                <div className="ms-card-icon" style={{ background: '#1ABC9C' }}>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                     <circle cx="8.5" cy="8.5" r="1.5" />

@@ -159,7 +159,7 @@ export default function ManageStudioModals({
             ) : (
               <div className="ms-modal-success-state">
                 <div className="ms-success-icon-wrap">
-                  <CheckCircle2 size={36} color="#0066cc" />
+                  <CheckCircle2 size={36} color="#1ABC9C" />
                 </div>
                 <h3 className="ms-modal-title">Welcome to ManageStudio!</h3>
                 <p className="ms-modal-desc">
@@ -195,10 +195,10 @@ export default function ManageStudioModals({
                 <div className="ms-plan-price">Free <span>/ forever</span></div>
                 <p className="ms-plan-desc">For emerging wedding photographers getting started.</p>
                 <ul className="ms-plan-features">
-                  <li><Check size={13} color="#0066cc" /> 10 GB Cloud Storage</li>
-                  <li><Check size={13} color="#0066cc" /> 2 Active Client Galleries</li>
-                  <li><Check size={13} color="#0066cc" /> High-Res Photo Delivery</li>
-                  <li><Check size={13} color="#0066cc" /> Mobile Client View</li>
+                  <li><Check size={13} color="#1ABC9C" /> 10 GB Cloud Storage</li>
+                  <li><Check size={13} color="#1ABC9C" /> 2 Active Client Galleries</li>
+                  <li><Check size={13} color="#1ABC9C" /> High-Res Photo Delivery</li>
+                  <li><Check size={13} color="#1ABC9C" /> Mobile Client View</li>
                 </ul>
                 <button 
                   type="button" 
@@ -216,11 +216,11 @@ export default function ManageStudioModals({
                 <div className="ms-plan-price">$29 <span>/ month</span></div>
                 <p className="ms-plan-desc">The complete operating system for active wedding studios.</p>
                 <ul className="ms-plan-features">
-                  <li><Check size={13} color="#0066cc" /> 500 GB Fast Cloud Storage</li>
-                  <li><Check size={13} color="#0066cc" /> Unlimited Weddings &amp; Events</li>
-                  <li><Check size={13} color="#0066cc" /> Album Selection &amp; Proofing</li>
-                  <li><Check size={13} color="#0066cc" /> Song Selection Tool</li>
-                  <li><Check size={13} color="#0066cc" /> Invoices &amp; Billing Tracker</li>
+                  <li><Check size={13} color="#1ABC9C" /> 500 GB Fast Cloud Storage</li>
+                  <li><Check size={13} color="#1ABC9C" /> Unlimited Weddings &amp; Events</li>
+                  <li><Check size={13} color="#1ABC9C" /> Album Selection &amp; Proofing</li>
+                  <li><Check size={13} color="#1ABC9C" /> Song Selection Tool</li>
+                  <li><Check size={13} color="#1ABC9C" /> Invoices &amp; Billing Tracker</li>
                 </ul>
                 <button 
                   type="button" 
@@ -237,11 +237,11 @@ export default function ManageStudioModals({
                 <div className="ms-plan-price">$59 <span>/ month</span></div>
                 <p className="ms-plan-desc">For high-volume photo &amp; cinema production houses.</p>
                 <ul className="ms-plan-features">
-                  <li><Check size={13} color="#0066cc" /> Unlimited Storage</li>
-                  <li><Check size={13} color="#0066cc" /> 4K Cinematic Video Streaming</li>
-                  <li><Check size={13} color="#0066cc" /> Guest Photo AI (Face Match)</li>
-                  <li><Check size={13} color="#0066cc" /> Direct Camera Ingest Pipeline</li>
-                  <li><Check size={13} color="#0066cc" /> Custom Studio Domain</li>
+                  <li><Check size={13} color="#1ABC9C" /> Unlimited Storage</li>
+                  <li><Check size={13} color="#1ABC9C" /> 4K Cinematic Video Streaming</li>
+                  <li><Check size={13} color="#1ABC9C" /> Guest Photo AI (Face Match)</li>
+                  <li><Check size={13} color="#1ABC9C" /> Direct Camera Ingest Pipeline</li>
+                  <li><Check size={13} color="#1ABC9C" /> Custom Studio Domain</li>
                 </ul>
                 <button 
                   type="button" 
@@ -262,7 +262,7 @@ export default function ManageStudioModals({
               {/* Header */}
               <div className="ms-as-header">
                 <div className="ms-as-icon-box">
-                  <ImageIcon size={26} color="#2563EB" strokeWidth={2.2} />
+                  <ImageIcon size={26} color="#1ABC9C" strokeWidth={2.2} />
                 </div>
                 <div className="ms-as-header-text">
                   <h3 className="ms-as-title">Album Selection</h3>
@@ -277,7 +277,7 @@ export default function ManageStudioModals({
               <div className="ms-as-benefits-grid">
                 <div className="ms-as-benefit-card">
                   <div className="ms-as-benefit-icon">
-                    <Users size={18} color="#2563EB" strokeWidth={2.2} />
+                    <Users size={18} color="#1ABC9C" strokeWidth={2.2} />
                   </div>
                   <h4 className="ms-as-benefit-title">Easy for Clients</h4>
                   <p className="ms-as-benefit-desc">
@@ -287,7 +287,7 @@ export default function ManageStudioModals({
 
                 <div className="ms-as-benefit-card">
                   <div className="ms-as-benefit-icon">
-                    <ImageIcon size={18} color="#2563EB" strokeWidth={2.2} />
+                    <ImageIcon size={18} color="#1ABC9C" strokeWidth={2.2} />
                   </div>
                   <h4 className="ms-as-benefit-title">Best Photos for Album</h4>
                   <p className="ms-as-benefit-desc">
@@ -297,7 +297,7 @@ export default function ManageStudioModals({
 
                 <div className="ms-as-benefit-card">
                   <div className="ms-as-benefit-icon">
-                    <Clock size={18} color="#2563EB" strokeWidth={2.2} />
+                    <Clock size={18} color="#1ABC9C" strokeWidth={2.2} />
                   </div>
                   <h4 className="ms-as-benefit-title">Saves Time</h4>
                   <p className="ms-as-benefit-desc">
@@ -307,7 +307,7 @@ export default function ManageStudioModals({
 
                 <div className="ms-as-benefit-card">
                   <div className="ms-as-benefit-icon">
-                    <Folder size={18} color="#2563EB" strokeWidth={2.2} />
+                    <Folder size={18} color="#1ABC9C" strokeWidth={2.2} />
                   </div>
                   <h4 className="ms-as-benefit-title">Organized Workflow</h4>
                   <p className="ms-as-benefit-desc">
@@ -489,7 +489,7 @@ export default function ManageStudioModals({
                           </div>
                         </div>
 
-                        {/* Blue Flow Arrow */}
+                        {/* Green Flow Arrow */}
                         <div className="ms-as-export-arrow">
                           <ArrowRight size={16} strokeWidth={2.5} />
                         </div>
@@ -520,7 +520,7 @@ export default function ManageStudioModals({
               {/* Bottom Highlight Banner */}
               <div className="ms-as-bottom-banner">
                 <div className="ms-as-banner-icon-box">
-                  <Folder size={20} color="#2563EB" strokeWidth={2.2} />
+                  <Folder size={20} color="#1ABC9C" strokeWidth={2.2} />
                 </div>
                 <div className="ms-as-banner-text">
                   <h5 className="ms-as-banner-title">Ready for Album Design</h5>
@@ -1491,7 +1491,7 @@ export default function ManageStudioModals({
                 <ul className="ms-highlights-list">
                   {modalData.highlights?.map((h, i) => (
                     <li key={i}>
-                      <Check size={14} color="#0066cc" />
+                      <Check size={14} color="#1ABC9C" />
                       <span>{h}</span>
                     </li>
                   ))}
@@ -1525,10 +1525,10 @@ export default function ManageStudioModals({
 
             <div className="ms-feature-highlights-box">
               <ul className="ms-highlights-list">
-                <li><Check size={14} color="#0066cc" /> <strong>Active Bookings:</strong> View upcoming shoots, locations, and shot lists.</li>
-                <li><Check size={14} color="#0066cc" /> <strong>Album Proofing:</strong> Track couple selections and print approval statuses.</li>
-                <li><Check size={14} color="#0066cc" /> <strong>Invoices &amp; Payments:</strong> Issue GST/tax invoices and monitor receivables.</li>
-                <li><Check size={14} color="#0066cc" /> <strong>Multi-Staff Access:</strong> Assign lead photographers and editors per wedding.</li>
+                <li><Check size={14} color="#1ABC9C" /> <strong>Active Bookings:</strong> View upcoming shoots, locations, and shot lists.</li>
+                <li><Check size={14} color="#1ABC9C" /> <strong>Album Proofing:</strong> Track couple selections and print approval statuses.</li>
+                <li><Check size={14} color="#1ABC9C" /> <strong>Invoices &amp; Payments:</strong> Issue GST/tax invoices and monitor receivables.</li>
+                <li><Check size={14} color="#1ABC9C" /> <strong>Multi-Staff Access:</strong> Assign lead photographers and editors per wedding.</li>
               </ul>
             </div>
 
@@ -1556,10 +1556,10 @@ export default function ManageStudioModals({
 
             <div className="ms-feature-highlights-box">
               <ul className="ms-highlights-list">
-                <li><Check size={14} color="#0066cc" /> <strong>Zero Friction:</strong> One-tap access from WhatsApp or email invitations.</li>
-                <li><Check size={14} color="#0066cc" /> <strong>Interactive Selections:</strong> Couples pick favorite album photos on mobile or desktop.</li>
-                <li><Check size={14} color="#0066cc" /> <strong>Soundtrack Picker:</strong> Add YouTube / Spotify tracks for ceremony highlight films.</li>
-                <li><Check size={14} color="#0066cc" /> <strong>Guest Photo Finder:</strong> Guests take a selfie to immediately get their photos.</li>
+                <li><Check size={14} color="#1ABC9C" /> <strong>Zero Friction:</strong> One-tap access from WhatsApp or email invitations.</li>
+                <li><Check size={14} color="#1ABC9C" /> <strong>Interactive Selections:</strong> Couples pick favorite album photos on mobile or desktop.</li>
+                <li><Check size={14} color="#1ABC9C" /> <strong>Soundtrack Picker:</strong> Add YouTube / Spotify tracks for ceremony highlight films.</li>
+                <li><Check size={14} color="#1ABC9C" /> <strong>Guest Photo Finder:</strong> Guests take a selfie to immediately get their photos.</li>
               </ul>
             </div>
 
@@ -1587,10 +1587,10 @@ export default function ManageStudioModals({
 
             <div className="ms-feature-highlights-box">
               <ul className="ms-highlights-list">
-                <li><ShieldCheck size={14} color="#0066cc" /> <strong>End-to-End Encryption:</strong> Photos and videos encrypted at rest and in transit (TLS 1.3).</li>
-                <li><ShieldCheck size={14} color="#0066cc" /> <strong>Studio Ownership:</strong> You retain 100% copyright and ownership of all media assets.</li>
-                <li><ShieldCheck size={14} color="#0066cc" /> <strong>Private Guest AI:</strong> Guest selfies are used solely for in-event matching and never sold or trained on.</li>
-                <li><ShieldCheck size={14} color="#0066cc" /> <strong>Enterprise Reliability:</strong> 99.99% uptime with multi-region backup storage.</li>
+                <li><ShieldCheck size={14} color="#1ABC9C" /> <strong>End-to-End Encryption:</strong> Photos and videos encrypted at rest and in transit (TLS 1.3).</li>
+                <li><ShieldCheck size={14} color="#1ABC9C" /> <strong>Studio Ownership:</strong> You retain 100% copyright and ownership of all media assets.</li>
+                <li><ShieldCheck size={14} color="#1ABC9C" /> <strong>Private Guest AI:</strong> Guest selfies are used solely for in-event matching and never sold or trained on.</li>
+                <li><ShieldCheck size={14} color="#1ABC9C" /> <strong>Enterprise Reliability:</strong> 99.99% uptime with multi-region backup storage.</li>
               </ul>
             </div>
 

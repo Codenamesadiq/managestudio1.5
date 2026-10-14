@@ -92,8 +92,7 @@
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #0066cc;
-  background: #e0f2fe;
+  color: #1ABC9C; background: #e8f8f5;
   padding: 3px 10px;
   border-radius: 9999px;
   margin-bottom: 12px;
@@ -152,8 +151,7 @@
 
 .ms-form-input:focus,
 .ms-form-select:focus {
-  border-color: #0066cc;
-  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15);
+  border-color: #1ABC9C; box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.18);
 }
 
 .ms-modal-submit-btn {
@@ -195,9 +193,7 @@
 .ms-text-link {
   background: none;
   border: none;
-  color: #0066cc;
-  font-weight: 600;
-  cursor: pointer;
+  color: #1ABC9C; font-weight: 600; cursor: pointer;
   padding: 0;
   text-decoration: underline;
 }
@@ -215,11 +211,7 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: #e0f2fe;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 18px;
+  background: #e8f8f5; display: flex; align-items: center; justify-content: center; margin-bottom: 18px;
 }
 
 .ms-success-tip-box {
@@ -299,8 +291,7 @@
 }
 
 .ms-pricing-card-featured {
-  border-color: #0066cc;
-  box-shadow: 0 10px 25px -5px rgba(0, 102, 204, 0.15);
+  border-color: #1ABC9C; box-shadow: 0 10px 25px -5px rgba(26, 188, 156, 0.2);
 }
 
 .ms-popular-pill {
@@ -308,9 +299,7 @@
   top: -11px;
   left: 50%;
   transform: translateX(-50%);
-  background: #0066cc;
-  color: #ffffff;
-  font-size: 9px;
+  background: #1ABC9C; color: #ffffff; font-size: 9px;
   font-weight: 700;
   padding: 2px 10px;
   border-radius: 9999px;
@@ -385,12 +374,11 @@
 
 .ms-plan-btn-outline {
   background: #ffffff;
-  color: #0066cc;
-  border: 1px solid #0066cc;
+  color: #1ABC9C; border: 1px solid #1ABC9C;
 }
 
 .ms-plan-btn-outline:hover {
-  background: #f0f7ff;
+  background: #e8f8f5;
 }
 
 /* ==========================================================================
@@ -423,13 +411,7 @@
   width: 52px;
   height: 52px;
   border-radius: 14px;
-  background-color: #eff6ff;
-  border: 1px solid #dbeafe;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: #2563eb;
+  background-color: #e8f8f5; border: 1px solid #a3e4d7; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #1ABC9C;
 }
 
 .ms-as-title {
@@ -470,11 +452,7 @@
   width: 34px;
   height: 34px;
   border-radius: 9px;
-  background-color: #eff6ff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #2563eb;
+  background-color: #e8f8f5; display: flex; align-items: center; justify-content: center; color: #1ABC9C;
   margin-bottom: 12px;
 }
 
@@ -528,8 +506,7 @@
   top: 14px;
   bottom: 24px;
   left: 13px;
-  width: 2px;
-  background-color: #3b82f6;
+  width: 2px; background-color: #1ABC9C;
   z-index: 1;
 }
 
@@ -550,9 +527,7 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background-color: #2563eb;
-  color: #ffffff;
-  font-size: 12px;
+  background-color: #1ABC9C; color: #ffffff; font-size: 12px;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -609,9 +584,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  color: #2563eb;
+  background: #e8f8f5; border: 1px solid #a3e4d7; color: #16a085;
   font-size: 10.5px;
   font-weight: 600;
   padding: 4px 12px;
@@ -619,7 +592,7 @@
   line-height: 1.3;
   letter-spacing: -0.01em;
   text-align: center;
-  box-shadow: 0 1px 2px rgba(37, 99, 235, 0.04);
+  box-shadow: 0 1px 2px rgba(26, 188, 156, 0.08);
 }
 
 .ms-as-diagram-badge.badge-secondary {
@@ -684,9 +657,7 @@
   gap: 3px;
   font-size: 7.5px;
   font-weight: 600;
-  color: #2563eb;
-  background: #eff6ff;
-  border: 1px solid #dbeafe;
+  color: #16a085; background: #e8f8f5; border: 1px solid #a3e4d7;
   padding: 1.5px 5px;
   border-radius: 9999px;
   line-height: 1;
@@ -696,8 +667,7 @@
   font-size: 7.5px;
   font-weight: 600;
   color: #ffffff;
-  background: #2563eb;
-  padding: 2.5px 7px;
+  background: #1ABC9C; padding: 2.5px 7px;
   border-radius: 9999px;
   line-height: 1;
   letter-spacing: 0.01em;
@@ -725,7 +695,7 @@
 }
 
 .ms-as-photo-thumb.selected {
-  outline: 1.5px solid #2563eb;
+  outline: 1.5px solid #1ABC9C;
   outline-offset: -1px;
 }
 
@@ -743,9 +713,7 @@
 }
 
 .ms-as-check-badge.checked {
-  background: #2563eb;
-  color: #ffffff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  background: #1ABC9C; color: #ffffff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 
 .ms-as-check-badge.unchecked {
@@ -825,11 +793,7 @@
 .ms-as-phone-counter {
   font-size: 6px;
   font-weight: 600;
-  color: #2563eb;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  margin-bottom: 4px;
+  color: #1ABC9C; display: flex; align-items: center; gap: 2px; margin-bottom: 4px;
   line-height: 1;
 }
 
@@ -856,7 +820,7 @@
 }
 
 .ms-as-phone-thumb.selected {
-  outline: 1.2px solid #2563eb;
+  outline: 1.2px solid #1ABC9C;
   outline-offset: -1px;
 }
 
@@ -864,8 +828,7 @@
   font-size: 6px;
   font-weight: 600;
   color: #ffffff;
-  background: #2563eb;
-  padding: 2.5px 0;
+  background: #1ABC9C; padding: 2.5px 0;
   border-radius: 3px;
   text-align: center;
   line-height: 1;
@@ -881,7 +844,7 @@
 }
 
 .ms-as-down-arrow {
-  color: #2563eb;
+  color: #1ABC9C;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -917,7 +880,7 @@
 }
 
 .ms-as-blue-icon {
-  color: #2563eb;
+  color: #1ABC9C;
   flex-shrink: 0;
 }
 
@@ -939,7 +902,7 @@
 }
 
 .ms-as-check-blue {
-  color: #2563eb;
+  color: #1ABC9C;
 }
 
 .ms-as-export-btn {
@@ -955,7 +918,7 @@
 }
 
 .ms-as-export-arrow {
-  color: #2563eb;
+  color: #1ABC9C;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1046,8 +1009,7 @@
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background-color: #dbeafe;
-  color: #2563eb;
+  background-color: #e8f8f5; color: #1ABC9C;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1057,8 +1019,7 @@
 .ms-as-banner-title {
   font-size: 14px;
   font-weight: 700;
-  color: #1d4ed8;
-  margin: 0 0 2px 0;
+  color: #117a65; margin: 0 0 2px 0;
 }
 
 .ms-as-banner-sub {
@@ -1231,9 +1192,7 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: #2563eb;
-  color: #ffffff;
-  font-size: 11px;
+  background-color: #1ABC9C; color: #ffffff; font-size: 11px;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
@@ -1397,11 +1356,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #2563eb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4), 0 0 0 2px #ffffff;
+  background: #1ABC9C; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(26, 188, 156, 0.4), 0 0 0 2px #ffffff;
 }
 
 .ms-gp-laptop-base {
@@ -2348,8 +2303,7 @@
 
 .ms-ss-bubble-link {
   font-size: 5px;
-  color: #0284c7;
-  text-decoration: underline;
+  color: #1ABC9C; text-decoration: underline;
   word-break: break-all;
 }
 
@@ -2363,8 +2317,7 @@
 }
 
 .ms-ss-checks {
-  color: #38bdf8;
-  font-weight: bold;
+  color: #1ABC9C; font-weight: bold;
 }
 
 .ms-ss-chat-footer {
@@ -2576,7 +2529,7 @@
 .ms-ss-scene-icon.icon-purple { color: #8b5cf6; }
 .ms-ss-scene-icon.icon-amber { color: #f59e0b; }
 .ms-ss-scene-icon.icon-pink { color: #ec4899; }
-.ms-ss-scene-icon.icon-blue { color: #3b82f6; }
+.ms-ss-scene-icon.icon-blue { color: #1ABC9C; }
 
 /* =========================================
    STAGE 6: Video Editing Timeline Preview
@@ -3021,11 +2974,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: rgba(0, 102, 204, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #38bdf8;
+  background: rgba(26, 188, 156, 0.25); display: flex; align-items: center; justify-content: center; color: #1ABC9C;
   flex-shrink: 0;
 }
 

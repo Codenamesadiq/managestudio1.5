@@ -111,7 +111,7 @@ export default function App() {
       });
 
       const targets = document.querySelectorAll(
-        '.ms-card, .ms-suite-header, .mac-window-card, .ms-highlights-left, .ms-highlights-features-grid, .ms-cta-content-wrapper, .ms-trio-showcase-wrapper, .os-headline-group, .os-features-grid, .portal-content-col, .portal-visual-col, .storage-header-group, .storage-cards-grid, .bottom-cta-inner, .pricing-header, .pricing-plans-grid, .pricing-faq-section, .about-hero-section, .about-values-grid, .contact-hero-content, .contact-form-card, .contact-info-card'
+        '.ms-card, .ms-suite-header, .mac-window-card, .ms-highlights-left, .ms-highlights-features-grid, .os-headline-group, .os-features-grid, .portal-content-col, .portal-visual-col, .storage-header-group, .storage-cards-grid, .bottom-cta-inner, .pricing-header, .pricing-plans-grid, .pricing-faq-section, .about-hero-section, .about-values-grid, .contact-hero-content, .contact-form-card, .contact-info-card'
       );
 
       targets.forEach(el => {

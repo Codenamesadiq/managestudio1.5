@@ -2,9 +2,9 @@
   /* ==========================================================================
      APPLE DESIGN SYSTEM TOKENS (from apple.md)
      ========================================================================== */
-  --apple-primary: #0066cc;
-  --apple-primary-focus: #0071e3;
-  --apple-primary-on-dark: #2997ff;
+  --apple-primary: #1ABC9C;
+  --apple-primary-focus: #16a085;
+  --apple-primary-on-dark: #1ABC9C;
   --apple-ink: #1d1d1f;
   --apple-body: #1d1d1f;
   --apple-body-on-dark: #ffffff;
@@ -1348,3 +1348,50 @@ img {
     animation: none !important;
   }
 }
+
+/* ==========================================================================
+   GLOBAL FOOTER LINK TYPOGRAPHY
+   Ensures buttons and anchors in Company and Modules columns share
+   identical font size, weight, line-height, alignment, and vertical rhythm.
+   ========================================================================== */
+.ms-footer-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ms-footer-links-list li {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.ms-footer-link {
+  font-family: var(--font-body, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 1.43 !important;
+  letter-spacing: -0.224px !important;
+  color: #a1a1a6 !important;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  text-align: left;
+  display: inline-block;
+  outline: none;
+  transition: color 0.15s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.ms-footer-link:hover {
+  color: var(--apple-primary-on-dark, #1ABC9C) !important;
+}
+

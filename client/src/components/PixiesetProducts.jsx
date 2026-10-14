@@ -514,7 +514,7 @@ export default function PixiesetProducts() {
           <div className="pixieset-card card-square" id="album-selection">
             <div className="pixieset-card-header">
               <div className="pixieset-card-title-row">
-                <div className="pixieset-card-icon" style={{ background: '#2563EB' }}>
+                <div className="pixieset-card-icon" style={{ background: '#1ABC9C' }}>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                     <circle cx="8.5" cy="8.5" r="1.5" />

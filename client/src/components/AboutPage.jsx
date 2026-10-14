@@ -360,7 +360,6 @@ export default function AboutPage({ onNavigate }) {
                       type="button" 
                       className="ms-footer-link"
                       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                      style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left', font: 'inherit' }}
                     >
                       About ManageStudio
                     </button>
@@ -370,7 +369,6 @@ export default function AboutPage({ onNavigate }) {
                       type="button" 
                       className="ms-footer-link"
                       onClick={() => onNavigate && onNavigate('contact')}
-                      style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left', font: 'inherit' }}
                     >
                       Contact Us
                     </button>

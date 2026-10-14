@@ -1033,7 +1033,7 @@
 }
 
 .ms-bk-tab.active {
-  color: #2563eb;
+  color: #1ABC9C;
   font-weight: 700;
 }
 
@@ -1044,7 +1044,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background-color: #2563eb;
+  background-color: #1ABC9C;
   border-radius: 2px;
 }
 
@@ -1144,12 +1144,12 @@
 }
 
 .ms-bk-metric-card.metric-blue {
-  background-color: #f0f7ff;
-  border-color: #dbeafe;
+  background-color: #e8f8f5;
+  border-color: #a3e4d7;
 }
 .ms-bk-metric-card.metric-blue .ms-bk-metric-icon-box {
   background-color: #ffffff;
-  color: #2563eb;
+  color: #1ABC9C;
 }
 
 .ms-bk-metric-card.metric-green {
@@ -1403,9 +1403,9 @@
 }
 
 .ms-bk-pill.pill-editing {
-  background-color: #eff6ff;
-  color: #3b82f6;
-  border: 1px solid #bfdbfe;
+  background-color: #e8f8f5;
+  color: #16a085;
+  border: 1px solid #a3e4d7;
 }
 
 .ms-bk-pill.pill-scheduled {
@@ -1433,7 +1433,7 @@
 }
 
 .ms-bk-reminder-icon {
-  color: #3b82f6;
+  color: #1ABC9C;
   flex-shrink: 0;
 }
 

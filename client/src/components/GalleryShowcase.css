@@ -87,10 +87,10 @@
 }
 
 .showcase-tab-pill.active {
-  background-color: var(--apple-primary, #0066cc);
+  background-color: var(--apple-primary, #1ABC9C);
   color: #ffffff;
   font-weight: 600;
-  border-color: var(--apple-primary, #0066cc);
+  border-color: var(--apple-primary, #1ABC9C);
   box-shadow: none;
 }
 
@@ -472,7 +472,7 @@
   top: 0;
   left: 0;
   bottom: 0;
-  background-color: var(--apple-primary, #0066cc);
+  background-color: var(--apple-primary, #1ABC9C);
   border-radius: 2px;
 }
 
@@ -706,7 +706,7 @@
 }
 
 .onelink-eyebrow {
-  color: var(--apple-primary, #0066cc);
+  color: var(--apple-primary, #1ABC9C);
   font-family: var(--font-body, -apple-system, sans-serif);
   font-size: 13px;
   font-weight: 600;
@@ -750,8 +750,8 @@
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background-color: #e8f2fc;
-  color: var(--apple-primary, #0066cc);
+  background-color: #e8f8f5;
+  color: var(--apple-primary, #1ABC9C);
   display: flex;
   align-items: center;
   justify-content: center;
