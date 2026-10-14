@@ -1,0 +1,725 @@
+/* ==========================================================================
+   MANAGESTUDIO 1.5 — CONTACT PAGE STYLES
+   Clean, premium design with white background, dark readable typography,
+   Apple Action Blue accents, subtle borders, generous spacing, and rounded form fields.
+   ========================================================================== */
+
+.ms-contact-page {
+  background-color: #ffffff;
+  color: #0f172a;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+}
+
+.ms-contact-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   1. HERO SECTION
+   ========================================================================== */
+.ms-contact-hero {
+  position: relative;
+  padding: 64px 0 52px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+/* Decorative ambient light-blue gradient mesh in top right */
+.ms-contact-hero::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(191, 219, 254, 0.45) 0%, rgba(239, 246, 255, 0.2) 50%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ms-contact-hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 860px) {
+  .ms-contact-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.ms-contact-hero-left {
+  max-width: 640px;
+}
+
+.ms-contact-eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #0071e3;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.ms-contact-headline {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  font-size: clamp(38px, 4.4vw, 52px);
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0 0 20px 0;
+}
+
+.ms-contact-description {
+  font-size: 18px;
+  color: #475569;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Top Right Support Hero Card */
+.ms-contact-hero-card {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 18px;
+  padding: 24px 28px;
+  max-width: 340px;
+  box-shadow: 0 10px 30px rgba(0, 113, 227, 0.05), 0 1px 3px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ms-contact-hero-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ms-contact-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #0071e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ms-contact-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+.ms-contact-card-desc {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ==========================================================================
+   2. MAIN SECTION: FORM (LEFT) & TOPIC CARDS (RIGHT)
+   ========================================================================= */
+.ms-contact-main-section {
+  padding: 20px 0 64px;
+  background: #ffffff;
+}
+
+.ms-contact-content-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .ms-contact-content-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Contact Form Card (Left)
+   -------------------------------------------------------------------------- */
+.ms-contact-form-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.03);
+}
+
+@media (max-width: 640px) {
+  .ms-contact-form-card {
+    padding: 24px 20px;
+  }
+}
+
+.ms-form-header {
+  margin-bottom: 28px;
+}
+
+.ms-form-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px 0;
+}
+
+.ms-form-subtitle {
+  font-size: 15px;
+  color: #64748b;
+  margin: 0;
+}
+
+.ms-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ms-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+  .ms-form-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.ms-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ms-form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ms-required-star {
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.ms-form-input,
+.ms-form-select,
+.ms-form-textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  background-color: #f8fafc;
+  font-size: 15px;
+  color: #0f172a;
+  font-family: inherit;
+  transition: all 0.15s ease;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.ms-form-input::placeholder,
+.ms-form-textarea::placeholder {
+  color: #94a3b8;
+}
+
+.ms-form-input:focus,
+.ms-form-select:focus,
+.ms-form-textarea:focus {
+  background-color: #ffffff;
+  border-color: #0071e3;
+  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.12);
+}
+
+.ms-form-input.has-error,
+.ms-form-select.has-error,
+.ms-form-textarea.has-error {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.ms-form-error-msg {
+  font-size: 12.5px;
+  color: #ef4444;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.ms-form-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 4.5L6 8L9.5 4.5' stroke='%2364748B' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+.ms-form-textarea-wrap {
+  position: relative;
+}
+
+.ms-form-textarea {
+  min-height: 140px;
+  resize: vertical;
+  line-height: 1.5;
+  padding-bottom: 28px;
+}
+
+.ms-char-counter {
+  position: absolute;
+  bottom: 10px;
+  right: 14px;
+  font-size: 11.5px;
+  color: #94a3b8;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+/* Submit Button */
+.ms-form-submit-btn {
+  background-color: #1ABC9C;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 15px 28px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  transition: all 0.18s ease;
+  box-shadow: 0 4px 14px rgba(26, 188, 156, 0.28);
+  font-family: inherit;
+  margin-top: 6px;
+}
+
+.ms-form-submit-btn:hover:not(:disabled) {
+  background-color: #16a085;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(26, 188, 156, 0.38);
+}
+
+.ms-form-submit-btn:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.ms-form-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.ms-form-footer-note {
+  font-size: 13.5px;
+  color: #94a3b8;
+  text-align: center;
+  margin: 12px 0 0 0;
+}
+
+/* Alerts: Success & Error */
+.ms-alert-box {
+  padding: 16px 20px;
+  border-radius: 14px;
+  font-size: 14.5px;
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
+  animation: msAlertSlideDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes msAlertSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ms-alert-success {
+  background-color: #f0fdf4;
+  border: 1.5px solid #bbf7d0;
+  color: #166534;
+}
+
+.ms-alert-error {
+  background-color: #fef2f2;
+  border: 1.5px solid #fecaca;
+  color: #991b1b;
+}
+
+.ms-success-card {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.ms-success-icon-wrap {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #dcfce7;
+  color: #16a34a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.ms-success-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 10px 0;
+}
+
+.ms-success-desc {
+  font-size: 15px;
+  color: #475569;
+  line-height: 1.6;
+  max-width: 440px;
+  margin: 0 auto 24px;
+}
+
+.ms-success-reset-btn {
+  background: #f1f5f9;
+  color: #0f172a;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ms-success-reset-btn:hover {
+  background: #e2e8f0;
+}
+
+/* --------------------------------------------------------------------------
+   Topic Cards Stack (Right)
+   -------------------------------------------------------------------------- */
+.ms-contact-topics-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ms-topic-card {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 18px;
+  padding: 22px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  text-decoration: none;
+  color: inherit;
+}
+
+.ms-topic-card:hover {
+  border-color: #cbd5e1;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 113, 227, 0.08);
+}
+
+.ms-topic-card.is-active-type {
+  border-color: #0071e3;
+  background-color: #f8fafc;
+  box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2);
+}
+
+.ms-topic-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #eff6ff;
+  color: #0071e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.ms-topic-card:hover .ms-topic-icon-wrap {
+  transform: scale(1.05);
+}
+
+.ms-topic-title {
+  font-size: 16.5px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+  margin: 0 0 4px 0;
+}
+
+.ms-topic-desc {
+  font-size: 13.5px;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ==========================================================================
+   3. QUICK LINKS BANNER ("Explore before you contact")
+   ========================================================================== */
+.ms-contact-quicklinks-section {
+  padding: 0 0 72px;
+}
+
+.ms-quicklinks-banner {
+  background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
+  border: 1px solid #bfdbfe;
+  border-radius: 24px;
+  padding: 40px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  box-shadow: 0 8px 30px rgba(0, 113, 227, 0.06);
+}
+
+@media (max-width: 860px) {
+  .ms-quicklinks-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 24px;
+  }
+}
+
+.ms-quicklinks-left {
+  max-width: 580px;
+}
+
+.ms-quicklinks-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #0071e3;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.ms-quicklinks-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px 0;
+}
+
+.ms-quicklinks-desc {
+  font-size: 15px;
+  color: #475569;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.ms-quicklinks-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.ms-ql-btn-primary {
+  background-color: #1ABC9C;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 14.5px;
+  font-weight: 600;
+  padding: 13px 22px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 12px rgba(26, 188, 156, 0.25);
+  font-family: inherit;
+}
+
+.ms-ql-btn-primary:hover {
+  background-color: #16a085;
+  transform: translateY(-1px);
+}
+
+.ms-ql-btn-secondary {
+  background-color: #ffffff;
+  color: #0071e3;
+  border: 1.5px solid #0071e3;
+  border-radius: 12px;
+  font-size: 14.5px;
+  font-weight: 600;
+  padding: 11.5px 22px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.ms-ql-btn-secondary:hover {
+  background-color: #f8fafc;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   4. FREQUENTLY ASKED QUESTIONS ("Quick answers")
+   ========================================================================== */
+.ms-contact-faq-section {
+  padding: 0 0 96px;
+}
+
+.ms-faq-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .ms-faq-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.ms-faq-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #0071e3;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.ms-faq-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.ms-faq-view-all-link {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0071e3;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 0;
+  transition: gap 0.15s ease, color 0.15s ease;
+  font-family: inherit;
+}
+
+.ms-faq-view-all-link:hover {
+  color: #005bb5;
+  gap: 8px;
+}
+
+.ms-faq-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 860px) {
+  .ms-faq-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+.ms-faq-card {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 20px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.ms-faq-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 26px rgba(0, 113, 227, 0.06);
+  transform: translateY(-2px);
+}
+
+.ms-faq-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #0071e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ms-faq-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.ms-faq-card-desc {
+  font-size: 14.5px;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}

@@ -1,0 +1,310 @@
+/* ==========================================================================
+   SHARED NAVIGATION HEADER — MANAGESTUDIO 1.5
+   Pixel-faithful, unified navigation component used across Homepage,
+   Pricing page, and About page.
+   ========================================================================== */
+
+.ms-shared-nav-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  background: rgba(11, 15, 23, 0.92);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+/* Homepage variant sits as absolute overlay over cinematic video hero */
+.ms-shared-nav-header.is-homepage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(11, 15, 23, 0.78);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ms-shared-nav-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .ms-shared-nav-inner {
+    padding: 0 20px;
+    height: 64px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Brand Logo (Far Left)
+   -------------------------------------------------------------------------- */
+.ms-nav-brand-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  line-height: 1;
+  user-select: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.ms-nav-brand-logo-img {
+  height: 42px;
+  width: auto;
+  max-height: 44px;
+  object-fit: contain;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .ms-nav-brand-logo-img {
+    height: 34px;
+    max-height: 36px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Navigation Center (Evenly Spaced Links)
+   -------------------------------------------------------------------------- */
+.ms-nav-center {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+@media (max-width: 860px) {
+  .ms-nav-center {
+    display: none;
+  }
+}
+
+.ms-nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 8px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: color 0.15s ease, opacity 0.15s ease;
+  letter-spacing: -0.01em;
+  position: relative;
+  line-height: 1;
+}
+
+.ms-nav-link:hover {
+  color: #ffffff;
+}
+
+/* Active Page Indicator: Apple Action Blue Underline */
+.ms-nav-link.active {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.ms-nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #2997ff;
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Modules Dropdown Trigger & Menu
+   -------------------------------------------------------------------------- */
+.ms-nav-dropdown-trigger {
+  position: relative;
+  display: inline-block;
+}
+
+.ms-nav-dropdown-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ms-nav-dropdown-chevron {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ms-nav-dropdown-chevron.open {
+  transform: rotate(180deg);
+}
+
+.ms-nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: -20px;
+  width: 330px;
+  background: rgba(14, 18, 24, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 1000;
+  animation: msNavDropdownFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Invisible bridge so mouse moving from button across the 14px gap maintains hover state */
+.ms-nav-dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: 0;
+  right: 0;
+  height: 16px;
+  background: transparent;
+}
+
+@keyframes msNavDropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ms-nav-dropdown-header {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.45);
+  padding: 8px 12px 6px;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.ms-nav-dropdown-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  user-select: none;
+}
+
+.ms-nav-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ms-nav-dropdown-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2997ff;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ms-nav-dropdown-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2px;
+  line-height: 1.25;
+}
+
+.ms-nav-dropdown-desc {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.35;
+}
+
+/* --------------------------------------------------------------------------
+   Navigation Actions (Far Right: Log In, Get Started)
+   -------------------------------------------------------------------------- */
+.ms-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.ms-nav-login-btn {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 4px;
+  transition: color 0.15s ease;
+  line-height: 1;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ms-nav-login-btn:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* Action Teal Green Get Started Button (Apple style pill) */
+.ms-nav-cta-btn {
+  background-color: #1ABC9C;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 20px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  letter-spacing: -0.01em;
+  box-shadow: 0 2px 8px rgba(26, 188, 156, 0.25);
+  line-height: 1.2;
+}
+
+.ms-nav-cta-btn:hover {
+  background-color: #16a085;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 188, 156, 0.35);
+}
+
+.ms-nav-cta-btn:active {
+  transform: scale(0.96);
+}

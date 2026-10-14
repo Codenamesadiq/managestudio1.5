@@ -1,20 +1,32 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# ManageStudio 1.5 Website
 
-# Run and deploy your AI Studio app
+Official marketing website and client portal for ManageStudio 1.5 — the complete operating system for modern photography and cinematography studios.
 
-This contains everything you need to run your app locally.
+## Features
+- **Shared Navigation & Auth Integration**: Direct redirection to [https://app.managestudio.io/](https://app.managestudio.io/) for seamless studio owner access.
+- **Interactive Modules**: Booking management, shoot schedules, payments, workflow tracking, automated reminders, song selection, and camera ingest previews.
+- **Client Galleries**: Responsive presentation of photo and video albums.
+- **Smooth Animations**: Modern staggered scroll reveals, micro-interactions, and responsive layout.
 
-View your app in AI Studio: https://ai.studio/apps/a9a71f9b-a2b5-466b-89f6-b705c17e69be
+## Tech Stack
+- React 18
+- Vite
+- Express (backend API)
+- Lucide React Icons
 
-## Run Locally
+## Getting Started
 
-**Prerequisites:**  Node.js
+### Prerequisites
+- Node.js (v18+ recommended)
+- npm
 
+### Installation & Development
+```bash
+npm install
+npm run dev
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### Production Build
+```bash
+npm run build
+```

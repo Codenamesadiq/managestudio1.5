@@ -1,0 +1,971 @@
+/* ==========================================================================
+   MANAGESTUDIO 1.5 — GALLERY SHOWCASE SECTION
+   Pixel-faithful to reference designs for:
+   1. Share Photos
+   2. Share Final Videos
+   3. One Link. Easy Downloads
+   ========================================================================== */
+
+.gallery-showcase-section {
+  width: 100%;
+  background-color: var(--apple-canvas, #ffffff);
+  color: var(--apple-ink, #1d1d1f);
+  padding: var(--spacing-section, 80px) 24px;
+  position: relative;
+  z-index: 10;
+  border-top: 1px solid var(--apple-hairline, #e0e0e0);
+}
+
+.showcase-container {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   HEADER & TAB NAVIGATION (apple.md typography & spacing)
+   -------------------------------------------------------------------------- */
+.showcase-header {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 48px;
+}
+
+.showcase-headline {
+  font-family: var(--font-display, -apple-system, sans-serif);
+  font-size: clamp(32px, 3.8vw, 40px);
+  font-weight: 600;
+  line-height: 1.10;
+  letter-spacing: -0.015em;
+  color: var(--apple-ink, #1d1d1f);
+  margin: 0 0 14px;
+}
+
+.showcase-subtitle {
+  font-family: var(--font-body, -apple-system, sans-serif);
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  color: var(--apple-ink-muted-80, #333333);
+  max-width: 640px;
+  margin: 0 auto 32px;
+  font-weight: 400;
+}
+
+/* Three Tab Switcher Pills */
+.showcase-tabs-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.showcase-tab-pill {
+  font-family: var(--font-body, -apple-system, sans-serif);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.224px;
+  padding: 9px 22px;
+  border-radius: var(--radius-pill, 9999px);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background-color: var(--apple-canvas-parchment, #f5f5f7);
+  color: var(--apple-ink, #1d1d1f);
+  border: 1px solid transparent;
+  outline: none;
+  box-shadow: none;
+  user-select: none;
+}
+
+.showcase-tab-pill:hover:not(.active) {
+  background-color: #ebebee;
+  color: var(--apple-ink, #1d1d1f);
+}
+
+.showcase-tab-pill:active {
+  transform: scale(0.95);
+}
+
+.showcase-tab-pill.active {
+  background-color: var(--apple-primary, #0066cc);
+  color: #ffffff;
+  font-weight: 600;
+  border-color: var(--apple-primary, #0066cc);
+  box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
+   STAGE WRAPPER (Ambient backdrop container)
+   -------------------------------------------------------------------------- */
+.showcase-stage {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   MAC-STYLE FLOATING WINDOW CARD (Tabs 1 & 2)
+   -------------------------------------------------------------------------- */
+.mac-window-card {
+  background: var(--apple-canvas, #ffffff);
+  border-radius: var(--radius-lg, 18px);
+  border: 1px solid var(--apple-hairline, #e0e0e0);
+  box-shadow: var(--apple-product-shadow, 3px 5px 30px 0 rgba(0, 0, 0, 0.22));
+  overflow: hidden;
+  animation: fadeInStage 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInStage {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Chrome Header Bar */
+.mac-window-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 20px;
+  border-bottom: 1px solid #F3F4F6;
+  background-color: #ffffff;
+}
+
+.mac-traffic-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.mac-traffic-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-red {
+  background-color: #EF4444;
+}
+
+.dot-yellow {
+  background-color: #F59E0B;
+}
+
+.dot-green {
+  background-color: #10B981;
+}
+
+.mac-brand-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: 18px;
+  flex-grow: 1;
+}
+
+.mac-brand-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mac-brand-logo-img {
+  height: 18px;
+  width: auto;
+  max-width: 90px;
+  object-fit: contain;
+  display: block;
+}
+
+.mac-brand-version {
+  font-weight: 600;
+  color: #6B7280;
+  font-size: 12px;
+}
+
+.mac-breadcrumbs {
+  font-size: 12px;
+  color: #6B7280;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chevron-sep {
+  color: #9CA3AF;
+  font-size: 11px;
+}
+
+.mac-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.mac-action-icon {
+  background: none;
+  border: none;
+  color: #6B7280;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s ease;
+}
+
+.mac-action-icon:hover {
+  color: #111827;
+  background-color: #F3F4F6;
+}
+
+.mac-action-icon.active {
+  color: #111827;
+}
+
+.mac-teal-btn {
+  background-color: #1ABC9C;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--apple-radius-pill, 9999px);
+  padding: 6px 16px;
+  font-family: var(--font-body, -apple-system, sans-serif);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+.mac-teal-btn:hover {
+  background-color: #16a085;
+}
+
+.mac-teal-btn:active {
+  transform: scale(0.95);
+}
+
+.mac-teal-btn.with-icon {
+  padding: 6px 14px;
+}
+
+/* --------------------------------------------------------------------------
+   TAB 1: PHOTOS GALLERY VIEWPORT & AUTHENTIC MASONRY GRID
+   -------------------------------------------------------------------------- */
+.photos-gallery-viewport {
+  padding: 16px 20px 20px;
+  background-color: #ffffff;
+}
+
+.photos-grid-art {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  object-fit: cover;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.photos-masonry-grid {
+  display: grid;
+  grid-template-columns: 240fr 280fr 300fr 220fr 240fr;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.photos-masonry-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@keyframes galleryTileReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.photos-tile {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f3f4f6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  animation: galleryTileReveal 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.photos-tile img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.photos-tile:hover img {
+  transform: scale(1.04);
+}
+
+/* Col 1 tile heights & staggered entrance delays */
+.photos-tile.tile-1 { height: 178px; animation-delay: 0.04s; }
+.photos-tile.tile-2 { height: 138px; animation-delay: 0.12s; }
+.photos-tile.tile-3 { height: 138px; animation-delay: 0.20s; }
+
+/* Col 2 tile heights & staggered entrance delays */
+.photos-tile.tile-4 { height: 288px; animation-delay: 0.06s; }
+.photos-tile.tile-5 { height: 166px; animation-delay: 0.16s; }
+
+/* Col 3 tile heights & staggered entrance delays */
+.photos-tile.tile-6 { height: 196px; animation-delay: 0.08s; }
+.photos-tile.tile-7 { height: 164px; animation-delay: 0.18s; }
+.photos-tile.tile-8 { height: 94px;  animation-delay: 0.24s; }
+
+/* Col 4 tile heights & staggered entrance delays */
+.photos-tile.tile-9 { height: 134px; animation-delay: 0.10s; }
+.photos-tile.tile-10 { height: 134px; animation-delay: 0.22s; }
+.photos-tile.tile-11 { height: 176px; animation-delay: 0.28s; }
+
+/* Col 5 tile heights & staggered entrance delays */
+.photos-tile.tile-12 { height: 126px; animation-delay: 0.14s; }
+.photos-tile.tile-13 { height: 170px; animation-delay: 0.24s; }
+.photos-tile.tile-14 { height: 94px;  animation-delay: 0.30s; }
+.photos-tile.tile-15 { height: 54px;  animation-delay: 0.34s; }
+
+@media (max-width: 900px) {
+  .photos-masonry-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .photos-tile {
+    height: auto !important;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 600px) {
+  .photos-masonry-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   TAB 2: VIDEOS STAGE BODY
+   -------------------------------------------------------------------------- */
+.videos-stage-body {
+  padding: 18px 20px 22px;
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 20px;
+  background-color: #ffffff;
+}
+
+/* Left Featured Video Pane */
+.featured-video-pane {
+  display: flex;
+  flex-direction: column;
+}
+
+.cinematic-player-box {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #000000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.player-cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.player-center-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.play-circle-glow {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(17, 24, 39, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.cinematic-player-box:hover .play-circle-glow {
+  background: rgba(0, 182, 155, 0.88);
+  transform: scale(1.06);
+}
+
+.player-controls-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px 14px;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.82) 100%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+}
+
+.controls-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.mini-play {
+  cursor: pointer;
+}
+
+.video-timer {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.scrubber-track {
+  flex-grow: 1;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.28);
+  border-radius: 2px;
+  position: relative;
+  cursor: pointer;
+}
+
+.scrubber-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: var(--apple-primary, #0066cc);
+  border-radius: 2px;
+}
+
+.scrubber-thumb {
+  position: absolute;
+  right: -3px;
+  top: -3.5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.controls-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.controls-right svg {
+  cursor: pointer;
+  transition: opacity 0.18s ease;
+}
+
+.controls-right svg:hover {
+  opacity: 1;
+  color: #ffffff;
+}
+
+/* Video Meta row below player */
+.featured-video-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 2px;
+}
+
+.meta-title {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.meta-desc {
+  font-size: 12px;
+  color: #6B7280;
+  margin: 3px 0 0;
+}
+
+.video-download-btn {
+  background: #ffffff;
+  border: 1px solid #E5E7EB;
+  border-radius: 7px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #374151;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+
+.video-download-btn:hover {
+  background-color: #F9FAFB;
+  border-color: #D1D5DB;
+  color: #111827;
+}
+
+/* Right Playlist Pane */
+.playlist-sidebar-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.playlist-card-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  animation: galleryTileReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.playlist-card-item:nth-child(1) { animation-delay: 0.05s; }
+.playlist-card-item:nth-child(2) { animation-delay: 0.12s; }
+.playlist-card-item:nth-child(3) { animation-delay: 0.19s; }
+.playlist-card-item:nth-child(4) { animation-delay: 0.26s; }
+.playlist-card-item:nth-child(5) { animation-delay: 0.33s; }
+
+.playlist-thumb-wrapper {
+  position: relative;
+  width: 130px;
+  height: 74px;
+  border-radius: 7px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: #111827;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.playlist-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.playlist-card-item:hover .playlist-thumb-img {
+  transform: scale(1.05);
+}
+
+.thumb-mini-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.duration-pill {
+  position: absolute;
+  bottom: 4px;
+  right: 5px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #ffffff;
+  font-size: 9.5px;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+}
+
+.playlist-card-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.playlist-card-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.playlist-card-desc {
+  font-size: 11px;
+  color: #6B7280;
+  line-height: 1.35;
+  margin: 3px 0 7px;
+}
+
+.playlist-dl-btn {
+  background: #ffffff;
+  border: 1px solid #E5E7EB;
+  border-radius: 5px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #374151;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: all 0.18s ease;
+}
+
+.playlist-dl-btn:hover {
+  background-color: #F9FAFB;
+  border-color: #D1D5DB;
+  color: #111827;
+}
+
+/* --------------------------------------------------------------------------
+   TAB 3: ONE LINK SHOWCASE CARD
+   -------------------------------------------------------------------------- */
+.onelink-showcase-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #E5E7EB;
+  box-shadow: 
+    0 24px 64px -16px rgba(0, 0, 0, 0.09),
+    0 4px 16px -4px rgba(0, 0, 0, 0.04);
+  padding: 44px 48px;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 48px;
+  align-items: center;
+  animation: fadeInStage 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.onelink-mockup-col {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.onelink-mockup-graphic {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.onelink-content-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.onelink-eyebrow {
+  color: var(--apple-primary, #0066cc);
+  font-family: var(--font-body, -apple-system, sans-serif);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.onelink-title {
+  font-family: var(--font-display, -apple-system, sans-serif);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--apple-ink, #1d1d1f);
+  margin: 0 0 14px;
+}
+
+.onelink-description {
+  font-family: var(--font-body, -apple-system, sans-serif);
+  font-size: 17px;
+  color: var(--apple-ink-muted-48, #7a7a7a);
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  margin: 0 0 32px;
+}
+
+.onelink-feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.onelink-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.feature-icon-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background-color: #e8f2fc;
+  color: var(--apple-primary, #0066cc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.feature-heading {
+  font-family: var(--font-body, -apple-system, sans-serif);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.29;
+  letter-spacing: -0.224px;
+  color: var(--apple-ink, #1d1d1f);
+  margin: 0;
+}
+
+.feature-sub {
+  font-family: var(--font-body, -apple-system, sans-serif);
+  font-size: 13px;
+  line-height: 1.43;
+  color: var(--apple-ink-muted-48, #7a7a7a);
+  margin: 3px 0 0;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVENESS (Mobile & Tablet)
+   -------------------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .gallery-showcase-section {
+    padding: 70px 18px 90px;
+  }
+
+  .videos-stage-body {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .cinematic-player-box {
+    height: 240px;
+  }
+
+  .onelink-showcase-card {
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
+    gap: 36px;
+  }
+
+  .onelink-title {
+    font-size: 28px;
+  }
+
+  .mac-brand-breadcrumbs .mac-breadcrumbs {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .gallery-showcase-section {
+    padding: 50px 14px 70px;
+    overflow-x: hidden;
+  }
+
+  .showcase-header {
+    margin-bottom: 24px;
+    padding: 0 4px;
+  }
+
+  .showcase-headline {
+    font-size: 21.5px;
+    line-height: 1.24;
+    margin-bottom: 10px;
+    word-break: normal;
+  }
+
+  .showcase-subtitle {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    padding: 0 6px;
+  }
+
+  .showcase-tabs-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    width: 100%;
+    padding: 4px 6px 12px;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 8px;
+  }
+
+  .showcase-tabs-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .showcase-tab-pill {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-size: 12.5px;
+  }
+
+  .mac-window-header {
+    padding: 8px 12px;
+  }
+
+  .mac-traffic-dots {
+    gap: 5px;
+  }
+
+  .mac-traffic-dots .dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .mac-brand-breadcrumbs {
+    margin-left: 8px;
+  }
+
+  .mac-brand-title {
+    font-size: 11px;
+  }
+
+  .mac-brand-version {
+    font-size: 10px;
+  }
+
+  .mac-actions {
+    gap: 6px;
+  }
+
+  .mac-actions .mac-action-icon {
+    display: none;
+  }
+
+  .mac-teal-btn {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+
+  .photos-gallery-viewport {
+    padding: 10px;
+  }
+
+  .videos-stage-body {
+    padding: 12px;
+    gap: 16px;
+  }
+
+  .cinematic-player-box {
+    height: 190px;
+  }
+
+  .featured-video-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .meta-title {
+    font-size: 14px;
+  }
+
+  .meta-desc {
+    font-size: 11px;
+  }
+
+  .playlist-thumb-wrapper {
+    width: 100px;
+    height: 58px;
+  }
+
+  .playlist-card-title {
+    font-size: 12.5px;
+  }
+
+  .playlist-card-desc {
+    font-size: 10.5px;
+    margin: 2px 0 5px;
+  }
+
+  .onelink-showcase-card {
+    padding: 24px 16px;
+    gap: 24px;
+  }
+
+  .onelink-title {
+    font-size: 23px;
+  }
+
+  .onelink-description {
+    font-size: 13px;
+    margin-bottom: 22px;
+  }
+
+  .onelink-feature-list {
+    gap: 14px;
+  }
+
+  .feature-icon-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  .feature-heading {
+    font-size: 13px;
+  }
+
+  .feature-sub {
+    font-size: 11.5px;
+  }
+}

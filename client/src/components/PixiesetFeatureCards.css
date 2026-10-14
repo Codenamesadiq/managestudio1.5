@@ -1,0 +1,944 @@
+/* ==========================================================================
+   PIXIESET FEATURE CARDS SECTION (Placed below Gallery Showcase)
+   ========================================================================== */
+
+.ms-suite-section {
+  background-color: var(--apple-canvas-parchment, #f5f5f7);
+  color: var(--apple-ink, #1d1d1f);
+  font-family: var(--font-body, -apple-system, sans-serif);
+  width: 100%;
+  padding: var(--spacing-section, 80px) 0;
+  box-sizing: border-box;
+  border-top: 1px solid var(--apple-hairline, #e0e0e0);
+}
+
+/* 1. Header (Centered) */
+.ms-suite-header {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px 48px 24px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.ms-suite-eyebrow {
+  font-family: var(--font-display, -apple-system, sans-serif);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--apple-ink-muted-48, #7a7a7a);
+  margin-bottom: 14px;
+}
+
+.ms-suite-headline {
+  font-family: var(--font-display, -apple-system, sans-serif);
+  font-size: clamp(32px, 3.8vw, 40px);
+  font-weight: 600;
+  line-height: 1.10;
+  letter-spacing: -0.015em;
+  color: var(--apple-ink, #1d1d1f);
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+@media (max-width: 768px) {
+  .ms-suite-headline {
+    font-size: 30px;
+  }
+}
+
+.ms-suite-subtitle {
+  font-family: var(--font-body, -apple-system, sans-serif);
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  color: var(--apple-ink-muted-80, #333333);
+  margin: 14px auto 0 auto;
+  max-width: 680px;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .ms-suite-subtitle {
+    font-size: 15px;
+  }
+}
+
+/* 2. Container & Grid */
+.ms-suite-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.ms-suite-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  width: 100%;
+}
+
+@media (max-width: 860px) {
+  .ms-suite-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* Card base (apple.md store-utility-card: white canvas, 1px hairline border, rounded.lg 18px, 24px padding) */
+.ms-card {
+  background-color: var(--apple-canvas, #ffffff);
+  border: 1px solid var(--apple-hairline, #e0e0e0);
+  border-radius: var(--radius-lg, 18px);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: none;
+}
+
+.ms-card:hover {
+  border-color: #d2d2d7;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
+}
+
+.ms-card-header {
+  padding: 32px 32px 18px 32px;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.ms-card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.ms-card-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ms-card-title {
+  font-family: var(--font-display, -apple-system, sans-serif);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.19;
+  letter-spacing: 0.231px;
+  color: var(--apple-ink, #1d1d1f);
+  margin: 0;
+}
+
+.ms-card-desc {
+  font-family: var(--font-body, -apple-system, sans-serif);
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  color: var(--apple-ink-muted-80, #333333);
+  margin: 0 0 14px 0;
+  max-width: 440px;
+}
+
+.ms-card-link {
+  color: var(--apple-primary, #0066cc);
+  font-family: var(--font-body, -apple-system, sans-serif);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: gap 0.15s ease, color 0.15s ease;
+}
+
+.ms-card-link:hover {
+  color: var(--apple-primary-hover, #0071e3);
+  gap: 8px;
+}
+
+.ms-card-visual {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-bottom: 0;
+}
+
+/* Card 1: Booking */
+.ms-card-booking {
+  grid-column: 1 / -1;
+  min-height: 440px;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+@media (max-width: 960px) {
+  .ms-card-booking {
+    flex-direction: column;
+    min-height: auto;
+  }
+}
+
+.ms-card-booking .ms-card-header {
+  width: 28%;
+  min-width: 250px;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+@media (max-width: 960px) {
+  .ms-card-booking .ms-card-header {
+    width: 100%;
+    min-width: auto;
+    padding: 32px 24px 16px 24px;
+  }
+}
+
+.ms-card-booking .ms-card-visual {
+  width: 72%;
+  flex: 1;
+  padding: 24px 28px 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+@media (max-width: 960px) {
+  .ms-card-booking .ms-card-visual {
+    width: 100%;
+    padding: 0 16px 24px 16px;
+    justify-content: stretch;
+  }
+}
+
+/* ==========================================================================
+   BOOKING DASHBOARD COMPONENT (Realistic HTML & CSS interface)
+   ========================================================================== */
+.ms-booking-mockup {
+  width: 100%;
+  max-width: 780px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #eef2f6;
+  box-shadow: 0 4px 25px -4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* 1. Top Controls Bar */
+.ms-bk-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px 10px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  gap: 12px;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+}
+
+.ms-bk-tabs {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.ms-bk-tab {
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  padding: 6px 0;
+  position: relative;
+  font-family: inherit;
+  transition: color 0.15s ease;
+}
+
+.ms-bk-tab:hover {
+  color: #1e293b;
+}
+
+.ms-bk-tab.active {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.ms-bk-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #2563eb;
+  border-radius: 2px;
+}
+
+.ms-bk-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ms-bk-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 5px 10px;
+  height: 32px;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease;
+}
+
+.ms-bk-search:focus-within {
+  border-color: #cbd5e1;
+  background-color: #ffffff;
+}
+
+.ms-bk-search-icon {
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.ms-bk-search input {
+  border: none;
+  background: transparent;
+  font-size: 11.5px;
+  color: #1e293b;
+  outline: none;
+  width: 115px;
+  font-family: inherit;
+}
+
+.ms-bk-search input::placeholder {
+  color: #94a3b8;
+}
+
+.ms-bk-btn-new {
+  background-color: #1ABC9C;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.ms-bk-btn-new:hover {
+  background-color: #16a085;
+}
+
+.ms-bk-btn-new:active {
+  transform: scale(0.98);
+}
+
+/* 2. Metric Summary Cards */
+.ms-bk-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 14px 18px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #f8fafc;
+}
+
+@media (max-width: 600px) {
+  .ms-bk-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 12px;
+  }
+}
+
+.ms-bk-metric-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease;
+}
+
+.ms-bk-metric-card.metric-blue {
+  background-color: #f0f7ff;
+  border-color: #dbeafe;
+}
+.ms-bk-metric-card.metric-blue .ms-bk-metric-icon-box {
+  background-color: #ffffff;
+  color: #2563eb;
+}
+
+.ms-bk-metric-card.metric-green {
+  background-color: #ecfdf5;
+  border-color: #a7f3d0;
+}
+.ms-bk-metric-card.metric-green .ms-bk-metric-icon-box {
+  background-color: #ffffff;
+  color: #10b981;
+}
+
+.ms-bk-metric-card.metric-amber {
+  background-color: #fffbeb;
+  border-color: #fef08a;
+}
+.ms-bk-metric-card.metric-amber .ms-bk-metric-icon-box {
+  background-color: #ffffff;
+  color: #f59e0b;
+}
+
+.ms-bk-metric-card.metric-red {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+}
+.ms-bk-metric-card.metric-red .ms-bk-metric-icon-box {
+  background-color: #ffffff;
+  color: #ef4444;
+}
+
+.ms-bk-metric-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.ms-bk-metric-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ms-bk-metric-val {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.15;
+}
+
+.ms-bk-metric-label {
+  font-size: 10.5px;
+  font-weight: 500;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+/* 3. Bookings Table */
+.ms-bk-table-container {
+  padding: 0 18px 14px 18px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ms-bk-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 11px;
+}
+
+.ms-bk-table th {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #64748b;
+  padding: 10px 8px;
+  border-bottom: 1px solid #f1f5f9;
+  white-space: nowrap;
+}
+
+.ms-bk-table th.th-check,
+.ms-bk-table td.td-check {
+  width: 24px;
+  padding-left: 2px;
+  padding-right: 6px;
+}
+
+.ms-bk-table th.th-actions,
+.ms-bk-table td.td-actions {
+  width: 24px;
+  text-align: center;
+  padding-right: 2px;
+}
+
+@keyframes rowFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ms-bk-table tbody tr {
+  animation: rowFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ms-bk-table tbody tr:nth-child(1) { animation-delay: 0.08s; }
+.ms-bk-table tbody tr:nth-child(2) { animation-delay: 0.16s; }
+.ms-bk-table tbody tr:nth-child(3) { animation-delay: 0.24s; }
+.ms-bk-table tbody tr:nth-child(4) { animation-delay: 0.32s; }
+
+.ms-bk-table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #f8fafc;
+  vertical-align: middle;
+}
+
+.ms-bk-table tr:last-child td {
+  border-bottom: none;
+}
+
+.ms-bk-checkbox {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 3px;
+  accent-color: #1ABC9C;
+  cursor: pointer;
+  display: block;
+}
+
+.ms-bk-client-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ms-bk-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #f1f5f9;
+  color: #475569;
+  font-weight: 700;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.ms-bk-client-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.ms-bk-client-name {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 11.5px;
+  display: block;
+  white-space: nowrap;
+}
+
+.ms-bk-client-sub {
+  font-size: 10px;
+  color: #64748b;
+  display: block;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+.ms-bk-date-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.ms-bk-date-main {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 11px;
+  display: block;
+  white-space: nowrap;
+}
+
+.ms-bk-badge-urgent {
+  font-size: 10px;
+  font-weight: 700;
+  color: #ef4444;
+  display: block;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+.ms-bk-date-sub {
+  font-size: 10px;
+  color: #64748b;
+  display: block;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+.ms-bk-shoot-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.ms-bk-shoot-title {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 11px;
+  display: block;
+  white-space: nowrap;
+}
+
+.ms-bk-shoot-sub {
+  font-size: 10px;
+  color: #64748b;
+  display: block;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+.ms-bk-payment-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ms-bk-amount {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 11px;
+  display: block;
+  margin-top: 3px;
+  white-space: nowrap;
+}
+
+/* Status Badges */
+@keyframes badgePopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.ms-bk-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 10px;
+  white-space: nowrap;
+  line-height: 1.3;
+  animation: badgePopIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ms-bk-table tbody tr:nth-child(1) .ms-bk-pill { animation-delay: 0.16s; }
+.ms-bk-table tbody tr:nth-child(2) .ms-bk-pill { animation-delay: 0.24s; }
+.ms-bk-table tbody tr:nth-child(3) .ms-bk-pill { animation-delay: 0.32s; }
+.ms-bk-table tbody tr:nth-child(4) .ms-bk-pill { animation-delay: 0.40s; }
+
+.ms-bk-pill.pill-paid {
+  background-color: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.ms-bk-pill.pill-partial {
+  background-color: #fffbeb;
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+
+.ms-bk-pill.pill-pending {
+  background-color: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.ms-bk-pill.pill-editing {
+  background-color: #eff6ff;
+  color: #3b82f6;
+  border: 1px solid #bfdbfe;
+}
+
+.ms-bk-pill.pill-scheduled {
+  background-color: #f5f3ff;
+  color: #7c3aed;
+  border: 1px solid #ddd6fe;
+}
+
+.ms-bk-pill.pill-planning {
+  background-color: #fefce8;
+  color: #b45309;
+  border: 1px solid #fef08a;
+}
+
+.ms-bk-pill.pill-active {
+  background-color: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.ms-bk-reminder-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ms-bk-reminder-icon {
+  color: #3b82f6;
+  flex-shrink: 0;
+}
+
+.ms-bk-reminder-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.ms-bk-remind-title {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #1e293b;
+  display: block;
+  white-space: nowrap;
+}
+
+.ms-bk-remind-sub {
+  font-size: 9.5px;
+  color: #64748b;
+  display: block;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+.ms-bk-more-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color 0.15s ease;
+}
+
+.ms-bk-more-btn:hover {
+  color: #334155;
+}
+
+/* Cards 2-5 */
+.ms-card-square {
+  min-height: 480px;
+}
+
+@media (max-width: 860px) {
+  .ms-card-square {
+    min-height: auto;
+  }
+}
+
+.ms-card-square .ms-card-visual {
+  min-height: 280px;
+  padding: 0 32px 0 32px;
+}
+
+/* Album Selection Card matching Reference */
+#album-selection .ms-card-visual {
+  padding: 4px 28px 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  #album-selection .ms-card-visual {
+    padding: 0 16px 16px 16px;
+  }
+}
+
+.ms-album-mockup-card {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--apple-hairline, #e2e8f0);
+  background: #ffffff;
+  box-shadow: 0 6px 24px -4px rgba(0, 0, 0, 0.06);
+  display: flex;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.ms-card:hover .ms-album-mockup-card,
+.ms-album-mockup-card:hover {
+  box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px) scale(1.008);
+}
+
+.ms-album-mockup-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* Guest AI Workflow Card matching Reference */
+#guest-ai .ms-card-visual {
+  padding: 4px 28px 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  #guest-ai .ms-card-visual {
+    padding: 0 16px 16px 16px;
+  }
+}
+
+.ms-guest-workflow-card {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--apple-hairline, #e2e8f0);
+  background: #ffffff;
+  box-shadow: 0 6px 24px -4px rgba(0, 0, 0, 0.06);
+  display: flex;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.ms-card:hover .ms-guest-workflow-card,
+.ms-guest-workflow-card:hover {
+  box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px) scale(1.008);
+}
+
+.ms-guest-workflow-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* Song Selection Card matching Reference */
+#song-selection .ms-card-visual {
+  padding: 4px 28px 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  #song-selection .ms-card-visual {
+    padding: 0 16px 16px 16px;
+  }
+}
+
+.ms-song-workflow-card {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--apple-hairline, #e2e8f0);
+  background: #ffffff;
+  box-shadow: 0 6px 24px -4px rgba(0, 0, 0, 0.06);
+  display: flex;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.ms-card:hover .ms-song-workflow-card,
+.ms-song-workflow-card:hover {
+  box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px) scale(1.008);
+}
+
+.ms-song-workflow-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* Camera Ingest Card matching Reference */
+#camera-ingest .ms-card-visual {
+  padding: 4px 28px 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  #camera-ingest .ms-card-visual {
+    padding: 0 16px 16px 16px;
+  }
+}
+
+.ms-ingest-workflow-card {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--apple-hairline, #e2e8f0);
+  background: #ffffff;
+  box-shadow: 0 6px 24px -4px rgba(0, 0, 0, 0.06);
+  display: flex;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.ms-card:hover .ms-ingest-workflow-card,
+.ms-ingest-workflow-card:hover {
+  box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px) scale(1.008);
+}
+
+.ms-ingest-workflow-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}

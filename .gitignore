@@ -1,8 +1,33 @@
+# Dependencies
 node_modules/
-build/
-dist/
-coverage/
-.DS_Store
+/.pnp
+.pnp.js
+
+# Production Build outputs
+/dist
+/build
+/coverage
+
+# Environment files and credentials
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+
+# Local database & uploads
+server/data/*.db
+server/storage/uploads/*
+!server/storage/uploads/.gitkeep
+
+# Scratch & Temporary files
+scratch_crop*
 *.log
-.env*
-!.env.example
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

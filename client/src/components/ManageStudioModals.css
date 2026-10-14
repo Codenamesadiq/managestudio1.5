@@ -1,0 +1,3035 @@
+/* ==========================================================================
+   MANAGESTUDIO MODALS (LIGHT UI THEME, APPLE-STYLE SLEEK DIALOGS)
+   ========================================================================== */
+
+.ms-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  animation: msFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes msFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.ms-modal-window {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-sizing: border-box;
+  animation: msScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes msScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.ms-modal-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  border: none;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  z-index: 10;
+}
+
+.ms-modal-close-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.ms-modal-body {
+  padding: 36px 32px 32px 32px;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.ms-modal-pricing-body {
+  max-width: 760px;
+}
+
+.ms-modal-window:has(.ms-modal-pricing-body) {
+  max-width: 780px;
+}
+
+.ms-modal-header {
+  margin-bottom: 24px;
+}
+
+.ms-modal-badge {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #0066cc;
+  background: #e0f2fe;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.ms-modal-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  line-height: 1.25;
+}
+
+.ms-modal-desc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Forms */
+.ms-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ms-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ms-form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.ms-form-input,
+.ms-form-select {
+  font-family: inherit;
+  font-size: 14px;
+  padding: 11px 14px;
+  border-radius: 9px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.ms-form-input:focus,
+.ms-form-select:focus {
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15);
+}
+
+.ms-modal-submit-btn {
+  background: #1ABC9C;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 20px;
+  font-size: 14.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.ms-modal-submit-btn:hover {
+  background: #16a085;
+  transform: translateY(-1px);
+}
+
+.ms-form-footer-note {
+  font-size: 11.5px;
+  color: #94a3b8;
+  text-align: center;
+  margin: 4px 0 0 0;
+}
+
+.ms-login-note-box {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.ms-text-link {
+  background: none;
+  border: none;
+  color: #0066cc;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+/* Success States */
+.ms-modal-success-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 12px 0;
+}
+
+.ms-success-icon-wrap {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #e0f2fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.ms-success-tip-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 18px 0 20px 0;
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Highlights Box */
+.ms-feature-highlights-box {
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 24px;
+}
+
+.ms-highlights-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+}
+
+.ms-highlights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ms-highlights-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: #334155;
+}
+
+.ms-highlights-list li svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* Pricing Grid in Modal */
+.ms-pricing-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 680px) {
+  .ms-pricing-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ms-pricing-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 20px 16px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.ms-pricing-card-featured {
+  border-color: #0066cc;
+  box-shadow: 0 10px 25px -5px rgba(0, 102, 204, 0.15);
+}
+
+.ms-popular-pill {
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0066cc;
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  letter-spacing: 0.06em;
+}
+
+.ms-plan-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.ms-plan-price {
+  font-size: 24px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.ms-plan-price span {
+  font-size: 12px;
+  font-weight: 500;
+  color: #94a3b8;
+}
+
+.ms-plan-desc {
+  font-size: 11.5px;
+  color: #64748b;
+  line-height: 1.4;
+  margin: 0 0 14px 0;
+  min-height: 32px;
+}
+
+.ms-plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.ms-plan-features li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  color: #334155;
+}
+
+.ms-plan-btn {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ms-plan-btn-primary {
+  background: #1ABC9C;
+  color: #ffffff;
+  border: none;
+}
+
+.ms-plan-btn-primary:hover {
+  background: #16a085;
+}
+
+.ms-plan-btn-outline {
+  background: #ffffff;
+  color: #0066cc;
+  border: 1px solid #0066cc;
+}
+
+.ms-plan-btn-outline:hover {
+  background: #f0f7ff;
+}
+
+/* ==========================================================================
+   ALBUM SELECTION "LEARN MORE" POPUP (Pixel-faithful to reference)
+   ========================================================================== */
+
+.ms-modal-window.ms-modal-window-album-selection {
+  max-width: 980px;
+  width: 95vw;
+  border-radius: 24px;
+  padding: 36px 40px;
+  background: #ffffff;
+  box-shadow: 0 25px 65px -15px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.ms-as-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header */
+.ms-as-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.ms-as-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background-color: #eff6ff;
+  border: 1px solid #dbeafe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #2563eb;
+}
+
+.ms-as-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.015em;
+  font-family: var(--font-display, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+}
+
+.ms-as-desc {
+  font-size: 14.5px;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0;
+  font-family: var(--font-body, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+}
+
+/* Four Benefits Grid */
+.ms-as-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.ms-as-benefit-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.ms-as-benefit-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background-color: #eff6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  margin-bottom: 12px;
+}
+
+.ms-as-benefit-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.ms-as-benefit-desc {
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* How It Works Section */
+.ms-as-how-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ms-as-how-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.ms-as-how-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: center;
+}
+
+/* Stepper Column */
+.ms-as-stepper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.ms-as-stepper::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  bottom: 24px;
+  left: 13px;
+  width: 2px;
+  background-color: #3b82f6;
+  z-index: 1;
+}
+
+.ms-as-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  position: relative;
+  z-index: 2;
+  padding-bottom: 18px;
+}
+
+.ms-as-step-item:last-child {
+  padding-bottom: 0;
+}
+
+.ms-as-step-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px #ffffff;
+}
+
+.ms-as-step-body {
+  flex: 1;
+}
+
+.ms-as-step-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+.ms-as-step-text {
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.45;
+}
+
+/* Visual Pane & Diagram Card */
+.ms-as-visual-pane {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.ms-as-diagram-card {
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 16px 14px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  box-sizing: border-box;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Badges / Pills */
+.ms-as-diagram-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(37, 99, 235, 0.04);
+}
+
+.ms-as-diagram-badge.badge-secondary {
+  font-size: 10px;
+  padding: 3px 11px;
+}
+
+/* Device Previews Layout */
+.ms-as-devices-wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 2px;
+}
+
+/* Laptop Mockup */
+.ms-as-laptop {
+  flex: 1;
+  max-width: 292px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ms-as-laptop-screen {
+  width: 100%;
+  background: #0f172a;
+  border-radius: 8px 8px 0 0;
+  padding: 4px 5px 5px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+  box-sizing: border-box;
+}
+
+.ms-as-laptop-camera {
+  width: 3.5px;
+  height: 3.5px;
+  background: #334155;
+  border-radius: 50%;
+  margin: 0 auto 3px;
+}
+
+.ms-as-laptop-inner {
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 5px 6px;
+  box-sizing: border-box;
+}
+
+.ms-as-laptop-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  gap: 4px;
+}
+
+.ms-as-selection-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 7.5px;
+  font-weight: 600;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  padding: 1.5px 5px;
+  border-radius: 9999px;
+  line-height: 1;
+}
+
+.ms-as-submit-pill {
+  font-size: 7.5px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #2563eb;
+  padding: 2.5px 7px;
+  border-radius: 9999px;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+.ms-as-laptop-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3.5px;
+}
+
+.ms-as-photo-thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #e2e8f0;
+}
+
+.ms-as-photo-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ms-as-photo-thumb.selected {
+  outline: 1.5px solid #2563eb;
+  outline-offset: -1px;
+}
+
+.ms-as-check-badge {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.ms-as-check-badge.checked {
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.ms-as-check-badge.unchecked {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+}
+
+.ms-as-check-badge.small {
+  width: 7.5px;
+  height: 7.5px;
+  right: 1.5px;
+  bottom: 1.5px;
+}
+
+.ms-as-laptop-base {
+  width: calc(100% + 14px);
+  height: 6px;
+  background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 100%);
+  border-radius: 0 0 6px 6px;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ms-as-laptop-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 2.5px;
+  background: #64748b;
+  border-radius: 0 0 3px 3px;
+}
+
+/* Phone Mockup */
+.ms-as-phone {
+  width: 86px;
+  background: #0f172a;
+  border-radius: 12px;
+  padding: 4px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.ms-as-phone-notch {
+  width: 20px;
+  height: 2.5px;
+  background: #334155;
+  border-radius: 2px;
+  margin: 1px auto 3px;
+}
+
+.ms-as-phone-inner {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 4px 4px 5px;
+  box-sizing: border-box;
+}
+
+.ms-as-phone-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 7px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 2px;
+  line-height: 1;
+}
+
+.ms-as-phone-star {
+  color: #94a3b8;
+  font-size: 7px;
+}
+
+.ms-as-phone-counter {
+  font-size: 6px;
+  font-weight: 600;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.ms-as-phone-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5px;
+  margin-bottom: 4px;
+}
+
+.ms-as-phone-thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 2.5px;
+  overflow: hidden;
+  background: #e2e8f0;
+}
+
+.ms-as-phone-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ms-as-phone-thumb.selected {
+  outline: 1.2px solid #2563eb;
+  outline-offset: -1px;
+}
+
+.ms-as-phone-submit {
+  font-size: 6px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #2563eb;
+  padding: 2.5px 0;
+  border-radius: 3px;
+  text-align: center;
+  line-height: 1;
+}
+
+/* Middle Flow Step */
+.ms-as-flow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  margin: 2px 0;
+}
+
+.ms-as-down-arrow {
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Bottom Export Workflow */
+.ms-as-export-workflow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 360px;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.ms-as-export-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  flex: 1;
+  max-width: 200px;
+  box-sizing: border-box;
+}
+
+.ms-as-export-title-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 3px;
+}
+
+.ms-as-blue-icon {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.ms-as-export-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.ms-as-export-sub {
+  font-size: 9px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 7px;
+  line-height: 1.2;
+}
+
+.ms-as-check-blue {
+  color: #2563eb;
+}
+
+.ms-as-export-btn {
+  background: #1ABC9C;
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 4.5px 8px;
+  border-radius: 5px;
+  text-align: center;
+  letter-spacing: 0.01em;
+  box-shadow: 0 1px 2px rgba(26, 188, 156, 0.2);
+}
+
+.ms-as-export-arrow {
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Yellow Folder Target */
+.ms-as-folder-target {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  text-align: center;
+  min-width: 90px;
+}
+
+.ms-as-folder-icon-wrapper {
+  position: relative;
+  width: 54px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 3px;
+}
+
+.ms-as-peeking-photo {
+  position: absolute;
+  width: 22px;
+  height: 25px;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  top: 1px;
+  z-index: 1;
+}
+
+.ms-as-peeking-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ms-as-peeking-photo.photo-left {
+  left: 9px;
+  transform: rotate(-10deg);
+}
+
+.ms-as-peeking-photo.photo-right {
+  right: 9px;
+  transform: rotate(12deg);
+  z-index: 2;
+}
+
+.ms-as-folder-svg {
+  position: relative;
+  z-index: 3;
+  filter: drop-shadow(0 3px 5px rgba(245, 158, 11, 0.25));
+}
+
+.ms-as-folder-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.ms-as-folder-count {
+  font-size: 9px;
+  color: #64748b;
+  line-height: 1.2;
+}
+
+/* Bottom Highlight Banner */
+.ms-as-bottom-banner {
+  background-color: #f0f7ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ms-as-banner-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background-color: #dbeafe;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ms-as-banner-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1d4ed8;
+  margin: 0 0 2px 0;
+}
+
+.ms-as-banner-sub {
+  font-size: 12.5px;
+  color: #475569;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Mobile & Tablet Responsiveness */
+@media (max-width: 860px) {
+  .ms-modal-window.ms-modal-window-album-selection {
+    padding: 24px 20px;
+  }
+
+  .ms-as-benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ms-as-how-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .ms-as-workflow-img {
+    max-width: 360px;
+  }
+}
+
+@media (max-width: 520px) {
+  .ms-as-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   GUEST PHOTO AI "LEARN MORE" POPUP (Pixel-faithful to reference)
+   ========================================================================== */
+
+.ms-modal-window.ms-modal-window-wide {
+  max-width: 1020px;
+  width: 95vw;
+  border-radius: 24px;
+  padding: 36px 40px;
+  background: #ffffff;
+  box-shadow: 0 25px 65px -15px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.ms-gp-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header */
+.ms-gp-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.ms-gp-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+.ms-gp-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.015em;
+  font-family: var(--font-display, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+}
+
+.ms-gp-desc {
+  font-size: 14.5px;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0;
+  font-family: var(--font-body, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+}
+
+/* Four Benefits Grid */
+.ms-gp-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.ms-gp-benefit-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.ms-gp-benefit-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.ms-gp-benefit-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.ms-gp-benefit-desc {
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* How It Works Section */
+.ms-gp-how-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ms-gp-how-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* 6 Steps Columns Grid */
+.ms-gp-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.ms-gp-step-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ms-gp-step-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.ms-gp-step-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.ms-gp-step-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.3;
+}
+
+.ms-gp-step-desc {
+  font-size: 11px;
+  color: #64748b;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* 6 Steps Visual Workflow (Real HTML & CSS Component) */
+.ms-gp-workflow-stage-container {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px 10px;
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  box-sizing: border-box;
+  margin-top: 8px;
+  user-select: none;
+  overflow-x: auto;
+}
+
+.ms-gp-stage-item {
+  flex: 1;
+  min-width: 110px;
+  height: 182px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.ms-gp-stage-arrow {
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+/* =========================================
+   STAGE 1: Laptop with Uploaded Photos
+   ========================================= */
+.ms-gp-stage-laptop {
+  max-width: 138px;
+}
+
+.ms-gp-laptop-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ms-gp-laptop-screen {
+  width: 100%;
+  background: #0f172a;
+  border-radius: 6px 6px 0 0;
+  padding: 3px 4px 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.ms-gp-laptop-cam {
+  width: 2.5px;
+  height: 2.5px;
+  background: #334155;
+  border-radius: 50%;
+  margin: 0 auto 2.5px;
+}
+
+.ms-gp-laptop-inner {
+  background: #ffffff;
+  border-radius: 3px;
+  padding: 4px;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.ms-gp-laptop-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.ms-gp-laptop-logo-img {
+  height: 7px;
+  width: auto;
+  max-width: 32px;
+  object-fit: contain;
+  display: block;
+}
+
+.ms-gp-laptop-window-dots {
+  display: flex;
+  gap: 2px;
+}
+
+.ms-gp-laptop-window-dots span {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: #cbd5e1;
+}
+
+.ms-gp-laptop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5px;
+}
+
+.ms-gp-laptop-thumb {
+  aspect-ratio: 4 / 3;
+  border-radius: 2px;
+  overflow: hidden;
+  background: #e2e8f0;
+}
+
+.ms-gp-laptop-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ms-gp-upload-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.ms-gp-upload-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4), 0 0 0 2px #ffffff;
+}
+
+.ms-gp-laptop-base {
+  width: calc(100% + 10px);
+  height: 5px;
+  background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 100%);
+  border-radius: 0 0 5px 5px;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ms-gp-laptop-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 2px;
+  background: #64748b;
+  border-radius: 0 0 2px 2px;
+}
+
+/* =========================================
+   STAGE 2: Framed Table QR Sign Board
+   ========================================= */
+.ms-gp-stage-sign {
+  max-width: 124px;
+}
+
+.ms-gp-sign-frame {
+  width: 100%;
+  background: #fdfbf7;
+  border: 2px solid #d4af37;
+  border-radius: 8px;
+  padding: 6px 5px 3px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.ms-gp-sign-inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.ms-gp-sign-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  line-height: 1.15;
+}
+
+.ms-gp-sign-eyebrow {
+  font-size: 6px;
+  font-weight: 500;
+  color: #64748b;
+  letter-spacing: 0.02em;
+}
+
+.ms-gp-sign-title {
+  font-size: 7.5px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+.ms-gp-qr-box {
+  background: #ffffff;
+  padding: 3.5px;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.ms-gp-qr-svg {
+  display: block;
+}
+
+.ms-gp-sign-footer {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 6.5px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-top: 1px;
+}
+
+.ms-gp-sign-action {
+  line-height: 1;
+}
+
+.ms-gp-sign-floral {
+  width: 100%;
+  margin-top: 2px;
+  display: flex;
+  justify-content: center;
+}
+
+/* =========================================
+   STAGES 3, 4, 5, 6: Phone Mockups
+   ========================================= */
+.ms-gp-phone-wrap {
+  width: 100%;
+  max-width: 110px;
+  background: #0f172a;
+  border-radius: 12px;
+  padding: 3px 3px 4px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.ms-gp-phone-notch {
+  width: 22px;
+  height: 2.5px;
+  background: #334155;
+  border-radius: 2px;
+  margin: 1px auto 2px;
+}
+
+.ms-gp-phone-inner {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 5px 4px;
+  height: 154px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Stage 3: Scan Screen */
+.ms-gp-phone-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 6px;
+  font-weight: 600;
+  color: #64748b;
+  line-height: 1;
+  padding: 0 2px;
+}
+
+.ms-gp-phone-status-icons {
+  display: flex;
+  gap: 2px;
+}
+
+.ms-gp-status-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: #94a3b8;
+}
+
+.ms-gp-viewfinder-box {
+  position: relative;
+  width: 62px;
+  height: 62px;
+  margin: 4px auto;
+  background: #f8fafc;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.ms-gp-reticle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: #10b981;
+  border-style: solid;
+}
+
+.ms-gp-reticle.reticle-tl {
+  top: 2px;
+  left: 2px;
+  border-width: 2px 0 0 2px;
+}
+
+.ms-gp-reticle.reticle-tr {
+  top: 2px;
+  right: 2px;
+  border-width: 2px 2px 0 0;
+}
+
+.ms-gp-reticle.reticle-bl {
+  bottom: 2px;
+  left: 2px;
+  border-width: 0 0 2px 2px;
+}
+
+.ms-gp-reticle.reticle-br {
+  bottom: 2px;
+  right: 2px;
+  border-width: 0 2px 2px 0;
+}
+
+.ms-gp-scan-laser {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  top: 50%;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #10b981, transparent);
+  box-shadow: 0 0 4px #10b981;
+}
+
+.ms-gp-scan-text {
+  font-size: 6px;
+  color: #64748b;
+  text-align: center;
+  line-height: 1.25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+/* Stage 4: Selfie Screen */
+.ms-gp-screen-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 7px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.ms-gp-selfie-frame {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  margin: 2px auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ms-gp-selfie-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.ms-gp-face-corner {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: #10b981;
+  border-style: solid;
+}
+
+.ms-gp-face-corner.corner-tl {
+  top: -2px;
+  left: -2px;
+  border-width: 2px 0 0 2px;
+}
+
+.ms-gp-face-corner.corner-tr {
+  top: -2px;
+  right: -2px;
+  border-width: 2px 2px 0 0;
+}
+
+.ms-gp-face-corner.corner-bl {
+  bottom: -2px;
+  left: -2px;
+  border-width: 0 0 2px 2px;
+}
+
+.ms-gp-face-corner.corner-br {
+  bottom: -2px;
+  right: -2px;
+  border-width: 0 2px 2px 0;
+}
+
+.ms-gp-selfie-instruction {
+  font-size: 6px;
+  color: #64748b;
+  text-align: center;
+  margin: 2px 0;
+  line-height: 1.2;
+}
+
+.ms-gp-shutter-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  padding-bottom: 2px;
+}
+
+.ms-gp-shutter-btn {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+.ms-gp-shutter-inner {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #059669;
+}
+
+/* Stage 5: Matching Screen */
+.ms-gp-matching-header {
+  font-size: 7px;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: center;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.ms-gp-matching-avatar-wrap {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  margin: 2px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ms-gp-matching-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1.5px dashed #059669;
+  animation: ms-gp-spin 10s linear infinite;
+}
+
+@keyframes ms-gp-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.ms-gp-matching-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ms-gp-matching-icon-badge {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3px auto 1px;
+}
+
+.ms-gp-matching-progress-bar {
+  width: 75%;
+  height: 3px;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  margin: 3px auto;
+  overflow: hidden;
+}
+
+.ms-gp-matching-progress-fill {
+  width: 70%;
+  height: 100%;
+  background: #059669;
+  border-radius: 9999px;
+}
+
+.ms-gp-matching-sub {
+  font-size: 5.5px;
+  color: #64748b;
+  text-align: center;
+  line-height: 1.25;
+  margin-top: auto;
+  padding-bottom: 2px;
+}
+
+/* Stage 6: Results Screen */
+.ms-gp-results-header {
+  font-size: 7.5px;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: center;
+  margin-bottom: 2px;
+  line-height: 1;
+}
+
+.ms-gp-results-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  margin-bottom: 3px;
+}
+
+.ms-gp-results-grid .hero-thumb {
+  grid-column: span 2;
+  aspect-ratio: 16 / 9;
+}
+
+.ms-gp-result-thumb {
+  aspect-ratio: 4 / 3;
+  border-radius: 2px;
+  overflow: hidden;
+  background: #e2e8f0;
+}
+
+.ms-gp-result-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ms-gp-download-btn {
+  background: #059669;
+  color: #ffffff;
+  font-size: 6.5px;
+  font-weight: 600;
+  padding: 3.5px 5px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  margin-top: auto;
+  box-shadow: 0 1px 3px rgba(5, 150, 105, 0.3);
+  letter-spacing: 0.01em;
+}
+
+/* Bottom Highlight Banner */
+.ms-gp-bottom-banner {
+  background-color: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ms-gp-banner-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background-color: #d1fae5;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ms-gp-banner-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #047857;
+  margin: 0 0 2px 0;
+}
+
+.ms-gp-banner-sub {
+  font-size: 12.5px;
+  color: #475569;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   SONG SELECTION "LEARN MORE" POPUP (Pixel-faithful to reference)
+   ========================================================================== */
+
+.ms-ss-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header */
+.ms-ss-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.ms-ss-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: #f43f5e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+.ms-ss-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.015em;
+  font-family: var(--font-display, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+}
+
+.ms-ss-desc {
+  font-size: 14.5px;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0;
+  font-family: var(--font-body, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+}
+
+/* Four Benefits Grid */
+.ms-ss-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.ms-ss-benefit-card {
+  background-color: #fff1f2;
+  border: 1px solid #ffe4e6;
+  border-radius: 14px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.ms-ss-benefit-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.ms-ss-benefit-icon-pink {
+  border-radius: 8px;
+  background-color: #f43f5e;
+  color: #ffffff;
+}
+
+.ms-ss-benefit-icon-brands {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  height: 32px;
+}
+
+.ms-ss-yt-badge {
+  display: flex;
+  align-items: center;
+}
+
+.ms-ss-sp-badge {
+  display: flex;
+  align-items: center;
+}
+
+.ms-ss-benefit-icon-soft {
+  border-radius: 50%;
+  background-color: #fee2e2;
+  color: #e11d48;
+}
+
+.ms-ss-benefit-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.ms-ss-benefit-desc {
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* How It Works Section */
+.ms-ss-how-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ms-ss-how-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* 6 Steps Columns Grid */
+.ms-ss-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.ms-ss-step-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ms-ss-step-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.ms-ss-step-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #f43f5e;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.ms-ss-step-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.3;
+}
+
+.ms-ss-step-desc {
+  font-size: 11px;
+  color: #64748b;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* 6 Steps Visual Workflow (Real HTML & CSS Component) */
+.ms-ss-workflow-stage-container {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px 10px;
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  box-sizing: border-box;
+  margin-top: 8px;
+  user-select: none;
+  overflow-x: auto;
+}
+
+.ms-ss-stage-item {
+  flex: 1;
+  min-width: 110px;
+  height: 182px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.ms-ss-stage-arrow {
+  color: #f43f5e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+/* =========================================
+   STAGE 1: Laptop (Generate Song Link)
+   ========================================= */
+.ms-ss-stage-laptop {
+  max-width: 138px;
+}
+
+.ms-ss-laptop-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ms-ss-laptop-screen {
+  width: 100%;
+  background: #0f172a;
+  border-radius: 6px 6px 0 0;
+  padding: 3px 4px 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.ms-ss-laptop-cam {
+  width: 2.5px;
+  height: 2.5px;
+  background: #334155;
+  border-radius: 50%;
+  margin: 0 auto 2.5px;
+}
+
+.ms-ss-laptop-inner {
+  background: #ffffff;
+  border-radius: 3px;
+  padding: 6px 5px;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 120px;
+}
+
+.ms-ss-card-box {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.ms-ss-card-title {
+  font-size: 8px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 2px 0;
+  letter-spacing: -0.01em;
+}
+
+.ms-ss-card-sub {
+  font-size: 5.8px;
+  color: #64748b;
+  line-height: 1.25;
+  margin: 0 0 5px 0;
+}
+
+.ms-ss-input-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 2.5px 4px;
+  margin-bottom: 5px;
+  box-sizing: border-box;
+}
+
+.ms-ss-url-text {
+  font-size: 5.2px;
+  color: #334155;
+  font-family: monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 82px;
+}
+
+.ms-ss-copy-icon {
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.ms-ss-primary-btn {
+  background: #1ABC9C;
+  color: #ffffff;
+  font-size: 6.5px;
+  font-weight: 600;
+  padding: 3.5px 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  box-shadow: 0 1px 3px rgba(26, 188, 156, 0.25);
+  letter-spacing: 0.01em;
+}
+
+.ms-ss-laptop-base {
+  width: calc(100% + 10px);
+  height: 5px;
+  background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 100%);
+  border-radius: 0 0 5px 5px;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ms-ss-laptop-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 2px;
+  background: #64748b;
+  border-radius: 0 0 2px 2px;
+}
+
+/* =========================================
+   STAGES 2, 3, 4: Phone Mockups
+   ========================================= */
+.ms-ss-phone-wrap {
+  width: 100%;
+  max-width: 110px;
+  background: #0f172a;
+  border-radius: 12px;
+  padding: 3px 3px 4px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.ms-ss-phone-notch {
+  width: 22px;
+  height: 2.5px;
+  background: #334155;
+  border-radius: 2px;
+  margin: 1px auto 2px;
+}
+
+.ms-ss-phone-inner {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 5px 4px;
+  height: 154px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Stage 2: WhatsApp Chat Screen */
+.ms-ss-phone-inner.chat-screen {
+  background: #efeae2;
+  padding: 0 !important;
+}
+
+.ms-ss-chat-header {
+  background: #075e54;
+  color: #ffffff;
+  padding: 4px 5px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.ms-ss-chat-user-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.ms-ss-chat-user-name {
+  font-size: 6.5px;
+  font-weight: 700;
+}
+
+.ms-ss-chat-status {
+  font-size: 5px;
+  color: #86efac;
+}
+
+.ms-ss-chat-body {
+  padding: 6px 5px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ms-ss-chat-bubble {
+  background: #dcf8c6;
+  border-radius: 6px 6px 0 6px;
+  padding: 4px 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 2.5px;
+}
+
+.ms-ss-bubble-text {
+  font-size: 5.5px;
+  color: #111827;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.ms-ss-bubble-link-box {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  padding: 2px 3px;
+}
+
+.ms-ss-bubble-link {
+  font-size: 5px;
+  color: #0284c7;
+  text-decoration: underline;
+  word-break: break-all;
+}
+
+.ms-ss-bubble-meta {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2px;
+  font-size: 4.5px;
+  color: #64748b;
+}
+
+.ms-ss-checks {
+  color: #38bdf8;
+  font-weight: bold;
+}
+
+.ms-ss-chat-footer {
+  background: #f0f2f5;
+  padding: 3px 4px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.ms-ss-chat-input-pill {
+  background: #ffffff;
+  border-radius: 9999px;
+  padding: 2.5px 6px;
+  font-size: 5.5px;
+  color: #94a3b8;
+  line-height: 1;
+}
+
+/* Stage 3: Song Selection Screen */
+.ms-ss-phone-inner.songs-screen {
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ms-ss-screen-head {
+  font-size: 7px;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: center;
+  margin-bottom: 1px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 2px;
+  line-height: 1;
+}
+
+.ms-ss-scene-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5px;
+}
+
+.ms-ss-scene-title {
+  font-size: 6px;
+  font-weight: 700;
+  color: #f43f5e;
+  line-height: 1;
+}
+
+.ms-ss-song-row {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 3px;
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ms-ss-song-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.ms-ss-song-name {
+  font-size: 5.8px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.ms-ss-song-artist {
+  font-size: 4.8px;
+  color: #64748b;
+}
+
+.ms-ss-yt-badge-sm,
+.ms-ss-sp-badge-sm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ms-ss-add-prompt {
+  font-size: 4.8px;
+  color: #94a3b8;
+  border: 1px dashed #cbd5e1;
+  border-radius: 3px;
+  padding: 1.5px;
+  text-align: center;
+  line-height: 1;
+}
+
+/* Stage 4: Submit Success Screen */
+.ms-ss-phone-inner.submit-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 4px;
+}
+
+.ms-ss-submit-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.ms-ss-submit-check-circle {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #f43f5e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(244, 63, 94, 0.35);
+  margin-bottom: 5px;
+}
+
+.ms-ss-submit-title {
+  font-size: 7.5px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 2px 0;
+  line-height: 1.2;
+}
+
+.ms-ss-submit-desc {
+  font-size: 5.5px;
+  color: #64748b;
+  margin: 0 0 7px 0;
+  line-height: 1.3;
+  padding: 0 4px;
+}
+
+.ms-ss-submit-btn {
+  background: #f43f5e;
+  color: #ffffff;
+  font-size: 6.5px;
+  font-weight: 600;
+  padding: 3px 14px;
+  border-radius: 9999px;
+  box-shadow: 0 1px 3px rgba(244, 63, 94, 0.25);
+  line-height: 1;
+}
+
+/* =========================================
+   STAGE 5: Studio Panel Laptop
+   ========================================= */
+.ms-ss-stage-panel {
+  max-width: 138px;
+}
+
+.ms-ss-laptop-inner.studio-panel-inner {
+  padding: 4px 5px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.ms-ss-panel-header {
+  font-size: 6.5px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 3px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 2px;
+  line-height: 1;
+}
+
+.ms-ss-scenes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ms-ss-scene-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 3px;
+  border-radius: 3px;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  font-size: 5.5px;
+  color: #334155;
+}
+
+.ms-ss-scene-left {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-weight: 600;
+}
+
+.ms-ss-scene-right {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: #94a3b8;
+  font-size: 5px;
+}
+
+.ms-ss-scene-icon.icon-rose { color: #f43f5e; }
+.ms-ss-scene-icon.icon-purple { color: #8b5cf6; }
+.ms-ss-scene-icon.icon-amber { color: #f59e0b; }
+.ms-ss-scene-icon.icon-pink { color: #ec4899; }
+.ms-ss-scene-icon.icon-blue { color: #3b82f6; }
+
+/* =========================================
+   STAGE 6: Video Editing Timeline Preview
+   ========================================= */
+.ms-ss-stage-editing {
+  max-width: 138px;
+}
+
+.ms-ss-editing-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ms-ss-editing-monitor {
+  width: 100%;
+  background: #0f172a;
+  border-radius: 6px;
+  padding: 3px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ms-ss-video-player {
+  width: 100%;
+  height: 62px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #000000;
+  position: relative;
+}
+
+.ms-ss-video-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ms-ss-timeline-box {
+  background: #1e293b;
+  border-radius: 3px;
+  padding: 2.5px 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ms-ss-timeline-playhead {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1.5px;
+  background: #f43f5e;
+  z-index: 5;
+  box-shadow: 0 0 3px #f43f5e;
+}
+
+.ms-ss-timeline-track {
+  height: 12px;
+  border-radius: 2px;
+  padding: 0 3px;
+  display: flex;
+  align-items: center;
+  gap: 2.5px;
+  font-size: 4.8px;
+  color: #ffffff;
+  font-weight: 500;
+  overflow: hidden;
+  position: relative;
+}
+
+.ms-ss-timeline-track.track-purple {
+  background: linear-gradient(90deg, #7c3aed, #a855f7);
+}
+
+.ms-ss-timeline-track.track-teal {
+  background: linear-gradient(90deg, #0d9488, #14b8a6);
+}
+
+.ms-ss-timeline-track.track-amber {
+  background: linear-gradient(90deg, #d97706, #f59e0b);
+}
+
+.ms-ss-track-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60px;
+  line-height: 1;
+}
+
+.ms-ss-editing-stand {
+  width: 24px;
+  height: 3px;
+  background: #64748b;
+  margin: 0 auto;
+  border-radius: 0 0 2px 2px;
+}
+
+.ms-ss-stand-base {
+  width: 44px;
+  height: 2px;
+  background: #475569;
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+/* Bottom Highlight Banner */
+.ms-ss-bottom-banner {
+  background-color: #fff1f2;
+  border: 1px solid #ffe4e6;
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ms-ss-banner-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background-color: #fee2e2;
+  color: #e11d48;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ms-ss-banner-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #e11d48;
+  margin: 0 0 2px 0;
+}
+
+.ms-ss-banner-sub {
+  font-size: 12.5px;
+  color: #475569;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   CAMERA INGEST "LEARN MORE" POPUP (Pixel-faithful to reference)
+   ========================================================================== */
+
+.ms-ci-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header */
+.ms-ci-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.ms-ci-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: #8b5cf6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+.ms-ci-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.015em;
+  font-family: var(--font-display, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+}
+
+.ms-ci-desc {
+  font-size: 14.5px;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0;
+  font-family: var(--font-body, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+}
+
+/* Four Benefits Grid */
+.ms-ci-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.ms-ci-benefit-card {
+  background-color: #faf5ff;
+  border: 1px solid #f3e8ff;
+  border-radius: 14px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.ms-ci-benefit-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.ms-ci-benefit-icon-purple {
+  border-radius: 8px;
+  background-color: #8b5cf6;
+  color: #ffffff;
+}
+
+.ms-ci-benefit-icon-soft {
+  border-radius: 50%;
+  background-color: #ede9fe;
+  color: #7c3aed;
+}
+
+.ms-ci-benefit-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.ms-ci-benefit-desc {
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* How It Works Section */
+.ms-ci-how-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ms-ci-how-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* 5 Steps Columns Grid */
+.ms-ci-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.ms-ci-step-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ms-ci-step-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.ms-ci-step-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #8b5cf6;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.ms-ci-step-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.3;
+}
+
+.ms-ci-step-desc {
+  font-size: 11px;
+  color: #64748b;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* 5 Steps Visual Workflow Graphic Row */
+.ms-ci-workflow-graphic-wrap {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.ms-ci-workflow-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
+
+/* Bottom Highlight Banner */
+.ms-ci-bottom-banner {
+  background-color: #faf5ff;
+  border: 1px solid #f3e8ff;
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ms-ci-banner-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background-color: #ede9fe;
+  color: #7c3aed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ms-ci-banner-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #7c3aed;
+  margin: 0 0 2px 0;
+}
+
+.ms-ci-banner-sub {
+  font-size: 12.5px;
+  color: #475569;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Mobile & Tablet Responsiveness */
+@media (max-width: 900px) {
+  .ms-modal-window.ms-modal-window-wide {
+    padding: 24px 20px;
+  }
+
+  .ms-gp-benefits-grid,
+  .ms-ss-benefits-grid,
+  .ms-ci-benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ms-gp-steps-grid,
+  .ms-ss-steps-grid,
+  .ms-ci-steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (max-width: 580px) {
+  .ms-gp-benefits-grid,
+  .ms-ss-benefits-grid,
+  .ms-ci-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ms-gp-steps-grid,
+  .ms-ss-steps-grid,
+  .ms-ci-steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+
+/* Toast Notification Styles */
+.ms-toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.ms-toast-item {
+  pointer-events: auto;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 12px 18px;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13.5px;
+  font-weight: 500;
+  animation: msToastSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 380px;
+}
+
+@keyframes msToastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ms-toast-icon-wrap {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 102, 204, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #38bdf8;
+  flex-shrink: 0;
+}
+
+.ms-toast-msg {
+  flex: 1;
+  line-height: 1.35;
+}
