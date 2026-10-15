@@ -14,8 +14,13 @@ import {
   ChevronDown, 
   ChevronUp, 
   ArrowRight,
-  Film,
-  Camera
+  Download,
+  Laptop,
+  Eye,
+  Camera,
+  FolderKanban,
+  ShieldCheck,
+  Sparkles
 } from 'lucide-react';
 import ManageStudioModals from './ManageStudioModals.jsx';
 
@@ -24,7 +29,7 @@ export default function PricingPage({ onNavigate }) {
   const [toastMessage, setToastMessage] = useState(null);
 
   // Selected Modules for Interactive Storage & Price Calculator
-  // By default, show all 3 modules active as in the reference design
+  // By default, show all 3 paid modules active
   const [selectedModules, setSelectedModules] = useState({
     album: true,
     song: true,
@@ -34,7 +39,7 @@ export default function PricingPage({ onNavigate }) {
   // Selected Additional Storage (null or '50gb' | '200gb' | '500gb' | '1tb')
   const [selectedStorage, setSelectedStorage] = useState(null);
 
-  // FAQ Accordion Open States (all closed or openable)
+  // FAQ Accordion Open States
   const [openFaq, setOpenFaq] = useState({});
 
   const toggleFaq = (index) => {
@@ -64,7 +69,10 @@ export default function PricingPage({ onNavigate }) {
     }, 2800);
   };
 
-  // Calculate dynamic storage totals based on selections
+  // Calculate dynamic storage totals based on selections:
+  // 1 paid module = 5 GB
+  // 2 paid modules = 10 GB
+  // All 3 paid modules = 15 GB
   const selectedCount = Object.values(selectedModules).filter(Boolean).length;
   const baseStorageGB = selectedCount * 5;
 
@@ -78,6 +86,15 @@ export default function PricingPage({ onNavigate }) {
   const totalStorageGB = baseStorageGB + addonGB;
 
   // Calculate total monthly price
+  // Paid modules:
+  // - Album Selection: ₹499/month
+  // - Song Selection: ₹499/month
+  // - Guest Photo AI: ₹699/month
+  // Additional storage plans:
+  // - 50 GB: ₹299/month
+  // - 200 GB: ₹599/month
+  // - 500 GB: ₹999/month
+  // - 1 TB: ₹1,499/month
   let totalPrice = 0;
   if (selectedModules.album) totalPrice += 499;
   if (selectedModules.song) totalPrice += 499;
@@ -89,28 +106,28 @@ export default function PricingPage({ onNavigate }) {
 
   const faqs = [
     {
+      q: 'How do I purchase a membership or subscribe?',
+      a: 'To purchase a membership, download ManageStudio and subscribe directly within the software. The website allows you to explore features and calculate prices, but all membership purchases and subscriptions are handled securely directly inside the desktop application.'
+    },
+    {
       q: 'Is Gallery included with every paid module?',
-      a: 'Yes! Every paid module (Album Selection, Song Selection, or Guest Photo AI) includes full access to the Client Gallery with 5 GB of high-speed cloud storage.'
+      a: 'Yes! Every paid module (Album Selection, Song Selection, or Guest Photo AI) includes full access to the Client Gallery with 5 GB of high-speed cloud storage automatically included.'
     },
     {
-      q: 'Can I change or cancel my modules?',
-      a: 'Yes, you have complete flexibility. You can add, swap, or remove individual modules at any time with no long-term lock-in or cancellation penalties.'
+      q: 'How does combined storage work when buying multiple modules?',
+      a: 'Every purchased paid module includes 5 GB of shared cloud storage. When multiple modules are purchased, your storage combines automatically into one shared account pool: 1 module = 5 GB, 2 modules = 10 GB, and all 3 modules = 15 GB. All modules share this total capacity.'
     },
     {
-      q: 'How is storage calculated?',
-      a: 'Storage from all your active modules is combined at the account level. For example, 1 module gives you 5 GB, 2 modules give you 10 GB, and 3 modules give you 15 GB of shared storage.'
+      q: 'What modules are included free?',
+      a: 'Gallery, Camera Ingest, and Studio Files are included automatically at no extra cost whenever you subscribe to any paid module in ManageStudio.'
     },
     {
-      q: 'Do you offer yearly plans?',
-      a: 'Yes, annual subscriptions are available with 2 months free (equivalent to 17% savings). Reach out to our studio onboarding team for annual invoicing.'
+      q: 'Can I add extra storage later?',
+      a: 'Yes, absolutely. You can add additional storage plans (50 GB for ₹299/mo, 200 GB for ₹599/mo, 500 GB for ₹999/mo, or 1 TB for ₹1,499/mo) anytime directly from your studio software settings.'
     },
     {
-      q: 'Can I buy additional storage later?',
-      a: 'Absolutely. You can add extra storage plans (50 GB, 200 GB, 500 GB, or 1 TB) at any time from your studio account settings as your wedding season expands.'
-    },
-    {
-      q: 'Is there any setup fee?',
-      a: 'No. There are zero onboarding fees or hidden platform charges. You only pay the listed monthly price for the modules and storage you choose.'
+      q: 'Can I change or cancel my subscribed modules?',
+      a: 'Yes, you have complete flexibility. You can add, upgrade, or remove individual modules month-to-month directly within the desktop software.'
     }
   ];
 
@@ -131,17 +148,16 @@ export default function PricingPage({ onNavigate }) {
           activePage="pricing"
           onNavigate={onNavigate}
           onOpenLogin={() => { window.location.href = 'https://app.managestudio.io/'; }}
-          onOpenGetStarted={() => setActiveModal('get-started')}
         />
 
         {/* Hero Content Area */}
         <div className="pricing-hero-container">
-          <div className="pricing-eyebrow">PRICING</div>
+          <div className="pricing-eyebrow">PRICING &amp; PLANS</div>
           <h1 className="pricing-main-headline">
-            Your modules. Your storage.
+            Transparent modular pricing.
           </h1>
           <p className="pricing-hero-description">
-            Choose the modules you need. Each paid module includes Gallery and 5 GB storage. Storage gets added with every module you purchase. Upgrade storage anytime.
+            Choose the modules your wedding studio needs. Every purchased paid module includes Gallery access and 5 GB storage. Combine modules for larger shared storage or add cloud tiers anytime.
           </p>
         </div>
       </section>
@@ -153,6 +169,37 @@ export default function PricingPage({ onNavigate }) {
         <div className="pricing-body-container">
 
           {/* ==================================================================
+              REQUIREMENT 3: MANDATORY NOTICE FOR MEMBERSHIP PURCHASE
+              ================================================================== */}
+          <div className="pricing-membership-notice-card" role="region" aria-label="Membership Purchase Notice">
+            <div className="pricing-notice-icon-box">
+              <Laptop size={26} className="pricing-notice-icon" />
+            </div>
+            <div className="pricing-notice-content">
+              <span className="pricing-notice-pill">DESKTOP SOFTWARE SUBSCRIPTION</span>
+              <h2 className="pricing-notice-title">
+                To purchase a membership, download ManageStudio and subscribe directly within the software.
+              </h2>
+              <p className="pricing-notice-description">
+                You can view and calculate all module prices and storage options here on our website. However, membership purchases and subscription activations must be completed inside the desktop software. No payments or checkouts are processed on the website.
+              </p>
+            </div>
+            <div className="pricing-notice-action">
+              <a 
+                href="https://github.com/Codenamesadiq/managestudio1.5/releases/download/Managestudio1.5/ManageStudio-Setup.exe"
+                className="pricing-notice-download-btn"
+                download="ManageStudio-Setup.exe"
+                target="_self"
+                rel="noopener noreferrer"
+              >
+                <Download size={16} />
+                <span>Download ManageStudio</span>
+              </a>
+              <span className="pricing-notice-platform">Windows 10 / 11 Installer</span>
+            </div>
+          </div>
+
+          {/* ==================================================================
               SECTION 1: PAID MODULES
               ================================================================== */}
           <section className="pricing-section-block">
@@ -161,7 +208,7 @@ export default function PricingPage({ onNavigate }) {
               <div className="pricing-step-text">
                 <h2 className="pricing-step-title">Paid Modules</h2>
                 <p className="pricing-step-subtitle">
-                  Choose the modules you need. Each module includes Gallery access and 5 GB storage.
+                  Select the creative tools your studio requires. Every purchased paid module includes Gallery access and 5 GB storage.
                 </p>
               </div>
             </div>
@@ -171,7 +218,7 @@ export default function PricingPage({ onNavigate }) {
               {/* Card 1: Album Selection */}
               <div className={`pricing-module-card ${selectedModules.album ? 'is-selected' : ''}`}>
                 <div className="pm-card-top">
-                  <div className="pm-card-icon-wrap pm-icon-blue">
+                  <div className="pm-card-icon-wrap pm-icon-teal">
                     <ImageIcon size={20} />
                   </div>
                   <div className="pm-card-badges">
@@ -184,7 +231,7 @@ export default function PricingPage({ onNavigate }) {
                   <div className="pm-card-info">
                     <h3 className="pm-card-title">Album Selection</h3>
                     <p className="pm-card-desc">
-                      Fast and easy photo selection portal with client star ratings and feedback.
+                      Client photo proofing portal with selection limits, couple comments, and star ratings.
                     </p>
                   </div>
                   <div className="pm-card-price-box">
@@ -200,19 +247,23 @@ export default function PricingPage({ onNavigate }) {
                   </li>
                   <li>
                     <Check size={15} className="pm-check-icon" />
-                    <span>Star ratings and feedback</span>
+                    <span>Star ratings, favorites &amp; comments</span>
                   </li>
                   <li>
                     <Check size={15} className="pm-check-icon" />
-                    <span>Selection tracking</span>
+                    <span>Automated selection limits &amp; approvals</span>
                   </li>
                   <li>
                     <Check size={15} className="pm-check-icon" />
-                    <span>Watermark protection</span>
+                    <span>Watermark protection &amp; security</span>
                   </li>
                   <li>
                     <Check size={15} className="pm-check-icon" />
-                    <span>Multiple export formats</span>
+                    <span>CSV &amp; Lightroom filename export</span>
+                  </li>
+                  <li className="pm-feature-highlight">
+                    <Check size={15} className="pm-check-icon" />
+                    <strong>Includes Gallery access &amp; 5 GB storage</strong>
                   </li>
                 </ul>
 
@@ -228,7 +279,7 @@ export default function PricingPage({ onNavigate }) {
               {/* Card 2: Song Selection */}
               <div className={`pricing-module-card ${selectedModules.song ? 'is-selected' : ''}`}>
                 <div className="pm-card-top">
-                  <div className="pm-card-icon-wrap pm-icon-blue">
+                  <div className="pm-card-icon-wrap pm-icon-teal">
                     <Music size={20} />
                   </div>
                   <div className="pm-card-badges">
@@ -241,7 +292,7 @@ export default function PricingPage({ onNavigate }) {
                   <div className="pm-card-info">
                     <h3 className="pm-card-title">Song Selection</h3>
                     <p className="pm-card-desc">
-                      Music library and soundtrack selection for wedding cinematographers.
+                      Curated soundtrack selection library for wedding teasers and cinematic highlight films.
                     </p>
                   </div>
                   <div className="pm-card-price-box">
@@ -257,19 +308,23 @@ export default function PricingPage({ onNavigate }) {
                   </li>
                   <li>
                     <Check size={15} className="pm-check-icon" />
-                    <span>Client song selection portal</span>
+                    <span>Client song curation portal</span>
                   </li>
                   <li>
                     <Check size={15} className="pm-check-icon" />
-                    <span>Audio waveform preview</span>
+                    <span>Audio waveform preview &amp; BPM info</span>
                   </li>
                   <li>
                     <Check size={15} className="pm-check-icon" />
-                    <span>Custom playlists</span>
+                    <span>Occasion playlists (Shaadi, Haldi, Sangeet)</span>
                   </li>
                   <li>
                     <Check size={15} className="pm-check-icon" />
-                    <span>Premiere Pro direct export</span>
+                    <span>Premiere Pro &amp; FCPXML timeline export</span>
+                  </li>
+                  <li className="pm-feature-highlight">
+                    <Check size={15} className="pm-check-icon" />
+                    <strong>Includes Gallery access &amp; 5 GB storage</strong>
                   </li>
                 </ul>
 
@@ -285,7 +340,7 @@ export default function PricingPage({ onNavigate }) {
               {/* Card 3: Guest Photo AI */}
               <div className={`pricing-module-card ${selectedModules.guestAi ? 'is-selected' : ''}`}>
                 <div className="pm-card-top">
-                  <div className="pm-card-icon-wrap pm-icon-blue">
+                  <div className="pm-card-icon-wrap pm-icon-teal">
                     <Users size={20} />
                   </div>
                   <div className="pm-card-badges">
@@ -298,7 +353,7 @@ export default function PricingPage({ onNavigate }) {
                   <div className="pm-card-info">
                     <h3 className="pm-card-title">Guest Photo AI</h3>
                     <p className="pm-card-desc">
-                      AI-driven face matching portal for wedding and event guests.
+                      Selfie-based face recognition for instant guest photo lookups and QR downloads.
                     </p>
                   </div>
                   <div className="pm-card-price-box">
@@ -310,23 +365,27 @@ export default function PricingPage({ onNavigate }) {
                 <ul className="pm-features-list">
                   <li>
                     <Check size={15} className="pm-check-icon" />
-                    <span>Selfie based face recognition</span>
+                    <span>Selfie-based AI face matching</span>
                   </li>
                   <li>
                     <Check size={15} className="pm-check-icon" />
-                    <span>Instant attendee photo matching</span>
+                    <span>Instant wedding guest photo lookup</span>
                   </li>
                   <li>
                     <Check size={15} className="pm-check-icon" />
-                    <span>Automated QR code sharing</span>
+                    <span>Event QR code sharing &amp; mobile portal</span>
                   </li>
                   <li>
                     <Check size={15} className="pm-check-icon" />
-                    <span>Dedicated guest download page</span>
+                    <span>Dedicated attendee download page</span>
                   </li>
                   <li>
                     <Check size={15} className="pm-check-icon" />
-                    <span>Privacy and watermark options</span>
+                    <span>Privacy controls &amp; watermark security</span>
+                  </li>
+                  <li className="pm-feature-highlight">
+                    <Check size={15} className="pm-check-icon" />
+                    <strong>Includes Gallery access &amp; 5 GB storage</strong>
                   </li>
                 </ul>
 
@@ -342,16 +401,165 @@ export default function PricingPage({ onNavigate }) {
           </section>
 
           {/* ==================================================================
-              SECTION 2: HOW STORAGE WORKS (Equation Breakdown)
+              REQUIREMENT 2: INCLUDED MODULES (Gallery, Camera Ingest, Studio Files)
+              ================================================================== */}
+          <section className="pricing-section-block">
+            <div className="pricing-section-header">
+              <div className="pricing-step-badge badge-included">
+                <Check size={16} strokeWidth={2.8} />
+              </div>
+              <div className="pricing-step-text">
+                <h2 className="pricing-step-title">Included Modules</h2>
+                <p className="pricing-step-subtitle">
+                  These essential studio modules are automatically included with ManageStudio at ₹0 when you purchase any paid module:
+                </p>
+              </div>
+            </div>
+
+            <div className="included-modules-grid">
+              {/* Included 1: Gallery */}
+              <div className="included-module-card">
+                <div className="inc-card-top">
+                  <div className="inc-icon-wrap">
+                    <Eye size={22} />
+                  </div>
+                  <span className="inc-badge">Included Free</span>
+                </div>
+                <h3 className="inc-title">Gallery</h3>
+                <p className="inc-desc">
+                  Stunning, high-resolution client proofing and final wedding delivery with one-link sharing.
+                </p>
+                <ul className="inc-features">
+                  <li>
+                    <Check size={14} className="inc-check" />
+                    <span>Full-resolution photo &amp; video presentation</span>
+                  </li>
+                  <li>
+                    <Check size={14} className="inc-check" />
+                    <span>One-link private client galleries</span>
+                  </li>
+                  <li>
+                    <Check size={14} className="inc-check" />
+                    <span>Single-click high-speed zip downloads</span>
+                  </li>
+                  <li>
+                    <Check size={14} className="inc-check" />
+                    <span>Custom studio branding &amp; dark mode</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Included 2: Camera Ingest */}
+              <div className="included-module-card">
+                <div className="inc-card-top">
+                  <div className="inc-icon-wrap">
+                    <Camera size={22} />
+                  </div>
+                  <span className="inc-badge">Included Free</span>
+                </div>
+                <h3 className="inc-title">Camera Ingest</h3>
+                <p className="inc-desc">
+                  High-speed multi-card dump engine with strict checksum verification for flawless data transfers.
+                </p>
+                <ul className="inc-features">
+                  <li>
+                    <Check size={14} className="inc-check" />
+                    <span>Multi-card parallel memory card ingest</span>
+                  </li>
+                  <li>
+                    <Check size={14} className="inc-check" />
+                    <span>Checksum verification (zero corrupted RAWs)</span>
+                  </li>
+                  <li>
+                    <Check size={14} className="inc-check" />
+                    <span>Automated date &amp; camera body directory structuring</span>
+                  </li>
+                  <li>
+                    <Check size={14} className="inc-check" />
+                    <span>Live ingest progress and speed monitoring</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Included 3: Studio Files */}
+              <div className="included-module-card">
+                <div className="inc-card-top">
+                  <div className="inc-icon-wrap">
+                    <FolderKanban size={22} />
+                  </div>
+                  <span className="inc-badge">Included Free</span>
+                </div>
+                <h3 className="inc-title">Studio Files</h3>
+                <p className="inc-desc">
+                  Centralized local &amp; cloud asset management for client contracts, invoices, and deliverables.
+                </p>
+                <ul className="inc-features">
+                  <li>
+                    <Check size={14} className="inc-check" />
+                    <span>Centralized shoot &amp; project file organization</span>
+                  </li>
+                  <li>
+                    <Check size={14} className="inc-check" />
+                    <span>Contract, receipt &amp; booking attachments</span>
+                  </li>
+                  <li>
+                    <Check size={14} className="inc-check" />
+                    <span>Fast studio-wide search and tagging</span>
+                  </li>
+                  <li>
+                    <Check size={14} className="inc-check" />
+                    <span>Offline-first local file caching &amp; backup</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* ==================================================================
+              SECTION 2: STORAGE INCLUDED WITH PAID MODULES
               ================================================================== */}
           <section className="pricing-section-block">
             <div className="pricing-section-header">
               <div className="pricing-step-badge">2</div>
               <div className="pricing-step-text">
-                <h2 className="pricing-step-title">How Storage Works</h2>
+                <h2 className="pricing-step-title">Storage Included with Paid Modules</h2>
                 <p className="pricing-step-subtitle">
-                  Every paid module includes 5 GB storage. Storage from multiple modules is added together in your account.
+                  Every purchased paid module includes Gallery access and 5 GB storage. When you purchase multiple modules, your storage combines automatically into one shared account pool.
                 </p>
+              </div>
+            </div>
+
+            {/* Storage Allowance Tier Rule Box */}
+            <div className="storage-tier-rules-card">
+              <div className="tier-rules-header">
+                <span className="tier-rules-badge">COMBINED STORAGE ALLOWANCE</span>
+                <h3 className="tier-rules-title">How Combined Storage Works</h3>
+                <p className="tier-rules-desc">
+                  Storage is shared across your entire studio workspace, rather than restricted per-module. Gallery access is always included with every paid module.
+                </p>
+              </div>
+
+              <div className="storage-tiers-grid">
+                <div className={`storage-tier-item ${selectedCount === 1 ? 'is-tier-active' : ''}`}>
+                  <div className="tier-count">1 Paid Module</div>
+                  <div className="tier-arrow">→</div>
+                  <div className="tier-storage">5 GB Shared Storage</div>
+                  <div className="tier-note">Includes Gallery access</div>
+                </div>
+
+                <div className={`storage-tier-item ${selectedCount === 2 ? 'is-tier-active' : ''}`}>
+                  <div className="tier-count">2 Paid Modules</div>
+                  <div className="tier-arrow">→</div>
+                  <div className="tier-storage">10 GB Shared Storage</div>
+                  <div className="tier-note">5 GB + 5 GB combined</div>
+                </div>
+
+                <div className={`storage-tier-item ${selectedCount === 3 ? 'is-tier-active' : ''}`}>
+                  <div className="tier-count">All 3 Paid Modules</div>
+                  <div className="tier-arrow">→</div>
+                  <div className="tier-storage">15 GB Shared Storage</div>
+                  <div className="tier-note">Maximum included tier</div>
+                </div>
               </div>
             </div>
 
@@ -416,8 +624,8 @@ export default function PricingPage({ onNavigate }) {
                 <div className="eq-result-text">
                   <div className="eq-result-value">{baseStorageGB} GB</div>
                   <div className="eq-result-label">
-                    Total Storage<br />
-                    <span>({selectedCount} {selectedCount === 1 ? 'module' : 'modules'})</span>
+                    Total Included Storage<br />
+                    <span>({selectedCount} {selectedCount === 1 ? 'module' : 'modules'} selected)</span>
                   </div>
                 </div>
               </div>
@@ -425,15 +633,15 @@ export default function PricingPage({ onNavigate }) {
           </section>
 
           {/* ==================================================================
-              SECTION 3: ADDITIONAL CLOUD STORAGE
+              SECTION 3: ADDITIONAL CLOUD STORAGE PLANS
               ================================================================== */}
           <section className="pricing-section-block">
             <div className="pricing-section-header">
               <div className="pricing-step-badge badge-warm">3</div>
               <div className="pricing-step-text">
-                <h2 className="pricing-step-title">Additional Cloud Storage</h2>
+                <h2 className="pricing-step-title">Additional Storage Plans</h2>
                 <p className="pricing-step-subtitle">
-                  Need more space? Purchase additional storage. This is shared across your entire studio account.
+                  Need extra capacity for high-volume wedding seasons? Add additional cloud storage plans at any time.
                 </p>
               </div>
             </div>
@@ -441,7 +649,7 @@ export default function PricingPage({ onNavigate }) {
             <div className="storage-split-layout">
               {/* Left Column: 4 Storage Cards */}
               <div className="storage-cards-grid">
-                {/* 50 GB Card */}
+                {/* 50 GB Card: ₹299/month */}
                 <div className={`storage-plan-card ${selectedStorage === '50gb' ? 'storage-plan-selected' : ''}`}>
                   <div className="storage-plan-icon">
                     <Database size={20} />
@@ -463,7 +671,7 @@ export default function PricingPage({ onNavigate }) {
                   </button>
                 </div>
 
-                {/* 200 GB Card */}
+                {/* 200 GB Card: ₹599/month */}
                 <div className={`storage-plan-card ${selectedStorage === '200gb' ? 'storage-plan-selected' : ''}`}>
                   <div className="storage-plan-icon">
                     <Database size={20} />
@@ -485,7 +693,7 @@ export default function PricingPage({ onNavigate }) {
                   </button>
                 </div>
 
-                {/* 500 GB Card */}
+                {/* 500 GB Card: ₹999/month */}
                 <div className={`storage-plan-card ${selectedStorage === '500gb' ? 'storage-plan-selected' : ''}`}>
                   <div className="storage-plan-icon">
                     <Database size={20} />
@@ -507,7 +715,7 @@ export default function PricingPage({ onNavigate }) {
                   </button>
                 </div>
 
-                {/* 1 TB Card */}
+                {/* 1 TB Card: ₹1,499/month */}
                 <div className={`storage-plan-card ${selectedStorage === '1tb' ? 'storage-plan-selected' : ''}`}>
                   <div className="storage-plan-icon">
                     <Database size={20} />
@@ -536,27 +744,27 @@ export default function PricingPage({ onNavigate }) {
                   <div className="note-icon-wrap">
                     <Info size={18} />
                   </div>
-                  <h3 className="note-card-title">Important Note</h3>
+                  <h3 className="note-card-title">Shared Storage Pool</h3>
                 </div>
                 <p className="note-card-desc">
-                  The 5 GB included with each module is account-level storage, not 5 GB per feature. Storage from all purchased modules is combined in one shared pool.
+                  All storage in ManageStudio is account-level. The 5 GB per paid module automatically aggregates into one single quota shared across all galleries, proofing sessions, and client selections.
                 </p>
                 <ul className="note-checklist">
                   <li>
                     <Check size={14} className="note-check-icon" />
-                    <span>Gallery is included with every paid module</span>
+                    <span>Gallery access is included with every paid module</span>
                   </li>
                   <li>
                     <Check size={14} className="note-check-icon" />
-                    <span>Storage adds up automatically</span>
+                    <span>1 module = 5 GB, 2 modules = 10 GB, 3 modules = 15 GB</span>
                   </li>
                   <li>
                     <Check size={14} className="note-check-icon" />
-                    <span>You can upgrade storage anytime</span>
+                    <span>Additional plans expand your total account storage</span>
                   </li>
                   <li>
                     <Check size={14} className="note-check-icon" />
-                    <span>All features use the same shared storage</span>
+                    <span>Manage subscriptions directly inside ManageStudio</span>
                   </li>
                 </ul>
               </div>
@@ -630,31 +838,38 @@ export default function PricingPage({ onNavigate }) {
 
           {/* Interactive Floating Summary Bar when items are selected */}
           {selectedCount > 0 && (
-            <div className="pricing-floating-summary" role="region" aria-label="Cart Summary">
+            <div className="pricing-floating-summary" role="region" aria-label="Calculated Plan Summary">
               <div className="summary-info-wrap">
                 <div className="summary-breakdown">
                   <span className="summary-modules-count">
-                    <strong>{selectedCount}</strong> {selectedCount === 1 ? 'Module' : 'Modules'} Selected
+                    <strong>{selectedCount}</strong> {selectedCount === 1 ? 'Paid Module' : 'Paid Modules'} Selected
                   </span>
                   <span className="summary-dot">•</span>
                   <span className="summary-storage-val">
-                    <strong>{totalStorageGB} GB</strong> Shared Storage
+                    <strong>{totalStorageGB} GB</strong> Total Shared Storage
                   </span>
                 </div>
                 <div className="summary-total-price">
-                  <span className="summary-price-lbl">Total:</span>
+                  <span className="summary-price-lbl">Estimated Price:</span>
                   <span className="summary-price-num">₹{totalPrice.toLocaleString()}</span>
                   <span className="summary-price-period">/ month</span>
                 </div>
               </div>
-              <button 
-                type="button" 
-                className="summary-checkout-btn"
-                onClick={() => setActiveModal('get-started')}
-              >
-                <span>Continue to Free Trial</span>
-                <ArrowRight size={16} />
-              </button>
+
+              <div className="summary-actions-wrap">
+                <span className="summary-software-note">Subscribe inside software after download</span>
+                <a 
+                  href="https://github.com/Codenamesadiq/managestudio1.5/releases/download/Managestudio1.5/ManageStudio-Setup.exe"
+                  className="summary-checkout-btn"
+                  download="ManageStudio-Setup.exe"
+                  target="_self"
+                  rel="noopener noreferrer"
+                  title="Download ManageStudio for Windows"
+                >
+                  <Download size={16} />
+                  <span>Download ManageStudio</span>
+                </a>
+              </div>
             </div>
           )}
 
@@ -662,7 +877,7 @@ export default function PricingPage({ onNavigate }) {
       </main>
 
       {/* ======================================================================
-          FOOTER (Matching ManageStudio 1.5 style)
+          FOOTER
           ====================================================================== */}
       <footer className="pricing-page-footer">
         <div className="pricing-footer-inner">
@@ -719,7 +934,6 @@ export default function PricingPage({ onNavigate }) {
         activeModal={activeModal}
         onClose={() => setActiveModal(null)}
         modalData={null}
-        onOpenGetStarted={() => setActiveModal('get-started')}
       />
 
       {/* Toast Feedback */}

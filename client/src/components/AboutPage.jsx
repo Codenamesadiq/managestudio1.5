@@ -254,21 +254,24 @@ export default function AboutPage({ onNavigate }) {
               ================================================================== */}
           <div className="ms-about-cta-card">
             <div className="ms-about-cta-text">
-              <span className="ms-about-cta-eyebrow">GET STARTED</span>
+              <span className="ms-about-cta-eyebrow">DOWNLOAD MANAGESTUDIO</span>
               <h3 className="ms-about-cta-heading">Spend less time managing the details.</h3>
               <p className="ms-about-cta-desc">
                 Manage your wedding studio workflows in one place, from client selections and photo delivery to bookings, billing and expenses.
               </p>
             </div>
             <div className="ms-about-cta-actions">
-              <button 
-                type="button" 
+              <a 
+                href="https://github.com/Codenamesadiq/managestudio1.5/releases/download/Managestudio1.5/ManageStudio-Setup.exe"
                 className="ms-about-btn-primary"
-                onClick={() => onNavigate && onNavigate('marketing', 'gallery')}
+                download="ManageStudio-Setup.exe"
+                target="_self"
+                rel="noopener noreferrer"
+                style={{ textDecoration: 'none' }}
               >
-                <span>Explore Modules</span>
+                <span>Download for Windows</span>
                 <ArrowRight size={16} />
-              </button>
+              </a>
               <button 
                 type="button" 
                 className="ms-about-btn-secondary"

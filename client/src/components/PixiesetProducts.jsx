@@ -140,13 +140,16 @@ export default function PixiesetProducts() {
             >
               Log In
             </a>
-            <button 
-              type="button" 
+            <a 
+              href="https://github.com/Codenamesadiq/managestudio1.5/releases/download/Managestudio1.5/ManageStudio-Setup.exe" 
               className="pixieset-get-started-btn"
-              onClick={(e) => e.preventDefault()}
+              download="ManageStudio-Setup.exe"
+              target="_self"
+              rel="noopener noreferrer"
+              style={{ textDecoration: 'none' }}
             >
-              Get Started
-            </button>
+              Download
+            </a>
           </div>
         </div>
       </header>

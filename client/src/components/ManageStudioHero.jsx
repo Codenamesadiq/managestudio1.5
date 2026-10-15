@@ -6,6 +6,7 @@ import PixiesetFeatureCards from './PixiesetFeatureCards.jsx';
 import HomepageBottomSections from './HomepageBottomSections.jsx';
 import ManageStudioModals from './ManageStudioModals.jsx';
 import {
+  Download,
   Camera,
   Users,
   TrendingUp,
@@ -175,14 +176,17 @@ export default function ManageStudioHero({ onNavigatePricing, onNavigateAbout, o
             {/* Action Buttons & Subtext */}
             <div className="hero-cta-group">
               <div className="hero-actions">
-                <button 
-                  type="button" 
+                <a 
+                  href="https://github.com/Codenamesadiq/managestudio1.5/releases/download/Managestudio1.5/ManageStudio-Setup.exe"
                   className="hero-primary-btn"
-                  onClick={handleOpenGetStarted}
+                  download="ManageStudio-Setup.exe"
+                  target="_self"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: 'none' }}
                 >
-                  <span>Get Started</span>
-                  <ArrowRight size={16} strokeWidth={2.4} />
-                </button>
+                  <span>Download</span>
+                  <Download size={16} strokeWidth={2.4} />
+                </a>
 
                 <button 
                   type="button" 
@@ -193,7 +197,7 @@ export default function ManageStudioHero({ onNavigatePricing, onNavigateAbout, o
                   <span>Watch Video</span>
                 </button>
               </div>
-              <div className="hero-subtext">No credit card required</div>
+              <div className="hero-subtext">Windows 10/11 &bull; 64-bit Installer</div>
             </div>
           </div>
         </div>

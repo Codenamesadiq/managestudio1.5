@@ -1157,3 +1157,356 @@
     align-items: flex-start;
   }
 }
+
+/* ==========================================================================
+   REQUIREMENT 3: MEMBERSHIP PURCHASE NOTICE CARD
+   ========================================================================== */
+.pricing-membership-notice-card {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border: 1px solid rgba(26, 188, 156, 0.4);
+  border-radius: 20px;
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  box-shadow: 0 12px 30px -10px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(26, 188, 156, 0.15);
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+.pricing-notice-icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background-color: rgba(26, 188, 156, 0.15);
+  border: 1px solid rgba(26, 188, 156, 0.3);
+  color: #1ABC9C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pricing-notice-content {
+  flex: 1;
+}
+
+.pricing-notice-pill {
+  display: inline-block;
+  background-color: rgba(26, 188, 156, 0.15);
+  color: #1ABC9C;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  margin-bottom: 8px;
+  border: 1px solid rgba(26, 188, 156, 0.25);
+}
+
+.pricing-notice-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.35;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+
+.pricing-notice-description {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin: 0;
+  max-width: 680px;
+}
+
+.pricing-notice-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.pricing-notice-download-btn {
+  background-color: #1ABC9C;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 12px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(26, 188, 156, 0.35);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.pricing-notice-download-btn:hover {
+  background-color: #16a085;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(26, 188, 156, 0.5);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.pricing-notice-platform {
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   REQUIREMENT 2: INCLUDED MODULES (Gallery, Camera Ingest, Studio Files)
+   ========================================================================== */
+.badge-included {
+  background-color: #ecfdf5 !important;
+  color: #059669 !important;
+  border: 1.5px solid #a7f3d0 !important;
+}
+
+.included-modules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.included-module-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.included-module-card:hover {
+  border-color: #cbd5e1;
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.05);
+}
+
+.inc-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inc-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: #ecfdf5;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inc-badge {
+  background-color: #ecfdf5;
+  color: #059669;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1px solid #a7f3d0;
+  letter-spacing: 0.02em;
+}
+
+.inc-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.inc-desc {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #64748b;
+  margin: 0;
+}
+
+.inc-features {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  flex: 1;
+}
+
+.inc-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 12.5px;
+  color: #334155;
+  line-height: 1.4;
+}
+
+.inc-check {
+  color: #059669;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   STORAGE TIER RULES CARD (1 = 5GB, 2 = 10GB, 3 = 15GB)
+   ========================================================================== */
+.storage-tier-rules-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1.5px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.tier-rules-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tier-rules-badge {
+  align-self: flex-start;
+  background-color: #e8f8f5;
+  color: #117a65;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  letter-spacing: 0.06em;
+}
+
+.tier-rules-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.tier-rules-desc {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 800px;
+}
+
+.storage-tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.storage-tier-item {
+  background-color: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.storage-tier-item.is-tier-active {
+  border-color: #1ABC9C;
+  background-color: #f0fdf9;
+  box-shadow: 0 4px 12px rgba(26, 188, 156, 0.15);
+}
+
+.tier-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.tier-arrow {
+  display: none;
+}
+
+.tier-storage {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+.is-tier-active .tier-storage {
+  color: #117a65;
+}
+
+.tier-note {
+  font-size: 11.5px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Summary Bar Extras */
+.summary-actions-wrap {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.summary-software-note {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.pm-feature-highlight {
+  background-color: #f0fdf9;
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: #117a65 !important;
+}
+
+.pm-icon-teal {
+  background-color: #e8f8f5;
+  color: #1ABC9C;
+}
+
+@media (max-width: 900px) {
+  .pricing-membership-notice-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 20px;
+  }
+  .pricing-notice-action {
+    width: 100%;
+    align-items: stretch;
+  }
+  .pricing-notice-download-btn {
+    justify-content: center;
+  }
+  .included-modules-grid {
+    grid-template-columns: 1fr;
+  }
+  .storage-tiers-grid {
+    grid-template-columns: 1fr;
+  }
+  .summary-actions-wrap {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
+  }
+  .summary-software-note {
+    text-align: center;
+  }
+}

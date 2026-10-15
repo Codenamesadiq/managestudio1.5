@@ -302,12 +302,15 @@ export default function SharedNavbar({
             Log In
           </a>
 
-          <button
-            type="button"
+          <a
+            href="https://github.com/Codenamesadiq/managestudio1.5/releases/download/Managestudio1.5/ManageStudio-Setup.exe"
             className="ms-nav-cta-btn"
-            onClick={onOpenGetStarted}
+            download="ManageStudio-Setup.exe"
+            target="_self"
+            rel="noopener noreferrer"
+            title="Download ManageStudio for Windows"
           >
-            <span>Get Started</span>
+            <span>Download</span>
             <svg
               width="14"
               height="14"
@@ -319,10 +322,11 @@ export default function SharedNavbar({
               strokeLinejoin="round"
               style={{ marginLeft: '4px' }}
             >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
-          </button>
+          </a>
         </div>
       </div>
     </header>
