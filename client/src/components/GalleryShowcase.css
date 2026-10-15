@@ -348,20 +348,56 @@
 .photos-tile.tile-14 { height: 94px;  animation-delay: 0.30s; }
 .photos-tile.tile-15 { height: 54px;  animation-delay: 0.34s; }
 
-@media (max-width: 900px) {
-  .photos-masonry-grid {
-    grid-template-columns: repeat(3, 1fr);
+@media (max-width: 767px) {
+  .photos-gallery-viewport {
+    padding: 8px;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
   }
-  .photos-tile {
-    height: auto !important;
-    aspect-ratio: 4 / 3;
-  }
-}
 
-@media (max-width: 600px) {
   .photos-masonry-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .photos-masonry-col {
+    display: contents !important;
+  }
+
+  .photos-tile {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .photos-tile img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+  }
+
+  /* Display exactly 6 photos on mobile (tiles 1 through 6 in 3 balanced rows of 2) */
+  /* Hide remaining gallery photos on mobile only */
+  .photos-tile.tile-7,
+  .photos-tile.tile-8,
+  .photos-tile.tile-9,
+  .photos-tile.tile-10,
+  .photos-tile.tile-11,
+  .photos-tile.tile-12,
+  .photos-tile.tile-13,
+  .photos-tile.tile-14,
+  .photos-tile.tile-15 {
+    display: none !important;
   }
 }
 

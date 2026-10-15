@@ -942,3 +942,350 @@
   display: block;
   object-fit: contain;
 }
+
+/* ==========================================================================
+   HOMEPAGE MODULES: MOBILE VIEW ONLY (max-width: 767px)
+   Show only 2 module cards (Album Selection & Guest Photo AI) instead of 4.
+   Hide Song Selection and Camera Ingest on mobile screens only.
+   Maintain consistent card spacing, alignment, and styling.
+   ========================================================================== */
+@media (max-width: 767px) {
+  #song-selection,
+  #camera-ingest {
+    display: none !important;
+  }
+
+  .ms-card.ms-card-square {
+    border-radius: 14px;
+  }
+
+  .ms-card.ms-card-square .ms-card-header {
+    padding: 20px 16px 14px 16px;
+  }
+
+  .ms-card.ms-card-square .ms-card-title {
+    font-size: 20px;
+  }
+
+  .ms-card.ms-card-square .ms-card-desc {
+    font-size: 13.5px;
+    line-height: 1.45;
+    margin-bottom: 12px;
+    max-width: 100%;
+  }
+
+  .ms-card.ms-card-square .ms-card-visual {
+    padding: 0 14px 18px 14px;
+  }
+
+  /* Booking Section: Hide the last two booking cards ("Ayesha & Zain" and "Alia & Kabir") on mobile only */
+  .ms-bk-table tbody tr:nth-child(n+3) {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS: BOOKING SECTION & SUITE CONTAINER
+   Tested on 375px, 390px, 430px mobile viewports
+   ========================================================================== */
+@media (max-width: 640px) {
+  .ms-suite-section {
+    padding: 50px 0;
+  }
+
+  .ms-suite-container {
+    padding: 0 14px;
+  }
+
+  .ms-suite-header {
+    padding: 0 12px 28px 12px;
+  }
+
+  .ms-suite-headline {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .ms-suite-subtitle {
+    font-size: 14px;
+    line-height: 1.45;
+    margin-top: 10px;
+  }
+
+  /* Booking Card Container */
+  .ms-card-booking {
+    border-radius: 14px;
+    margin: 0;
+  }
+
+  .ms-card-booking .ms-card-header {
+    padding: 20px 16px 14px 16px;
+    width: 100%;
+  }
+
+  .ms-card-booking .ms-card-title {
+    font-size: 20px;
+  }
+
+  .ms-card-booking .ms-card-desc {
+    font-size: 13.5px;
+    line-height: 1.45;
+    margin-bottom: 12px;
+    max-width: 100%;
+  }
+
+  .ms-card-booking .ms-card-visual {
+    padding: 0 12px 18px 12px;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+  }
+
+  .ms-booking-mockup {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.05);
+  }
+
+  /* 1. Top Controls Bar */
+  .ms-bk-topbar {
+    padding: 12px 12px 10px 12px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .ms-bk-tabs {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 6px;
+  }
+
+  .ms-bk-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ms-bk-tab {
+    font-size: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 4px 0;
+  }
+
+  .ms-bk-tab.active::after {
+    bottom: -6px;
+  }
+
+  .ms-bk-actions {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ms-bk-search {
+    flex: 1;
+    min-width: 0;
+    height: 38px;
+    padding: 0 10px;
+  }
+
+  .ms-bk-search input {
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .ms-bk-btn-new {
+    height: 38px;
+    padding: 0 14px;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+  }
+
+  /* 2. Metrics 2x2 Grid */
+  .ms-bk-metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .ms-bk-metric-card {
+    padding: 8px 10px;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .ms-bk-metric-icon-box {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+
+  .ms-bk-metric-val {
+    font-size: 15px;
+  }
+
+  .ms-bk-metric-label {
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* 3. Table Container Transformed to Mobile Cards (No clipping, No horizontal scroll) */
+  .ms-bk-table-container {
+    padding: 0 12px 14px 12px;
+    overflow-x: visible;
+  }
+
+  .ms-bk-table {
+    display: block;
+    width: 100%;
+  }
+
+  .ms-bk-table thead {
+    display: none;
+  }
+
+  .ms-bk-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .ms-bk-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    background-color: #f8fafc;
+    border: 1px solid #edf2f7;
+    border-radius: 10px;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .ms-bk-table td {
+    display: block;
+    padding: 0;
+    border: none;
+    width: 100%;
+  }
+
+  .ms-bk-table td.td-check {
+    display: none;
+  }
+
+  .ms-bk-table td.td-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: auto;
+  }
+
+  .ms-bk-more-btn {
+    padding: 6px;
+  }
+
+  /* Client Row (Avatar, Name & Service) */
+  .ms-bk-client-cell {
+    padding-right: 28px;
+  }
+
+  .ms-bk-client-name {
+    font-size: 13px;
+  }
+
+  .ms-bk-client-sub {
+    font-size: 11px;
+  }
+
+  /* Event Date Row */
+  .ms-bk-table td:nth-child(3) {
+    border-top: 1px solid #f1f5f9;
+    padding-top: 7px;
+  }
+
+  .ms-bk-date-meta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .ms-bk-date-main {
+    font-size: 11.5px;
+  }
+
+  .ms-bk-badge-urgent,
+  .ms-bk-date-sub {
+    font-size: 10.5px;
+    margin-top: 0;
+  }
+
+  /* Shoot Schedule Row */
+  .ms-bk-shoot-meta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .ms-bk-shoot-title {
+    font-size: 11px;
+  }
+
+  .ms-bk-shoot-sub {
+    font-size: 10.5px;
+    margin-top: 0;
+  }
+
+  /* Payment Row */
+  .ms-bk-payment-meta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .ms-bk-amount {
+    margin-top: 0;
+    font-size: 12px;
+  }
+
+  /* Workflow Row */
+  .ms-bk-table td:nth-child(6) {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Reminder Row */
+  .ms-bk-reminder-cell {
+    background-color: #f1f5f9;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-top: 2px;
+  }
+
+  .ms-bk-reminder-meta {
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .ms-bk-remind-sub {
+    margin-top: 0;
+  }
+}
