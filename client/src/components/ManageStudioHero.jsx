@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './ManageStudioHero.css';
 import SharedNavbar from './SharedNavbar.jsx';
 import GalleryShowcase from './GalleryShowcase.jsx';
@@ -22,6 +22,7 @@ export default function ManageStudioHero({ onNavigatePricing, onNavigateAbout, o
   const [activeModal, setActiveModal] = useState(null);
   const [modalData, setModalData] = useState(null);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const modalVideoRef = useRef(null);
 
   const handleOpenGetStarted = () => {
     setActiveModal('get-started');
@@ -34,6 +35,30 @@ export default function ManageStudioHero({ onNavigatePricing, onNavigateAbout, o
   const handleOpenWatchVideo = () => {
     setVideoModalOpen(true);
   };
+
+  const handleCloseWatchVideo = () => {
+    if (modalVideoRef.current) {
+      modalVideoRef.current.pause();
+      modalVideoRef.current.currentTime = 0;
+    }
+    setVideoModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (videoModalOpen && modalVideoRef.current) {
+      modalVideoRef.current.play().catch(() => {});
+    }
+  }, [videoModalOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && videoModalOpen) {
+        handleCloseWatchVideo();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [videoModalOpen]);
 
   const handleOpenPricing = () => {
     if (onNavigate) {
@@ -257,7 +282,7 @@ export default function ManageStudioHero({ onNavigatePricing, onNavigateAbout, o
       {videoModalOpen && (
         <div 
           className="ms-video-modal-backdrop" 
-          onClick={() => setVideoModalOpen(false)}
+          onClick={handleCloseWatchVideo}
           role="dialog"
           aria-modal="true"
         >
@@ -265,20 +290,21 @@ export default function ManageStudioHero({ onNavigatePricing, onNavigateAbout, o
             <button 
               type="button" 
               className="ms-video-modal-close" 
-              onClick={() => setVideoModalOpen(false)}
+              onClick={handleCloseWatchVideo}
               aria-label="Close video"
             >
               <X size={20} />
             </button>
             <div className="ms-video-modal-content">
               <video
+                ref={modalVideoRef}
                 autoPlay
                 controls
                 playsInline
                 className="ms-video-player"
                 poster="/hero-poster.jpg"
               >
-                <source src="/videos/hero.mp4" type="video/mp4" />
+                <source src="/videos/out.mp4" type="video/mp4" />
                 <source src="/videos/hero.webm" type="video/webm" />
                 Your browser does not support video playback.
               </video>
