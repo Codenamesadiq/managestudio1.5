@@ -93,7 +93,7 @@ export default function ManageStudioHero({ onNavigatePricing, onNavigateAbout, o
             className="hero-video"
             poster="/hero-poster.jpg"
           >
-            <source src="/videos/hero.mp4" type="video/mp4" />
+            <source src="/videos/out.mp4" type="video/mp4" />
             <source src="/videos/hero.webm" type="video/webm" />
             Your browser does not support the video tag.
           </video>
