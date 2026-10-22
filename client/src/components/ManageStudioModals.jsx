@@ -48,7 +48,7 @@ export default function ManageStudioModals({
 
   useEffect(() => {
     if (activeModal === 'login') {
-      window.location.href = 'https://app.managestudio.io/';
+      window.location.href = '?page=login';
     }
   }, [activeModal]);
 

@@ -159,7 +159,7 @@ export default function ContactPage({ onNavigate }) {
       <SharedNavbar
         activePage="contact"
         onNavigate={onNavigate}
-        onOpenLogin={() => { window.location.href = 'https://app.managestudio.io/'; }}
+        onOpenLogin={() => onNavigate('login')}
         onOpenGetStarted={() => setActiveModal('get-started')}
       />
 
@@ -548,12 +548,13 @@ export default function ContactPage({ onNavigate }) {
                     </button>
                   </li>
                   <li>
-                    <a
-                      href="https://app.managestudio.io/"
+                    <button
+                      type="button"
                       className="ms-footer-link"
+                      onClick={() => onNavigate('login')}
                     >
                       Log In
-                    </a>
+                    </button>
                   </li>
                 </ul>
               </div>

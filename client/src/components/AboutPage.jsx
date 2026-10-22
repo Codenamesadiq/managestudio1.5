@@ -158,8 +158,8 @@ export default function AboutPage({ onNavigate }) {
       <SharedNavbar
         activePage="about"
         onNavigate={onNavigate}
-        onOpenLogin={() => { window.location.href = 'https://app.managestudio.io/'; }}
-        onOpenGetStarted={() => setActiveModal('get-started')}
+        onOpenLogin={() => { onNavigate && onNavigate('login'); }}
+        onOpenGetStarted={() => { onNavigate && onNavigate('signup'); }}
       />
 
       {/* ======================================================================
@@ -377,12 +377,13 @@ export default function AboutPage({ onNavigate }) {
                     </button>
                   </li>
                   <li>
-                    <a 
-                      href="https://app.managestudio.io/" 
+                    <button 
+                      type="button" 
                       className="ms-footer-link"
+                      onClick={() => onNavigate && onNavigate('login')}
                     >
                       Log In
-                    </a>
+                    </button>
                   </li>
                 </ul>
               </div>

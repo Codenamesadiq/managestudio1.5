@@ -1,0 +1,741 @@
+/* ==============================================================================
+   MANAGESTUDIO 1.5 — AUTH & ACCOUNT PAGES DESIGN SYSTEM
+   Dark cinematic theme matching ManageStudio's signature aesthetic:
+   - Deep canvas (#06090e) with ambient glow and photographic mosaic overlay
+   - Signature teal/green primary accent (#1ABC9C) with hover (#16a085)
+   - Apple SF Pro / Inter typography stack
+   - Glassmorphic card surfaces (rgba(14, 18, 24, 0.88), blur, subtle borders)
+   - Signature pill-shaped primary action buttons
+   ============================================================================== */
+
+:root {
+  --ms-teal: #1ABC9C;
+  --ms-teal-hover: #16a085;
+  --ms-teal-active: #149174;
+  --ms-teal-glow: rgba(26, 188, 156, 0.22);
+  --ms-teal-tint: rgba(26, 188, 156, 0.10);
+  --ms-teal-border: rgba(26, 188, 156, 0.28);
+  --ms-dark-bg: #06090e;
+  --ms-card-bg: rgba(14, 18, 24, 0.88);
+  --ms-card-border: rgba(255, 255, 255, 0.10);
+  --ms-input-bg: rgba(255, 255, 255, 0.04);
+  --ms-input-border: rgba(255, 255, 255, 0.12);
+  --ms-text-primary: #FFFFFF;
+  --ms-text-muted: rgba(255, 255, 255, 0.65);
+  --ms-text-subtle: rgba(255, 255, 255, 0.45);
+}
+
+/* Base Auth Page Layout */
+.auth-page-wrapper {
+  min-height: 100vh;
+  background-color: var(--ms-dark-bg);
+  color: var(--ms-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Cinematic Photo Mosaic & Ambient Glow Backdrop */
+.auth-page-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.auth-page-mosaic {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(ellipse at 50% 25%, rgba(26, 188, 156, 0.12) 0%, rgba(14, 23, 42, 0.70) 50%, rgba(6, 9, 14, 0.98) 100%),
+    url('/hero-poster.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.20;
+  filter: grayscale(85%) contrast(110%);
+}
+
+.auth-page-gradient {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 50% -80px, rgba(26, 188, 156, 0.18) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(6, 9, 14, 0.75) 0%, rgba(6, 9, 14, 0.96) 100%);
+}
+
+/* Center Content Container */
+.auth-main-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 640px) {
+  .auth-main-container {
+    padding: 24px 16px 60px;
+  }
+}
+
+/* Card Entrance Animation */
+@keyframes authCardEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Glassmorphism Auth Card */
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--ms-card-bg);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--ms-card-border);
+  border-radius: 18px;
+  padding: 38px 36px 34px;
+  box-shadow: 
+    0 30px 60px -15px rgba(0, 0, 0, 0.80), 
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 10;
+  animation: authCardEntrance 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-sizing: border-box;
+}
+
+.auth-card-wide {
+  max-width: 540px;
+}
+
+@media (max-width: 640px) {
+  .auth-card {
+    padding: 28px 20px 24px;
+    border-radius: 16px;
+  }
+}
+
+/* Header & Typography */
+.auth-header {
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.auth-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  background: var(--ms-teal-tint);
+  border: 1px solid var(--ms-teal-border);
+  font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--ms-teal);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  user-select: none;
+}
+
+.auth-title {
+  font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: #FFFFFF;
+  margin: 0 0 8px;
+  line-height: 1.25;
+}
+
+@media (max-width: 640px) {
+  .auth-title {
+    font-size: 22px;
+  }
+}
+
+.auth-subtitle {
+  font-size: 14.5px;
+  color: var(--ms-text-muted);
+  line-height: 1.48;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* Form Styles */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 540px) {
+  .auth-form-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+.auth-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.auth-label {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.88);
+  letter-spacing: -0.01em;
+}
+
+.auth-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth-input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--ms-text-subtle);
+  pointer-events: none;
+  transition: color 0.15s ease;
+}
+
+.auth-input-wrap:focus-within .auth-input-icon {
+  color: var(--ms-teal);
+}
+
+.auth-input {
+  width: 100%;
+  padding: 12px 14px 12px 42px;
+  background: var(--ms-input-bg);
+  border: 1px solid var(--ms-input-border);
+  border-radius: 11px;
+  font-size: 14px;
+  color: #FFFFFF;
+  outline: none;
+  transition: border-color 0.16s ease, background-color 0.16s ease, box-shadow 0.16s ease;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.auth-input:focus {
+  background: rgba(26, 188, 156, 0.04);
+  border-color: var(--ms-teal);
+  box-shadow: 0 0 0 3px var(--ms-teal-glow);
+}
+
+.auth-input::placeholder {
+  color: var(--ms-text-subtle);
+}
+
+.auth-input-toggle-pwd {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--ms-text-subtle);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+.auth-input-toggle-pwd:hover {
+  color: #FFFFFF;
+}
+
+/* Primary Action Button (Pixel-perfect to .teal-cta-btn) */
+.auth-submit-btn {
+  width: 100%;
+  padding: 13px 22px;
+  background-color: var(--ms-teal);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 9999px;
+  font-family: var(--font-body, -apple-system, sans-serif);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(26, 188, 156, 0.30);
+  margin-top: 6px;
+  box-sizing: border-box;
+}
+
+.auth-submit-btn:hover:not(:disabled) {
+  background-color: var(--ms-teal-hover);
+  box-shadow: 0 6px 22px rgba(26, 188, 156, 0.42);
+  transform: translateY(-1px);
+}
+
+.auth-submit-btn:active:not(:disabled) {
+  transform: scale(0.97);
+  background-color: var(--ms-teal-active);
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Secondary Action Button */
+.auth-btn-secondary {
+  width: 100%;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.auth-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* Links */
+.auth-link {
+  color: var(--ms-teal);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  transition: color 0.15s ease;
+  display: inline;
+}
+
+.auth-link:hover {
+  color: var(--ms-teal-hover);
+  text-decoration: underline;
+}
+
+/* Checkbox Row */
+.auth-checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--ms-text-muted);
+  line-height: 1.45;
+  cursor: pointer;
+  user-select: none;
+}
+
+.auth-checkbox-row input[type="checkbox"] {
+  accent-color: var(--ms-teal);
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Footer Section */
+.auth-footer-links {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--ms-text-muted);
+}
+
+/* Alerts */
+@keyframes authFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-error-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.28);
+  border-radius: 11px;
+  color: #fca5a5;
+  font-size: 13.5px;
+  line-height: 1.45;
+  animation: authFadeIn 0.2s ease;
+  box-sizing: border-box;
+}
+
+.auth-success-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px 20px;
+  background: rgba(26, 188, 156, 0.12);
+  border: 1px solid rgba(26, 188, 156, 0.30);
+  border-radius: 11px;
+  color: #5eead4;
+  font-size: 13.5px;
+  line-height: 1.5;
+  animation: authFadeIn 0.2s ease;
+  box-sizing: border-box;
+}
+
+/* ==============================================================================
+   ACCOUNT & PROFILE DASHBOARD STYLING
+   ============================================================================== */
+
+.account-page-container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.account-hero-card {
+  background: var(--ms-card-bg);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--ms-card-border);
+  border-radius: 18px;
+  padding: 30px 34px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+.account-studio-info h1 {
+  font-family: var(--font-display, "SF Pro Display", -apple-system, sans-serif);
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: #FFFFFF;
+}
+
+.account-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 13.5px;
+  color: var(--ms-text-muted);
+  flex-wrap: wrap;
+}
+
+.account-badge-active {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 12px;
+  background: var(--ms-teal-tint);
+  border: 1px solid var(--ms-teal-border);
+  color: var(--ms-teal);
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.account-badge-pending {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 12px;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #F59E0B;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.account-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.account-btn-secondary {
+  padding: 9px 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 9999px;
+  color: #E4E4E7;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.account-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.24);
+  color: #FFFFFF;
+}
+
+.account-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 860px) {
+  .account-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.account-panel {
+  background: var(--ms-card-bg);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--ms-card-border);
+  border-radius: 18px;
+  padding: 26px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.4);
+}
+
+.panel-title {
+  font-family: var(--font-display, "SF Pro Display", -apple-system, sans-serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.account-modules-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.account-module-item {
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.account-module-item.active {
+  border-color: var(--ms-teal-border);
+  background: var(--ms-teal-tint);
+}
+
+.ami-name {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+.ami-status {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ms-teal);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.account-storage-meter {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.asm-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--ms-text-muted);
+  margin-bottom: 10px;
+}
+
+.asm-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.asm-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--ms-teal) 0%, #16a085 100%);
+  border-radius: 9999px;
+}
+
+/* ==============================================================================
+   CHECKOUT STATUS & LEGAL PAGES
+   ============================================================================== */
+
+.checkout-status-card {
+  max-width: 520px;
+  margin: 40px auto;
+  background: var(--ms-card-bg);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--ms-card-border);
+  border-radius: 18px;
+  padding: 44px 36px;
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+  position: relative;
+  z-index: 10;
+}
+
+.status-icon-bubble {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-icon-bubble.success {
+  background: var(--ms-teal-tint);
+  border: 2px solid var(--ms-teal-border);
+  color: var(--ms-teal);
+}
+
+.status-icon-bubble.failure {
+  background: rgba(239, 68, 68, 0.15);
+  border: 2px solid rgba(239, 68, 68, 0.4);
+  color: #EF4444;
+}
+
+.status-receipt-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 24px 0;
+  text-align: left;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.srb-row {
+  display: flex;
+  justify-content: space-between;
+  color: var(--ms-text-muted);
+}
+
+.srb-row strong {
+  color: #FFFFFF;
+}
+
+.legal-content-container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 50px 24px 100px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.75);
+  position: relative;
+  z-index: 1;
+}
+
+.legal-content-container h1 {
+  font-family: var(--font-display, "SF Pro Display", -apple-system, sans-serif);
+  font-size: 34px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+}
+
+.legal-meta {
+  font-size: 13px;
+  color: var(--ms-text-subtle);
+  margin-bottom: 32px;
+}
+
+.legal-section {
+  margin-bottom: 36px;
+}
+
+.legal-section h2 {
+  font-family: var(--font-display, "SF Pro Display", -apple-system, sans-serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0 0 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 8px;
+}
+
+.legal-section p, .legal-section li {
+  font-size: 14.5px;
+  color: var(--ms-text-muted);
+  margin-bottom: 12px;
+}
+
+.legal-section ul {
+  padding-left: 20px;
+}

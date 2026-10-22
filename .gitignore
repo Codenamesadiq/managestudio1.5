@@ -19,8 +19,13 @@ node_modules/
 
 # Local database & uploads
 server/data/*.db
+server/data/*.db-wal
+server/data/*.db-shm
 server/storage/uploads/*
+server/storage/backups/*
+server/backups/*
 !server/storage/uploads/.gitkeep
+!server/storage/backups/.gitkeep
 
 # Scratch & Temporary files
 scratch_crop*

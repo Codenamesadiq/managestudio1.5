@@ -255,18 +255,13 @@ export default function HomepageBottomSections({
                     </button>
                   </li>
                   <li>
-                    <a 
-                      href="https://app.managestudio.io/" 
+                    <button 
+                      type="button" 
                       className="ms-footer-link"
-                      onClick={(e) => {
-                        if (onLogin) {
-                          e.preventDefault();
-                          onLogin();
-                        }
-                      }}
+                      onClick={onLogin}
                     >
                       Log In
-                    </a>
+                    </button>
                   </li>
                 </ul>
               </div>

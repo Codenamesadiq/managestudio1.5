@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './SharedNavbar.css';
+import { useAuth } from '../context/AuthContext.jsx';
+import { User, ShieldCheck } from 'lucide-react';
 
 export default function SharedNavbar({
   activePage = 'home',
@@ -8,6 +10,7 @@ export default function SharedNavbar({
   onOpenGetStarted,
   isHomepage = false
 }) {
+  const { currentUser, studio, userProfile } = useAuth();
   const [modulesOpen, setModulesOpen] = useState(false);
   const dropdownTimerRef = useRef(null);
 
@@ -289,18 +292,32 @@ export default function SharedNavbar({
 
         {/* Navigation Actions (Far Right: Log In, Get Started) */}
         <div className="ms-nav-actions">
-          <a
-            href="https://app.managestudio.io/"
-            className="ms-nav-login-btn"
-            onClick={(e) => {
-              if (onOpenLogin) {
+          {currentUser ? (
+            <button
+              type="button"
+              className="ms-nav-login-btn"
+              onClick={() => onNavigate && onNavigate('account')}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+            >
+              <User size={14} color="#D4AF7C" />
+              <span>{userProfile?.displayName || currentUser.displayName || 'Account'}</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="ms-nav-login-btn"
+              onClick={(e) => {
                 e.preventDefault();
-                onOpenLogin();
-              }
-            }}
-          >
-            Log In
-          </a>
+                if (onOpenLogin) {
+                  onOpenLogin();
+                } else if (onNavigate) {
+                  onNavigate('login');
+                }
+              }}
+            >
+              Log In
+            </button>
+          )}
 
           <a
             href="https://github.com/Codenamesadiq/managestudio1.5/releases/download/Managestudio1.5/ManageStudio-Setup.exe"

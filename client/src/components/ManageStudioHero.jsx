@@ -25,11 +25,19 @@ export default function ManageStudioHero({ onNavigatePricing, onNavigateAbout, o
   const modalVideoRef = useRef(null);
 
   const handleOpenGetStarted = () => {
-    setActiveModal('get-started');
+    if (onNavigate) {
+      onNavigate('signup');
+    } else {
+      window.location.href = '?page=signup';
+    }
   };
 
   const handleOpenLogin = () => {
-    window.location.href = 'https://app.managestudio.io/';
+    if (onNavigate) {
+      onNavigate('login');
+    } else {
+      window.location.href = '?page=login';
+    }
   };
 
   const handleOpenWatchVideo = () => {

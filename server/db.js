@@ -71,7 +71,75 @@ export function initDB() {
       details TEXT,
       created_at TEXT NOT NULL
     );
+
+    CREATE TABLE IF NOT EXISTS subscription_orders (
+      id TEXT PRIMARY KEY,
+      order_id TEXT UNIQUE NOT NULL,
+      payment_id TEXT,
+      user_uid TEXT NOT NULL,
+      studio_id TEXT NOT NULL,
+      amount_paise INTEGER NOT NULL,
+      currency TEXT DEFAULT 'INR',
+      modules_json TEXT NOT NULL,
+      storage_gb INTEGER NOT NULL,
+      status TEXT DEFAULT 'CREATED', -- 'CREATED', 'VERIFIED', 'FAILED', 'REFUNDED'
+      razorpay_signature TEXT,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS subscriptions (
+      id TEXT PRIMARY KEY,
+      user_uid TEXT NOT NULL,
+      studio_id TEXT NOT NULL,
+      plan_name TEXT DEFAULT 'Custom',
+      modules_json TEXT NOT NULL,
+      storage_quota_gb INTEGER NOT NULL,
+      status TEXT DEFAULT 'active', -- 'active', 'pending_payment', 'cancelled', 'expired'
+      current_period_start TEXT NOT NULL,
+      current_period_end TEXT NOT NULL,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS payment_audit_logs (
+      id TEXT PRIMARY KEY,
+      order_id TEXT,
+      payment_id TEXT,
+      event_type TEXT NOT NULL,
+      details_json TEXT,
+      created_at TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS device_activations (
+      id TEXT PRIMARY KEY,
+      user_uid TEXT NOT NULL,
+      studio_id TEXT NOT NULL,
+      device_id TEXT NOT NULL,
+      device_name TEXT,
+      os_info TEXT,
+      ip_address TEXT,
+      is_active INTEGER DEFAULT 1,
+      last_active_at TEXT NOT NULL,
+      created_at TEXT NOT NULL
+    );
   `);
+
+  // Safe schema migrations for existing SQLite databases
+  try { db.exec('ALTER TABLE subscription_orders ADD COLUMN coupon_code TEXT;'); } catch (_) {}
+  try { db.exec('ALTER TABLE subscription_orders ADD COLUMN discount_paise INTEGER DEFAULT 0;'); } catch (_) {}
+  try { db.exec('ALTER TABLE subscription_orders ADD COLUMN original_amount_paise INTEGER;'); } catch (_) {}
+  try { db.exec('ALTER TABLE studios ADD COLUMN owner_uid TEXT;'); } catch (_) {}
+  try { db.exec('ALTER TABLE studios ADD COLUMN updated_at TEXT;'); } catch (_) {}
+
+  // Performance & Concurrency Pragmas
+  try {
+    db.exec('PRAGMA journal_mode = WAL;');
+    db.exec('PRAGMA synchronous = NORMAL;');
+    db.exec('PRAGMA busy_timeout = 5000;');
+  } catch (pragmaErr) {
+    console.warn('[DB] Pragma setting notice:', pragmaErr.message);
+  }
 
   // Check if we need to seed demo data
   const check = db.prepare('SELECT COUNT(*) as count FROM studios').get();

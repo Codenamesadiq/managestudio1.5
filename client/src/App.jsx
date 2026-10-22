@@ -12,28 +12,43 @@ import PricingPage from './components/PricingPage.jsx';
 import AboutPage from './components/AboutPage.jsx';
 import ContactPage from './components/ContactPage.jsx';
 
+// Native Customer Account & Billing Pages
+import LoginPage from './pages/LoginPage.jsx';
+import SignUpPage from './pages/SignUpPage.jsx';
+import ForgotPasswordPage from './pages/ForgotPasswordPage.jsx';
+import AccountPage from './pages/AccountPage.jsx';
+import CheckoutSuccessPage from './pages/CheckoutSuccessPage.jsx';
+import CheckoutFailurePage from './pages/CheckoutFailurePage.jsx';
+import LegalPage from './pages/LegalPage.jsx';
+
 export default function App() {
   const urlParams = new URLSearchParams(window.location.search);
   const clientToken = urlParams.get('token');
-  
+
   const getInitialView = () => {
-    if (urlParams.get('page') === 'login' || window.location.pathname === '/login' || urlParams.get('view') === 'login') {
-      window.location.replace('https://app.managestudio.io/');
-      return 'marketing';
-    }
-    if (urlParams.get('page') === 'pricing' || window.location.pathname === '/pricing') {
-      return 'pricing';
-    }
-    if (urlParams.get('page') === 'about' || window.location.pathname === '/about') {
-      return 'about';
-    }
-    if (urlParams.get('page') === 'contact' || window.location.pathname === '/contact') {
-      return 'contact';
-    }
+    const pageParam = urlParams.get('page');
+    const path = window.location.pathname.replace(/^\/|\/$/g, '');
+
+    if (pageParam === 'login' || path === 'login') return 'login';
+    if (pageParam === 'signup' || pageParam === 'register' || path === 'signup') return 'signup';
+    if (pageParam === 'forgot-password' || path === 'forgot-password') return 'forgot-password';
+    if (pageParam === 'account' || path === 'account') return 'account';
+    if (pageParam === 'pricing' || path === 'pricing') return 'pricing';
+    if (pageParam === 'checkout-success' || path === 'checkout-success') return 'checkout-success';
+    if (pageParam === 'checkout-failure' || path === 'checkout-failure') return 'checkout-failure';
+    if (pageParam === 'terms' || path === 'terms') return 'terms';
+    if (pageParam === 'privacy' || path === 'privacy') return 'privacy';
+    if (pageParam === 'refund-policy' || path === 'refund-policy') return 'refund-policy';
+    if (pageParam === 'about' || path === 'about') return 'about';
+    if (pageParam === 'contact' || path === 'contact') return 'contact';
+
     return urlParams.get('view') || 'marketing';
   };
 
   const [viewMode, setViewMode] = useState(getInitialView);
+  const [checkoutPayload, setCheckoutPayload] = useState(null);
+  const [checkoutErrorMsg, setCheckoutErrorMsg] = useState(null);
+
   const [currentTab, setCurrentTab] = useState('dashboard');
   const [albums, setAlbums] = useState([]);
   const [stats, setStats] = useState(null);
@@ -42,29 +57,31 @@ export default function App() {
   const [selectedAlbumId, setSelectedAlbumId] = useState(null);
   const [mobilePreviewAlbum, setMobilePreviewAlbum] = useState(null);
 
-  const handleNavigate = (page, targetId) => {
-    if (page === 'login') {
-      window.location.href = 'https://app.managestudio.io/';
-      return;
-    }
+  const handleNavigate = (page, payload) => {
     setViewMode(page);
-    if (page === 'pricing') {
-      window.history.pushState({}, '', '?page=pricing');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (page === 'about') {
-      window.history.pushState({}, '', '?page=about');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (page === 'contact') {
-      window.history.pushState({}, '', '?page=contact');
+
+    if (page === 'checkout-success') {
+      setCheckoutPayload(payload);
+    } else if (page === 'checkout-failure') {
+      setCheckoutErrorMsg(typeof payload === 'string' ? payload : payload?.errorMessage || null);
+    }
+
+    // Push clean search query to browser URL
+    const knownPages = [
+      'login', 'signup', 'forgot-password', 'account', 'pricing', 
+      'checkout-success', 'checkout-failure', 'terms', 'privacy', 
+      'refund-policy', 'about', 'contact'
+    ];
+
+    if (knownPages.includes(page)) {
+      window.history.pushState({}, '', `?page=${page}`);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (page === 'marketing') {
-      window.history.pushState({}, '', window.location.pathname === '/pricing' || window.location.pathname === '/about' || window.location.pathname === '/contact' ? '/' : window.location.pathname);
-      if (targetId) {
+      window.history.pushState({}, '', '/');
+      if (typeof payload === 'string') {
         setTimeout(() => {
-          const el = document.getElementById(targetId);
-          if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
-          }
+          const el = document.getElementById(payload);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
         }, 80);
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -75,34 +92,37 @@ export default function App() {
   useEffect(() => {
     const handlePopState = () => {
       const params = new URLSearchParams(window.location.search);
-      if (params.get('page') === 'login' || window.location.pathname === '/login' || params.get('view') === 'login') {
-        window.location.replace('https://app.managestudio.io/');
-        return;
-      }
-      if (params.get('page') === 'pricing' || window.location.pathname === '/pricing') {
-        setViewMode('pricing');
-      } else if (params.get('page') === 'about' || window.location.pathname === '/about') {
-        setViewMode('about');
-      } else if (params.get('page') === 'contact' || window.location.pathname === '/contact') {
-        setViewMode('contact');
-      } else if (params.get('view')) {
-        setViewMode(params.get('view'));
-      } else {
-        setViewMode('marketing');
-      }
+      const pageParam = params.get('page');
+      const path = window.location.pathname.replace(/^\/|\/$/g, '');
+
+      if (pageParam === 'login' || path === 'login') setViewMode('login');
+      else if (pageParam === 'signup' || path === 'signup') setViewMode('signup');
+      else if (pageParam === 'forgot-password' || path === 'forgot-password') setViewMode('forgot-password');
+      else if (pageParam === 'account' || path === 'account') setViewMode('account');
+      else if (pageParam === 'pricing' || path === 'pricing') setViewMode('pricing');
+      else if (pageParam === 'checkout-success' || path === 'checkout-success') setViewMode('checkout-success');
+      else if (pageParam === 'checkout-failure' || path === 'checkout-failure') setViewMode('checkout-failure');
+      else if (pageParam === 'terms' || path === 'terms') setViewMode('terms');
+      else if (pageParam === 'privacy' || path === 'privacy') setViewMode('privacy');
+      else if (pageParam === 'refund-policy' || path === 'refund-policy') setViewMode('refund-policy');
+      else if (pageParam === 'about' || path === 'about') setViewMode('about');
+      else if (pageParam === 'contact' || path === 'contact') setViewMode('contact');
+      else if (params.get('view')) setViewMode(params.get('view'));
+      else setViewMode('marketing');
     };
+
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Global Scroll Reveal Observer: Triggers each section animation only once as it enters the viewport
+  // Global Scroll Reveal Observer: Triggers each section animation as it enters viewport
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-revealed');
-            obs.unobserve(entry.target); // Trigger only once
+            obs.unobserve(entry.target);
           }
         });
       }, {
@@ -164,23 +184,58 @@ export default function App() {
     );
   }
 
+  // 1. Native Login Page
+  if (viewMode === 'login') {
+    return <LoginPage onNavigate={handleNavigate} />;
+  }
 
-  // Dedicated Pricing Page
+  // 2. Native Sign Up Page
+  if (viewMode === 'signup') {
+    return <SignUpPage onNavigate={handleNavigate} />;
+  }
+
+  // 3. Native Forgot Password Page
+  if (viewMode === 'forgot-password') {
+    return <ForgotPasswordPage onNavigate={handleNavigate} />;
+  }
+
+  // 4. Native Account / Profile Page
+  if (viewMode === 'account') {
+    return <AccountPage onNavigate={handleNavigate} />;
+  }
+
+  // 5. Dedicated Pricing Page with Razorpay Checkout
   if (viewMode === 'pricing') {
     return <PricingPage onNavigate={handleNavigate} />;
   }
 
-  // Dedicated About Page
+  // 6. Checkout Success Confirmation Page
+  if (viewMode === 'checkout-success') {
+    return <CheckoutSuccessPage onNavigate={handleNavigate} checkoutDetails={checkoutPayload} />;
+  }
+
+  // 7. Checkout Failure / Cancelled Page
+  if (viewMode === 'checkout-failure') {
+    return <CheckoutFailurePage onNavigate={handleNavigate} errorMessage={checkoutErrorMsg} />;
+  }
+
+  // 8. Legal Pages (Terms, Privacy, Refund Policy)
+  if (viewMode === 'terms' || viewMode === 'privacy' || viewMode === 'refund-policy') {
+    const initialTab = viewMode === 'refund-policy' ? 'refund' : viewMode;
+    return <LegalPage initialTab={initialTab} onNavigate={handleNavigate} />;
+  }
+
+  // 9. Dedicated About Page
   if (viewMode === 'about') {
     return <AboutPage onNavigate={handleNavigate} />;
   }
 
-  // Dedicated Contact Page
+  // 10. Dedicated Contact Page
   if (viewMode === 'contact') {
     return <ContactPage onNavigate={handleNavigate} />;
   }
 
-  // Default marketing landing view matching the Manage Studio 1.5 website
+  // 11. Default marketing landing view
   if (viewMode === 'marketing') {
     return (
       <ManageStudioHero 
@@ -191,9 +246,9 @@ export default function App() {
     );
   }
 
+  // 12. Internal studio dashboard (fallback)
   return (
     <div className="app-container">
-      {/* Studio Left Sidebar */}
       <Sidebar
         currentTab={currentTab}
         onSelectTab={(tab) => {
@@ -206,7 +261,6 @@ export default function App() {
         }}
       />
 
-      {/* Main Studio Work Area */}
       <div className="main-content">
         <Header studioInfo={studioInfo} />
 
@@ -231,7 +285,6 @@ export default function App() {
         )}
       </div>
 
-      {/* Modal 1: 3-step Create Album Wizard */}
       <CreateAlbumModal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
@@ -242,7 +295,6 @@ export default function App() {
         }}
       />
 
-      {/* Modal 2: Mobile iPhone Preview Modal */}
       <MobilePreviewModal
         album={mobilePreviewAlbum}
         isOpen={Boolean(mobilePreviewAlbum)}

@@ -134,9 +134,12 @@ export default function PixiesetProducts() {
           {/* Right Actions */}
           <div className="pixieset-nav-actions">
             <a 
-              href="https://app.managestudio.io/" 
+              href="/#login" 
               className="pixieset-login-link"
-              onClick={() => { window.location.href = 'https://app.managestudio.io/'; }}
+              onClick={(e) => { 
+                e.preventDefault(); 
+                window.location.hash = '#login'; 
+              }}
             >
               Log In
             </a>

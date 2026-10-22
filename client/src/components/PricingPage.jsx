@@ -20,13 +20,21 @@ import {
   Camera,
   FolderKanban,
   ShieldCheck,
-  Sparkles
+  Sparkles,
+  CreditCard,
+  Lock,
+  AlertCircle
 } from 'lucide-react';
 import ManageStudioModals from './ManageStudioModals.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
+import { calculatePlanSummary, validateAndApplyCoupon, PAID_MODULES, INCLUDED_MODULES, STORAGE_ADDONS } from '../config/pricingConfig.js';
 
 export default function PricingPage({ onNavigate }) {
+  const { currentUser, userProfile, studio, getIdToken } = useAuth();
   const [activeModal, setActiveModal] = useState(null);
   const [toastMessage, setToastMessage] = useState(null);
+  const [checkingOut, setCheckingOut] = useState(false);
+  const [checkoutError, setCheckoutError] = useState(null);
 
   // Selected Modules for Interactive Storage & Price Calculator
   // By default, show all 3 paid modules active
@@ -38,6 +46,11 @@ export default function PricingPage({ onNavigate }) {
 
   // Selected Additional Storage (null or '50gb' | '200gb' | '500gb' | '1tb')
   const [selectedStorage, setSelectedStorage] = useState(null);
+
+  // Discount Coupon State
+  const [couponInput, setCouponInput] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState('');
+  const [couponError, setCouponError] = useState(null);
 
   // FAQ Accordion Open States
   const [openFaq, setOpenFaq] = useState({});
@@ -69,45 +82,210 @@ export default function PricingPage({ onNavigate }) {
     }, 2800);
   };
 
-  // Calculate dynamic storage totals based on selections:
-  // 1 paid module = 5 GB
-  // 2 paid modules = 10 GB
-  // All 3 paid modules = 15 GB
-  const selectedCount = Object.values(selectedModules).filter(Boolean).length;
-  const baseStorageGB = selectedCount * 5;
+  // Convert UI state to module IDs array
+  const selectedModuleIds = [];
+  if (selectedModules.album) selectedModuleIds.push('album-selection');
+  if (selectedModules.song) selectedModuleIds.push('song-selection');
+  if (selectedModules.guestAi) selectedModuleIds.push('guest-photo-ai');
 
-  const storageAddonMap = {
-    '50gb': 50,
-    '200gb': 200,
-    '500gb': 500,
-    '1tb': 1000
+  // Authoritative calculation via shared config with coupon
+  const planSummary = calculatePlanSummary(selectedModuleIds, selectedStorage, appliedCoupon);
+  const selectedCount = planSummary.selectedCount;
+  const baseStorageGB = planSummary.baseStorageGb;
+  const totalStorageGB = planSummary.totalStorageGb;
+  const totalPrice = planSummary.totalPrice;
+
+  const handleApplyCoupon = (e) => {
+    if (e) e.preventDefault();
+    const clean = couponInput.trim().toUpperCase();
+    if (!clean) {
+      setCouponError('Please enter a coupon code.');
+      return;
+    }
+    const res = validateAndApplyCoupon(planSummary.subtotalPaise, clean, false);
+    if (!res.isValidCoupon) {
+      setCouponError(res.error || 'Invalid coupon code');
+      setAppliedCoupon('');
+    } else {
+      setAppliedCoupon(clean);
+      setCouponError(null);
+      handleShowToast(`Applied ${res.coupon.code}: ${res.coupon.discountPercent}% discount!`);
+    }
   };
-  const addonGB = selectedStorage ? storageAddonMap[selectedStorage] || 0 : 0;
-  const totalStorageGB = baseStorageGB + addonGB;
 
-  // Calculate total monthly price
-  // Paid modules:
-  // - Album Selection: ₹499/month
-  // - Song Selection: ₹499/month
-  // - Guest Photo AI: ₹699/month
-  // Additional storage plans:
-  // - 50 GB: ₹299/month
-  // - 200 GB: ₹599/month
-  // - 500 GB: ₹999/month
-  // - 1 TB: ₹1,499/month
-  let totalPrice = 0;
-  if (selectedModules.album) totalPrice += 499;
-  if (selectedModules.song) totalPrice += 499;
-  if (selectedModules.guestAi) totalPrice += 699;
-  if (selectedStorage === '50gb') totalPrice += 299;
-  if (selectedStorage === '200gb') totalPrice += 599;
-  if (selectedStorage === '500gb') totalPrice += 999;
-  if (selectedStorage === '1tb') totalPrice += 1499;
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon('');
+    setCouponInput('');
+    setCouponError(null);
+    handleShowToast('Coupon removed');
+  };
+
+  // Razorpay Checkout Handler
+  const handleCheckout = async () => {
+    if (!currentUser) {
+      if (onNavigate) onNavigate('login');
+      return;
+    }
+
+    if (selectedCount === 0) {
+      alert('Please select at least one paid module to subscribe.');
+      return;
+    }
+
+    setCheckingOut(true);
+    setCheckoutError(null);
+
+    try {
+      const token = await getIdToken();
+
+      // 1. Create Order on backend
+      const orderRes = await fetch('/api/payments/create-order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          modules: selectedModuleIds,
+          selectedStorageId: selectedStorage,
+          studioId: studio?.studioId,
+          couponCode: appliedCoupon || null
+        })
+      });
+
+      const orderData = await orderRes.json();
+      if (!orderRes.ok || !orderData.success) {
+        throw new Error(orderData.error || 'Failed to create payment order');
+      }
+
+      // 2. Dynamically load Razorpay SDK
+      const loadScript = () => new Promise((resolve) => {
+        if (window.Razorpay) return resolve(true);
+        const script = document.createElement('script');
+        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+        script.async = true;
+        script.onload = () => resolve(true);
+        script.onerror = () => resolve(false);
+        document.body.appendChild(script);
+      });
+
+      const loaded = await loadScript();
+      if (!loaded) {
+        throw new Error('Failed to load Razorpay checkout script from CDN. Please check your internet connection.');
+      }
+
+      // If in sandbox mock mode without live keys:
+      if (orderData.keyId === 'rzp_test_placeholder') {
+        const verifyRes = await fetch('/api/payments/verify', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            orderId: orderData.orderId,
+            paymentId: `pay_test_${Date.now()}`,
+            signature: 'test_sandbox_signature',
+            studioId: studio?.studioId,
+            modules: selectedModuleIds,
+            storageGb: totalStorageGB
+          })
+        });
+
+        const verifyData = await verifyRes.json();
+        if (verifyRes.ok && verifyData.success) {
+          if (onNavigate) {
+            onNavigate('checkout-success', {
+              orderId: orderData.orderId,
+              paymentId: `pay_test_${Date.now()}`,
+              planSummary
+            });
+          }
+          return;
+        }
+      }
+
+      // 3. Open Razorpay Checkout Modal
+      const options = {
+        key: orderData.keyId,
+        amount: orderData.amount,
+        currency: orderData.currency || 'INR',
+        name: 'ManageStudio 1.5',
+        description: `${selectedCount} Studio Modules (${totalStorageGB} GB Shared Storage)`,
+        order_id: orderData.orderId,
+        prefill: {
+          name: currentUser.displayName || userProfile?.displayName || '',
+          email: currentUser.email || ''
+        },
+        theme: {
+          color: '#D4AF7C'
+        },
+        handler: async function (response) {
+          try {
+            const verifyRes = await fetch('/api/payments/verify', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+              },
+              body: JSON.stringify({
+                orderId: response.razorpay_order_id || orderData.orderId,
+                paymentId: response.razorpay_payment_id,
+                signature: response.razorpay_signature,
+                studioId: studio?.studioId,
+                modules: selectedModuleIds,
+                storageGb: totalStorageGB
+              })
+            });
+
+            const verifyData = await verifyRes.json();
+            if (verifyRes.ok && verifyData.success) {
+              if (onNavigate) {
+                onNavigate('checkout-success', {
+                  orderId: response.razorpay_order_id || orderData.orderId,
+                  paymentId: response.razorpay_payment_id,
+                  planSummary
+                });
+              }
+            } else {
+              if (onNavigate) {
+                onNavigate('checkout-failure', {
+                  errorMessage: verifyData.error || 'Payment signature verification failed'
+                });
+              }
+            }
+          } catch (vErr) {
+            if (onNavigate) {
+              onNavigate('checkout-failure', { errorMessage: vErr.message });
+            }
+          }
+        },
+        modal: {
+          ondismiss: function () {
+            setCheckingOut(false);
+          }
+        }
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.on('payment.failed', function (resp) {
+        if (onNavigate) {
+          onNavigate('checkout-failure', {
+            errorMessage: resp.error?.description || 'Payment cancelled or failed'
+          });
+        }
+      });
+      rzp.open();
+    } catch (err) {
+      setCheckoutError(err.message || 'Payment initiation failed.');
+      setCheckingOut(false);
+    }
+  };
 
   const faqs = [
     {
       q: 'How do I purchase a membership or subscribe?',
-      a: 'To purchase a membership, download ManageStudio and subscribe directly within the software. The website allows you to explore features and calculate prices, but all membership purchases and subscriptions are handled securely directly inside the desktop application.'
+      a: 'Select your desired creative modules and storage tier directly on this page, then click Proceed to Checkout. Payment is processed securely via Razorpay in Indian Rupees (INR). Upon verified payment, your subscription entitlements activate instantly across both the web app and the desktop software.'
     },
     {
       q: 'Is Gallery included with every paid module?',
@@ -123,11 +301,11 @@ export default function PricingPage({ onNavigate }) {
     },
     {
       q: 'Can I add extra storage later?',
-      a: 'Yes, absolutely. You can add additional storage plans (50 GB for ₹299/mo, 200 GB for ₹599/mo, 500 GB for ₹999/mo, or 1 TB for ₹1,499/mo) anytime directly from your studio software settings.'
+      a: 'Yes, absolutely. You can add additional storage plans (50 GB for ₹299/mo, 200 GB for ₹599/mo, 500 GB for ₹999/mo, or 1 TB for ₹1,499/mo) anytime directly from your studio account dashboard or on this page.'
     },
     {
       q: 'Can I change or cancel my subscribed modules?',
-      a: 'Yes, you have complete flexibility. You can add, upgrade, or remove individual modules month-to-month directly within the desktop software.'
+      a: 'Yes, you have complete flexibility. You can add, upgrade, or cancel individual modules month-to-month directly within your Account profile or settings.'
     }
   ];
 
@@ -147,7 +325,7 @@ export default function PricingPage({ onNavigate }) {
         <SharedNavbar
           activePage="pricing"
           onNavigate={onNavigate}
-          onOpenLogin={() => { window.location.href = 'https://app.managestudio.io/'; }}
+          onOpenLogin={() => { onNavigate && onNavigate('login'); }}
         />
 
         {/* Hero Content Area */}
@@ -169,33 +347,54 @@ export default function PricingPage({ onNavigate }) {
         <div className="pricing-body-container">
 
           {/* ==================================================================
-              REQUIREMENT 3: MANDATORY NOTICE FOR MEMBERSHIP PURCHASE
+              DYNAMIC ACCOUNT & CHECKOUT NOTICE
               ================================================================== */}
-          <div className="pricing-membership-notice-card" role="region" aria-label="Membership Purchase Notice">
+          <div className="pricing-membership-notice-card" role="region" aria-label="Subscription Notice">
             <div className="pricing-notice-icon-box">
-              <Laptop size={26} className="pricing-notice-icon" />
+              <CreditCard size={26} className="pricing-notice-icon" color="#D4AF7C" />
             </div>
             <div className="pricing-notice-content">
-              <span className="pricing-notice-pill">DESKTOP SOFTWARE SUBSCRIPTION</span>
+              <span className="pricing-notice-pill">INSTANT ONLINE ACTIVATION</span>
               <h2 className="pricing-notice-title">
-                To purchase a membership, download ManageStudio and subscribe directly within the software.
+                {currentUser 
+                  ? `Welcome, ${currentUser.displayName || studio?.studioName || 'Studio Owner'}! You're ready to subscribe.`
+                  : 'Subscribe online with verified Razorpay checkout & instant cloud activation.'
+                }
               </h2>
               <p className="pricing-notice-description">
-                You can view and calculate all module prices and storage options here on our website. However, membership purchases and subscription activations must be completed inside the desktop software. No payments or checkouts are processed on the website.
+                {currentUser ? (
+                  <>
+                    Logged in as <strong>{currentUser.email}</strong>. Select your desired creative modules and optional cloud storage add-on below. Your subscription entitlements will activate immediately upon verified checkout.
+                  </>
+                ) : (
+                  <>
+                    Choose the tools your studio needs below. Sign in to your account or create one during checkout to activate your subscription instantly across the web platform and desktop software suite.
+                  </>
+                )}
               </p>
             </div>
             <div className="pricing-notice-action">
-              <a 
-                href="https://github.com/Codenamesadiq/managestudio1.5/releases/download/Managestudio1.5/ManageStudio-Setup.exe"
-                className="pricing-notice-download-btn"
-                download="ManageStudio-Setup.exe"
-                target="_self"
-                rel="noopener noreferrer"
-              >
-                <Download size={16} />
-                <span>Download ManageStudio</span>
-              </a>
-              <span className="pricing-notice-platform">Windows 10 / 11 Installer</span>
+              {currentUser ? (
+                <button
+                  type="button"
+                  className="pricing-notice-download-btn"
+                  style={{ background: 'linear-gradient(135deg, #1ABC9C 0%, #16A085 100%)', color: '#FFFFFF', border: 'none' }}
+                  onClick={() => onNavigate && onNavigate('account')}
+                >
+                  <ShieldCheck size={16} />
+                  <span>View Account Status</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="pricing-notice-download-btn"
+                  onClick={() => onNavigate && onNavigate('signup')}
+                >
+                  <Sparkles size={16} />
+                  <span>Create Account First</span>
+                </button>
+              )}
+              <span className="pricing-notice-platform">Secured by Razorpay</span>
             </div>
           </div>
 
@@ -849,26 +1048,92 @@ export default function PricingPage({ onNavigate }) {
                     <strong>{totalStorageGB} GB</strong> Total Shared Storage
                   </span>
                 </div>
+                {/* Coupon Code Section */}
+                <div className="summary-coupon-container">
+                  <div className="summary-coupon-input-wrap">
+                    <input 
+                      type="text" 
+                      className="summary-coupon-input"
+                      placeholder="Coupon (e.g. TEST10)"
+                      value={couponInput}
+                      onChange={(e) => {
+                        setCouponInput(e.target.value.toUpperCase());
+                        setCouponError(null);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          if (appliedCoupon) handleRemoveCoupon();
+                          else handleApplyCoupon();
+                        }
+                      }}
+                      disabled={Boolean(appliedCoupon)}
+                    />
+                    {appliedCoupon ? (
+                      <button type="button" className="summary-coupon-btn btn-remove" onClick={handleRemoveCoupon}>
+                        Remove
+                      </button>
+                    ) : (
+                      <button type="button" className="summary-coupon-btn btn-apply" onClick={handleApplyCoupon}>
+                        Apply
+                      </button>
+                    )}
+                  </div>
+                  {couponError && (
+                    <span className="summary-coupon-err">
+                      <AlertCircle size={12} /> {couponError}
+                    </span>
+                  )}
+                  {appliedCoupon && planSummary.coupon && (
+                    <span className="summary-coupon-success">
+                      <Sparkles size={12} /> {planSummary.coupon.code}: {planSummary.coupon.discountPercent}% off applied!
+                    </span>
+                  )}
+                </div>
+
                 <div className="summary-total-price">
-                  <span className="summary-price-lbl">Estimated Price:</span>
+                  <span className="summary-price-lbl">Monthly Total:</span>
+                  {planSummary.discountAmount > 0 && (
+                    <span className="summary-original-price">
+                      ₹{planSummary.originalPrice.toLocaleString()}
+                    </span>
+                  )}
                   <span className="summary-price-num">₹{totalPrice.toLocaleString()}</span>
                   <span className="summary-price-period">/ month</span>
+                  {planSummary.discountAmount > 0 && (
+                    <span className="summary-discount-pill">
+                      Save ₹{planSummary.discountAmount.toLocaleString()}
+                    </span>
+                  )}
                 </div>
               </div>
 
               <div className="summary-actions-wrap">
-                <span className="summary-software-note">Subscribe inside software after download</span>
-                <a 
-                  href="https://github.com/Codenamesadiq/managestudio1.5/releases/download/Managestudio1.5/ManageStudio-Setup.exe"
+                {checkoutError && (
+                  <span style={{ fontSize: '12px', color: '#EF4444', marginRight: '8px' }}>
+                    {checkoutError}
+                  </span>
+                )}
+                <span className="summary-software-note">
+                  {currentUser ? 'Instant activation on web & desktop' : 'Sign in or create account to complete purchase'}
+                </span>
+                <button
+                  type="button"
                   className="summary-checkout-btn"
-                  download="ManageStudio-Setup.exe"
-                  target="_self"
-                  rel="noopener noreferrer"
-                  title="Download ManageStudio for Windows"
+                  onClick={handleCheckout}
+                  disabled={checkingOut}
+                  style={{ cursor: checkingOut ? 'wait' : 'pointer' }}
                 >
-                  <Download size={16} />
-                  <span>Download ManageStudio</span>
-                </a>
+                  <Lock size={15} />
+                  <span>
+                    {checkingOut 
+                      ? 'Initializing Razorpay...' 
+                      : currentUser 
+                        ? `Proceed to Checkout • ₹${totalPrice.toLocaleString()}`
+                        : 'Sign In & Subscribe'
+                    }
+                  </span>
+                </button>
               </div>
             </div>
           )}
@@ -904,11 +1169,13 @@ export default function PricingPage({ onNavigate }) {
             >
               Back to Home
             </a>
-            <a 
-              href="https://app.managestudio.io/"
+            <button 
+              type="button"
+              onClick={() => onNavigate && onNavigate('login')}
+              style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', color: 'inherit', cursor: 'pointer' }}
             >
               Log In
-            </a>
+            </button>
             <button 
               type="button" 
               onClick={() => onNavigate && onNavigate('contact')}
@@ -916,14 +1183,14 @@ export default function PricingPage({ onNavigate }) {
             >
               Contact Us
             </button>
-            <button type="button" onClick={() => setActiveModal('legal')}>
+            <button type="button" onClick={() => onNavigate && onNavigate('privacy')}>
               Privacy Policy
             </button>
-            <button type="button" onClick={() => setActiveModal('legal')}>
+            <button type="button" onClick={() => onNavigate && onNavigate('terms')}>
               Terms of Service
             </button>
-            <button type="button" onClick={() => setActiveModal('legal')}>
-              Security
+            <button type="button" onClick={() => onNavigate && onNavigate('refund-policy')}>
+              Refund Policy
             </button>
           </div>
         </div>
