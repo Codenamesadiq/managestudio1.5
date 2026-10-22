@@ -45,7 +45,7 @@ export async function runMigration(options = {}) {
   const sqlite = new DatabaseSync(sqliteFile);
   const pool = new Pool({
     connectionString: targetUrl,
-    connectionTimeoutMillis: 5000,
+    connectionTimeoutMillis: 15000,
     ssl: process.env.PGSSLMODE === 'disable' ? false : { rejectUnauthorized: false }
   });
 
