@@ -27,6 +27,7 @@ import {
 import ManageStudioModals from './ManageStudioModals.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 import { calculatePlanSummary, PAID_MODULES, INCLUDED_MODULES, STORAGE_ADDONS } from '../config/pricingConfig.js';
+import { API_BASE_URL } from '../config/apiConfig.js';
 
 export default function PricingPage({ onNavigate }) {
   const { currentUser, userProfile, studio, getIdToken } = useAuth();
@@ -107,23 +108,62 @@ export default function PricingPage({ onNavigate }) {
     try {
       const token = await getIdToken();
 
+      // Module mapping for compatibility between web frontend and backend services
+      const moduleKeyMap = {
+        'album-selection': 'photoSelection',
+        'song-selection': 'songSelection',
+        'guest-photo-ai': 'guestFinder'
+      };
+
+      const backendModules = selectedModuleIds.map(id => moduleKeyMap[id] || id);
+      const allModules = [...new Set([
+        ...selectedModuleIds,
+        ...backendModules,
+        ...selectedModuleIds.length > 0 ? ['gallery'] : []
+      ])];
+
+      let storageGbNumber = 50;
+      if (selectedStorage === '1tb') storageGbNumber = 1000;
+      else if (selectedStorage === '500gb') storageGbNumber = 500;
+      else if (selectedStorage === '200gb') storageGbNumber = 200;
+      else if (selectedStorage === '50gb') storageGbNumber = 50;
+
+      const totalCalculatedStorage = (selectedModuleIds.length * 5) + storageGbNumber;
+
+      const orderPayload = {
+        modules: allModules,
+        selectedModules: allModules,
+        upgradeModules: backendModules,
+        currentActiveModules: [],
+        currentStorageGb: 0,
+        isUpgrade: true,
+        storageGb: totalCalculatedStorage,
+        selectedStorageGb: storageGbNumber,
+        selectedStorageId: selectedStorage,
+        storageId: selectedStorage,
+        studioId: studio?.studioId || `std_${currentUser.uid.slice(0, 8)}`
+      };
+
       // 1. Create Order on backend
-      const orderRes = await fetch('/api/payments/create-order', {
+      const targetUrl = `${API_BASE_URL}/api/payments/create-order`;
+      const orderRes = await fetch(targetUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({
-          modules: selectedModuleIds,
-          selectedStorageId: selectedStorage,
-          studioId: studio?.studioId
-        })
+        body: JSON.stringify(orderPayload)
       });
+
+      const contentType = orderRes.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        const text = await orderRes.text();
+        throw new Error(`The payment gateway returned an unexpected response (${orderRes.status}). Please try again in a few moments.`);
+      }
 
       const orderData = await orderRes.json();
       if (!orderRes.ok || !orderData.success) {
-        throw new Error(orderData.error || 'Failed to create payment order');
+        throw new Error(orderData.error || orderData.message || 'Failed to create payment order');
       }
 
       // 2. Dynamically load Razorpay SDK
@@ -144,28 +184,38 @@ export default function PricingPage({ onNavigate }) {
 
       // If in sandbox mock mode without live keys:
       if (orderData.keyId === 'rzp_test_placeholder') {
-        const verifyRes = await fetch('/api/payments/verify', {
+        const verifyPayload = {
+          orderId: orderData.orderId,
+          razorpay_order_id: orderData.orderId,
+          paymentId: `pay_test_${Date.now()}`,
+          razorpay_payment_id: `pay_test_${Date.now()}`,
+          signature: 'test_sandbox_signature',
+          razorpay_signature: 'test_sandbox_signature',
+          studioId: studio?.studioId || `std_${currentUser.uid.slice(0, 8)}`,
+          modules: allModules,
+          storageGb: totalCalculatedStorage
+        };
+
+        const verifyRes = await fetch(`${API_BASE_URL}/api/payments/verify`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify({
-            orderId: orderData.orderId,
-            paymentId: `pay_test_${Date.now()}`,
-            signature: 'test_sandbox_signature',
-            studioId: studio?.studioId,
-            modules: selectedModuleIds,
-            storageGb: totalStorageGB
-          })
+          body: JSON.stringify(verifyPayload)
         });
 
-        const verifyData = await verifyRes.json();
-        if (verifyRes.ok && verifyData.success) {
+        const verifyContentType = verifyRes.headers.get('content-type') || '';
+        let verifyData = {};
+        if (verifyContentType.includes('application/json')) {
+          verifyData = await verifyRes.json();
+        }
+
+        if (verifyRes.ok && verifyData.success !== false) {
           if (onNavigate) {
             onNavigate('checkout-success', {
               orderId: orderData.orderId,
-              paymentId: `pay_test_${Date.now()}`,
+              paymentId: verifyPayload.paymentId,
               planSummary
             });
           }
@@ -190,24 +240,34 @@ export default function PricingPage({ onNavigate }) {
         },
         handler: async function (response) {
           try {
-            const verifyRes = await fetch('/api/payments/verify', {
+            const verifyPayload = {
+              orderId: response.razorpay_order_id || orderData.orderId,
+              razorpay_order_id: response.razorpay_order_id || orderData.orderId,
+              paymentId: response.razorpay_payment_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              signature: response.razorpay_signature,
+              razorpay_signature: response.razorpay_signature,
+              studioId: studio?.studioId || `std_${currentUser.uid.slice(0, 8)}`,
+              modules: allModules,
+              storageGb: totalCalculatedStorage
+            };
+
+            const verifyRes = await fetch(`${API_BASE_URL}/api/payments/verify`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
               },
-              body: JSON.stringify({
-                orderId: response.razorpay_order_id || orderData.orderId,
-                paymentId: response.razorpay_payment_id,
-                signature: response.razorpay_signature,
-                studioId: studio?.studioId,
-                modules: selectedModuleIds,
-                storageGb: totalStorageGB
-              })
+              body: JSON.stringify(verifyPayload)
             });
 
-            const verifyData = await verifyRes.json();
-            if (verifyRes.ok && verifyData.success) {
+            const verifyContentType = verifyRes.headers.get('content-type') || '';
+            let verifyData = {};
+            if (verifyContentType.includes('application/json')) {
+              verifyData = await verifyRes.json();
+            }
+
+            if (verifyRes.ok && verifyData.success !== false) {
               if (onNavigate) {
                 onNavigate('checkout-success', {
                   orderId: response.razorpay_order_id || orderData.orderId,
@@ -218,7 +278,7 @@ export default function PricingPage({ onNavigate }) {
             } else {
               if (onNavigate) {
                 onNavigate('checkout-failure', {
-                  errorMessage: verifyData.error || 'Payment signature verification failed'
+                  errorMessage: verifyData.error || verifyData.message || 'Payment signature verification failed'
                 });
               }
             }

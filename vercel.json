@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/api/:match*",
+      "destination": "https://studio-manager-saas.onrender.com/api/:match*"
+    },
+    {
+      "source": "/storage/:match*",
+      "destination": "https://studio-manager-saas.onrender.com/storage/:match*"
+    },
+    {
+      "source": "/((?!assets/|favicon\\.ico|.*\\..*).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

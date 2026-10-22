@@ -93,7 +93,11 @@ export default function ContactPage({ onNavigate }) {
         body: JSON.stringify(formData)
       });
 
-      const data = await res.json();
+      const contentType = res.headers.get('content-type') || '';
+      let data = {};
+      if (contentType.includes('application/json')) {
+        data = await res.json();
+      }
 
       if (res.ok && data.success) {
         setSubmitted(true);

@@ -50,7 +50,8 @@ export default function AccountPage({ onNavigate }) {
           }
         });
 
-        if (res.ok) {
+        const contentType = res.headers.get('content-type') || '';
+        if (res.ok && contentType.includes('application/json')) {
           const data = await res.json();
           if (isMounted) setSubData(data);
         }
@@ -91,8 +92,12 @@ export default function AccountPage({ onNavigate }) {
           'Authorization': `Bearer ${token}`
         }
       });
-      const data = await res.json();
-      if (res.ok) {
+      const contentType = res.headers.get('content-type') || '';
+      let data = {};
+      if (contentType.includes('application/json')) {
+        data = await res.json();
+      }
+      if (res.ok && data.success) {
         setCancelMessage('Subscription will cancel at the end of the current period.');
         if (refreshStudioProfile) refreshStudioProfile();
       } else {
