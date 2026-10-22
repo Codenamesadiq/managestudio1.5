@@ -22,11 +22,13 @@ async function runLiveVerification() {
   const bundleJs = await bundleRes.text();
   console.log(`  ✓ Bundle Downloaded: ${(bundleJs.length / 1024 / 1024).toFixed(2)} MB`);
 
-  // Verify hidden coupon UI
-  const hasCouponInput = bundleJs.includes('summary-coupon-input') || bundleJs.includes('placeholder="Enter coupon code');
+  // Verify visible coupon UI with "Enter coupon" placeholder
+  const hasCouponInput = bundleJs.includes('summary-coupon-input');
+  const hasEnterCouponPlaceholder = bundleJs.includes('Enter coupon');
   const hasApplyBtn = bundleJs.includes('summary-coupon-btn');
-  console.log(`  ✓ Public Coupon Input Field Hidden: ${!hasCouponInput}`);
-  console.log(`  ✓ Public Coupon Apply Button Hidden: ${!hasApplyBtn}`);
+  console.log(`  ✓ Coupon Input Field Visible: ${hasCouponInput}`);
+  console.log(`  ✓ Placeholder "Enter coupon" Present: ${hasEnterCouponPlaceholder}`);
+  console.log(`  ✓ Coupon Apply/Remove Button Present: ${hasApplyBtn}`);
 
   // Verify API configuration
   const hasRenderUrl = bundleJs.includes('studio-manager-saas.onrender.com');

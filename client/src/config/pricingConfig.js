@@ -95,8 +95,36 @@ export const STORAGE_ADDONS = {
   }
 };
 
-// Public coupon codes are hidden from client bundle. Coupons are managed and validated on the backend.
-export const AVAILABLE_COUPONS = {};
+// Available discount coupons with validation
+export const AVAILABLE_COUPONS = {
+  'TEST10': {
+    code: 'TEST10',
+    type: 'percentage',
+    discountPercent: 10,
+    description: '10% Launch Discount',
+    enabled: true,
+    testOnly: true,
+    minCartAmount: 1
+  },
+  'TEST15': {
+    code: 'TEST15',
+    type: 'percentage',
+    discountPercent: 15,
+    description: '15% Seasonal Discount',
+    enabled: true,
+    testOnly: true,
+    minCartAmount: 1
+  },
+  'TEST99': {
+    code: 'TEST99',
+    type: 'percentage',
+    discountPercent: 99,
+    description: '99% Sandbox Test Discount',
+    enabled: true,
+    testOnly: true,
+    minCartAmount: 1
+  }
+};
 
 /**
  * Validates and calculates discount on client side
