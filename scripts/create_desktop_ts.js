@@ -202,6 +202,15 @@ export class ManageStudioDesktopLicenseClient {
     return data;
   }
 
+  public async listDevices(authToken: string): Promise<any> {
+    const response = await fetch(this.baseUrl + '/api/license/devices', {
+      headers: {
+        'Authorization': 'Bearer ' + authToken
+      }
+    });
+    return await response.json();
+  }
+
   public isModuleEntitled(moduleKey: string, activeModules: string[] = []): boolean {
     const ALWAYS_INCLUDED = ['gallery', 'camera_ingest', 'studio_files'];
     if (ALWAYS_INCLUDED.includes(moduleKey)) return true;
