@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS studios (
   storage_limit_gb NUMERIC(10,2) DEFAULT 500.0,
   storage_used_gb NUMERIC(10,2) DEFAULT 0.0,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 CREATE INDEX IF NOT EXISTS idx_studios_owner_uid ON studios (owner_uid);

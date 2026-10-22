@@ -158,6 +158,21 @@ export function getOrCreateStudioForUser(user) {
   return studio;
 }
 
+/**
+ * Helper to fetch valid active subscription (including cancelled subscriptions within their paid period)
+ */
+export function getActiveSubscription(userUid) {
+  if (!userUid) return null;
+  const now = new Date().toISOString();
+  return db.prepare(`
+    SELECT * FROM subscriptions 
+    WHERE user_uid = ? 
+      AND (status = 'active' OR (status = 'cancelled' AND current_period_end > ?))
+    ORDER BY current_period_end DESC 
+    LIMIT 1
+  `).get(userUid, now);
+}
+
 async function resolveUserFromReq(req) {
   if (req.user) return req.user;
   const authHeader = req.headers.authorization;
@@ -189,7 +204,7 @@ app.get('/api/dashboard/stats', async (req, res) => {
 
     let storageLimitGb = studio.storage_limit_gb || 15;
     if (user) {
-      const sub = db.prepare("SELECT * FROM subscriptions WHERE user_uid = ? AND status = 'active'").get(user.uid);
+      const sub = getActiveSubscription(user.uid);
       if (sub && sub.storage_quota_gb) storageLimitGb = sub.storage_quota_gb;
     }
 
@@ -414,7 +429,7 @@ app.post('/api/albums/:id/photos', upload.array('photos', 50), async (req, res) 
     // Storage quota verification
     let quotaGb = studio.storage_limit_gb || 15;
     if (user) {
-      const sub = db.prepare("SELECT * FROM subscriptions WHERE user_uid = ? AND status = 'active'").get(user.uid);
+      const sub = getActiveSubscription(user.uid);
       if (sub && sub.storage_quota_gb) quotaGb = sub.storage_quota_gb;
     }
     const quotaBytes = quotaGb * 1024 * 1024 * 1024;
@@ -779,12 +794,12 @@ const paymentLimiter = createRateLimiter(60000, 25); // 25 requests per minute
  */
 app.post('/api/payments/create-order', paymentLimiter, requireAuth, async (req, res) => {
   try {
-    const { modules, storageGb, selectedStorageId, studioId, couponCode } = req.body || {};
+    const { modules, storageGb, selectedStorageId, storageAddon, storageId, studioId, couponCode } = req.body || {};
     const authHeader = req.headers.authorization;
     const userToken = authHeader && authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : null;
 
-    // Support both storageGb number or selectedStorageId key
-    let storageKey = selectedStorageId;
+    // Support both storageGb number, selectedStorageId, storageAddon, or storageId key
+    let storageKey = selectedStorageId || storageAddon || storageId;
     if (!storageKey && storageGb) {
       if (storageGb >= 1000) storageKey = '1tb';
       else if (storageGb >= 500) storageKey = '500gb';
@@ -982,7 +997,7 @@ app.post('/api/license/activate-device', requireAuth, (req, res) => {
     const studio = getOrCreateStudioForUser(req.user);
 
     // Verify active subscription
-    const sub = db.prepare("SELECT * FROM subscriptions WHERE user_uid = ? AND status = 'active'").get(userUid);
+    const sub = getActiveSubscription(userUid);
     if (!sub) {
       return res.status(403).json({
         success: false,
@@ -1103,7 +1118,7 @@ app.get('/api/license/verify', requireAuth, (req, res) => {
     const userUid = req.user.uid;
     const deviceId = req.query.deviceId || req.headers['x-device-id'];
 
-    const sub = db.prepare("SELECT * FROM subscriptions WHERE user_uid = ? AND status = 'active'").get(userUid);
+    const sub = getActiveSubscription(userUid);
     if (!sub) {
       return res.json({
         success: true,

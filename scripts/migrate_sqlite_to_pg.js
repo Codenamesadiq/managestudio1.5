@@ -99,7 +99,9 @@ export async function runMigration(options = {}) {
       for (const row of rows) {
         const values = columns.map(col => {
           let val = row[col];
-          // Handle numeric or date types safely if needed
+          if ((col === 'updated_at' || col === 'created_at') && !val) {
+            val = row.created_at || new Date().toISOString();
+          }
           return val;
         });
         await client.query(insertSql, values);

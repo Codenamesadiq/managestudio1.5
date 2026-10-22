@@ -161,11 +161,15 @@ export class ManageStudioDesktopLicenseClient {
    * Validates if a specific module is entitled
    */
   isModuleEntitled(moduleKey, activeModules = []) {
+    const norm = (str) => (str || '').toLowerCase().replace(/[-_]/g, '_');
+    const normalizedKey = norm(moduleKey);
+
     // Gallery, Camera Ingest, Studio Files are included with every plan
     const ALWAYS_INCLUDED = ['gallery', 'camera_ingest', 'studio_files'];
-    if (ALWAYS_INCLUDED.includes(moduleKey)) return true;
+    if (ALWAYS_INCLUDED.includes(normalizedKey)) return true;
 
-    return activeModules.includes(moduleKey);
+    const normalizedActive = (Array.isArray(activeModules) ? activeModules : []).map(norm);
+    return normalizedActive.includes(normalizedKey);
   }
 
   /**
