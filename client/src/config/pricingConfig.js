@@ -129,7 +129,11 @@ export const AVAILABLE_COUPONS = {
 /**
  * Validates and calculates discount on client side
  */
-export function validateAndApplyCoupon(subtotalPaise, couponCode, isProduction = false) {
+export function validateAndApplyCoupon(
+  subtotalPaise, 
+  couponCode, 
+  isProduction = Boolean(typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PROD)
+) {
   if (!couponCode) {
     return {
       isValidCoupon: false,
@@ -242,7 +246,12 @@ export function validateAndApplyCoupon(subtotalPaise, couponCode, isProduction =
  * @param {string|null} couponCode - Optional coupon code
  * @returns {Object} Calculated calculation summary
  */
-export function calculatePlanSummary(selectedModuleIds = [], selectedStorageId = null, couponCode = null) {
+export function calculatePlanSummary(
+  selectedModuleIds = [], 
+  selectedStorageId = null, 
+  couponCode = null,
+  isProduction = Boolean(typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PROD)
+) {
   // Filter only valid paid modules
   const validModuleIds = (selectedModuleIds || []).filter(id => Boolean(PAID_MODULES[id]));
   

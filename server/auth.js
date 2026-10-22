@@ -15,8 +15,8 @@ export async function verifyFirebaseIdToken(idToken) {
     throw new Error('ID Token is required');
   }
 
-  // Support local test mock tokens for offline/sandbox testing
-  if (idToken.startsWith('mock_local_test_token') || idToken === 'test_token_mock') {
+  // Support local test mock tokens for offline/sandbox testing (strictly disabled in production)
+  if (process.env.NODE_ENV !== 'production' && (idToken.startsWith('mock_local_test_token') || idToken === 'test_token_mock')) {
     let uid = 'user_test_mock_123';
     let email = 'mock_tester@managestudio.io';
     if (idToken.includes(':')) {

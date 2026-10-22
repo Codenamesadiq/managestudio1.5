@@ -102,7 +102,7 @@ export default function PricingPage({ onNavigate }) {
       setCouponError('Please enter a coupon code.');
       return;
     }
-    const res = validateAndApplyCoupon(planSummary.subtotalPaise, clean, false);
+    const res = validateAndApplyCoupon(planSummary.subtotalPaise, clean);
     if (!res.isValidCoupon) {
       setCouponError(res.error || 'Invalid coupon code');
       setAppliedCoupon('');

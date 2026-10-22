@@ -99,8 +99,11 @@ export async function createSubscriptionOrder({ user, studioId, modules, storage
     }
   }
 
-  // 3. Fallback to deterministic Test Sandbox Order ID if credentials are being configured
+  // 3. Fallback to deterministic Test Sandbox Order ID if credentials are being configured (development only)
   if (!orderId) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('Payment gateway order initialization failed. Live order creation error.');
+    }
     const testHash = crypto.randomBytes(8).toString('hex');
     orderId = `order_test_${Date.now()}_${testHash}`;
   }
@@ -246,6 +249,9 @@ export async function verifySubscriptionPayment({
     }
   } else {
     // In Test Sandbox Mode without secret configured:
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('Payment signature verification configuration error in live mode.');
+    }
     isSignatureValid = true;
   }
 
@@ -359,6 +365,10 @@ export async function verifySubscriptionPayment({
 export function verifyWebhookSignature(rawBodyBuffer, signature, secretOverride = null) {
   const secret = secretOverride || RAZORPAY_WEBHOOK_SECRET;
   if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      console.error('[Razorpay Webhook] RAZORPAY_WEBHOOK_SECRET is missing in production mode. Strictly rejecting webhook.');
+      return false;
+    }
     console.warn('[Razorpay Webhook] RAZORPAY_WEBHOOK_SECRET not set; signature verification skipped.');
     return true;
   }

@@ -153,6 +153,8 @@ export class S3StorageDriver {
         ContentType: contentType
       });
       await this.client.send(command);
+    } else if (process.env.NODE_ENV === 'production') {
+      throw new Error('Cloud storage client is uninitialized in production mode.');
     }
 
     const publicBase = (this.publicUrl || '').replace(/\/$/, '');
@@ -171,6 +173,8 @@ export class S3StorageDriver {
         Key: key
       });
       await this.client.send(command);
+    } else if (process.env.NODE_ENV === 'production') {
+      throw new Error('Cloud storage client is uninitialized in production mode.');
     }
     return true;
   }
@@ -184,7 +188,11 @@ export class S3StorageDriver {
       return await getSignedUrl(this.client, command, { expiresIn: expiresInSeconds });
     }
 
-    // Fallback simulation when client credentials not fully initialized
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('Cloud storage client is uninitialized in production mode.');
+    }
+
+    // Fallback simulation when client credentials not fully initialized (development only)
     const expiresAt = Math.floor(Date.now() / 1000) + expiresInSeconds;
     const signature = crypto.createHmac('sha256', this.secretAccessKey || 'r2_signing_key')
       .update(`GET\n\n\n${expiresAt}\n/${this.bucket}/${key}`)
@@ -202,6 +210,10 @@ export class S3StorageDriver {
         ContentType: contentType
       });
       return await getSignedUrl(this.client, command, { expiresIn: expiresInSeconds });
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('Cloud storage client is uninitialized in production mode.');
     }
 
     const expiresAt = Math.floor(Date.now() / 1000) + expiresInSeconds;

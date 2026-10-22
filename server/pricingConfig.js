@@ -180,7 +180,12 @@ export function validateAndApplyCoupon(subtotalPaise, couponCode, isProduction =
   };
 }
 
-export function calculatePlanSummary(selectedModuleIds = [], selectedStorageId = null, couponCode = null, isProduction = false) {
+export function calculatePlanSummary(
+  selectedModuleIds = [], 
+  selectedStorageId = null, 
+  couponCode = null, 
+  isProduction = (process.env.NODE_ENV === 'production' && !process.env.ENABLE_TEST_COUPONS)
+) {
   const validModuleIds = (selectedModuleIds || []).filter(id => Boolean(PAID_MODULES[id]));
   
   let modulesPrice = 0;

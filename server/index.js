@@ -93,6 +93,9 @@ app.use((req, res, next) => {
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
   res.setHeader('X-XSS-Protection', '1; mode=block');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  if (process.env.NODE_ENV === 'production') {
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  }
   next();
 });
 
@@ -102,7 +105,8 @@ const allowedOrigins = [
   'http://localhost:5173',
   'https://managestudio.io',
   'https://www.managestudio.io',
-  'https://app.managestudio.io'
+  'https://app.managestudio.io',
+  ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(s => s.trim()).filter(Boolean) : [])
 ];
 
 app.use(cors({
@@ -1192,6 +1196,15 @@ if (fs.existsSync(clientDist)) {
     res.sendFile(path.join(clientDist, 'index.html'));
   });
 }
+
+// Global production-safe error handler
+app.use((err, req, res, next) => {
+  console.error('[Unhandled Server Error]:', err.message);
+  const isProd = process.env.NODE_ENV === 'production';
+  res.status(err.status || 500).json({
+    error: isProd ? 'An unexpected error occurred. Please try again later.' : (err.message || 'Internal server error.')
+  });
+});
 
 export { app };
 

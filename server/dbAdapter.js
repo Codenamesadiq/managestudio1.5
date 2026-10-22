@@ -151,6 +151,7 @@ export class DatabaseAdapter {
   async withTransaction(fn) {
     if (this.engine === 'postgres') {
       const client = await this.pgPool.connect();
+      const self = this;
       try {
         await client.query('BEGIN');
         const txDb = {
