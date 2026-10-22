@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ManageStudioHero from './components/ManageStudioHero.jsx';
-import Sidebar from './components/Sidebar.jsx';
-import Header from './components/Header.jsx';
-import DashboardView from './pages/DashboardView.jsx';
-import StudioAlbumView from './components/StudioAlbumView.jsx';
-import CreateAlbumModal from './components/CreateAlbumModal.jsx';
-import MobilePreviewModal from './components/MobilePreviewModal.jsx';
-import ClientPortal from './components/ClientPortal.jsx';
-
 import PricingPage from './components/PricingPage.jsx';
 import AboutPage from './components/AboutPage.jsx';
 import ContactPage from './components/ContactPage.jsx';
@@ -23,7 +15,6 @@ import LegalPage from './pages/LegalPage.jsx';
 
 export default function App() {
   const urlParams = new URLSearchParams(window.location.search);
-  const clientToken = urlParams.get('token');
 
   const getInitialView = () => {
     const pageParam = urlParams.get('page');
@@ -48,14 +39,6 @@ export default function App() {
   const [viewMode, setViewMode] = useState(getInitialView);
   const [checkoutPayload, setCheckoutPayload] = useState(null);
   const [checkoutErrorMsg, setCheckoutErrorMsg] = useState(null);
-
-  const [currentTab, setCurrentTab] = useState('dashboard');
-  const [albums, setAlbums] = useState([]);
-  const [stats, setStats] = useState(null);
-  const [studioInfo, setStudioInfo] = useState(null);
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [selectedAlbumId, setSelectedAlbumId] = useState(null);
-  const [mobilePreviewAlbum, setMobilePreviewAlbum] = useState(null);
 
   const handleNavigate = (page, payload) => {
     setViewMode(page);
@@ -147,43 +130,6 @@ export default function App() {
     return () => clearTimeout(timeoutId);
   }, [viewMode]);
 
-  const fetchData = async () => {
-    try {
-      const [statsRes, albumsRes] = await Promise.all([
-        fetch('/api/dashboard/stats'),
-        fetch('/api/albums')
-      ]);
-
-      if (statsRes.ok) {
-        const statsData = await statsRes.json();
-        setStats(statsData.stats);
-        setStudioInfo(statsData.studio);
-      }
-
-      if (albumsRes.ok) {
-        const albumsData = await albumsRes.json();
-        setAlbums(albumsData);
-      }
-    } catch (err) {
-      console.error('Failed to load studio data:', err);
-    }
-  };
-
-  useEffect(() => {
-    if (!clientToken) {
-      fetchData();
-    }
-  }, [clientToken]);
-
-  // If opening via direct private client link, render the standalone Client Portal
-  if (clientToken) {
-    return (
-      <div style={{ backgroundColor: '#F5F5F7', minHeight: '100vh', padding: '0' }}>
-        <ClientPortal token={clientToken} />
-      </div>
-    );
-  }
-
   // 1. Native Login Page
   if (viewMode === 'login') {
     return <LoginPage onNavigate={handleNavigate} />;
@@ -235,71 +181,12 @@ export default function App() {
     return <ContactPage onNavigate={handleNavigate} />;
   }
 
-  // 11. Default marketing landing view
-  if (viewMode === 'marketing') {
-    return (
-      <ManageStudioHero 
-        onNavigate={handleNavigate}
-        onNavigatePricing={() => handleNavigate('pricing')} 
-        onNavigateAbout={() => handleNavigate('about')}
-      />
-    );
-  }
-
-  // 12. Internal studio dashboard (fallback)
+  // 11. Marketing landing view (default and fallback)
   return (
-    <div className="app-container">
-      <Sidebar
-        currentTab={currentTab}
-        onSelectTab={(tab) => {
-          setCurrentTab(tab);
-          setSelectedAlbumId(null);
-        }}
-        storageStats={{
-          used: stats?.storageUsed || '125 GB',
-          limit: stats?.storageLimit || '500 GB'
-        }}
-      />
-
-      <div className="main-content">
-        <Header studioInfo={studioInfo} />
-
-        {selectedAlbumId ? (
-          <StudioAlbumView
-            albumId={selectedAlbumId}
-            onBack={() => {
-              setSelectedAlbumId(null);
-              fetchData();
-            }}
-            onPreviewMobile={(album) => setMobilePreviewAlbum(album)}
-          />
-        ) : (
-          <DashboardView
-            albums={albums}
-            stats={stats}
-            onRefreshAlbums={fetchData}
-            onOpenCreateModal={() => setIsCreateModalOpen(true)}
-            onOpenAlbum={(album) => setSelectedAlbumId(album.id)}
-            onPreviewMobile={(album) => setMobilePreviewAlbum(album)}
-          />
-        )}
-      </div>
-
-      <CreateAlbumModal
-        isOpen={isCreateModalOpen}
-        onClose={() => setIsCreateModalOpen(false)}
-        onAlbumCreated={() => fetchData()}
-        onOpenAlbum={(newAlbum) => {
-          setIsCreateModalOpen(false);
-          setSelectedAlbumId(newAlbum.id);
-        }}
-      />
-
-      <MobilePreviewModal
-        album={mobilePreviewAlbum}
-        isOpen={Boolean(mobilePreviewAlbum)}
-        onClose={() => setMobilePreviewAlbum(null)}
-      />
-    </div>
+    <ManageStudioHero 
+      onNavigate={handleNavigate}
+      onNavigatePricing={() => handleNavigate('pricing')} 
+      onNavigateAbout={() => handleNavigate('about')}
+    />
   );
 }

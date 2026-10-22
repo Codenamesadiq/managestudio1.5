@@ -22,12 +22,11 @@ import {
   ShieldCheck,
   Sparkles,
   CreditCard,
-  Lock,
-  AlertCircle
+  Lock
 } from 'lucide-react';
 import ManageStudioModals from './ManageStudioModals.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
-import { calculatePlanSummary, validateAndApplyCoupon, PAID_MODULES, INCLUDED_MODULES, STORAGE_ADDONS } from '../config/pricingConfig.js';
+import { calculatePlanSummary, PAID_MODULES, INCLUDED_MODULES, STORAGE_ADDONS } from '../config/pricingConfig.js';
 
 export default function PricingPage({ onNavigate }) {
   const { currentUser, userProfile, studio, getIdToken } = useAuth();
@@ -46,11 +45,6 @@ export default function PricingPage({ onNavigate }) {
 
   // Selected Additional Storage (null or '50gb' | '200gb' | '500gb' | '1tb')
   const [selectedStorage, setSelectedStorage] = useState(null);
-
-  // Discount Coupon State
-  const [couponInput, setCouponInput] = useState('');
-  const [appliedCoupon, setAppliedCoupon] = useState('');
-  const [couponError, setCouponError] = useState(null);
 
   // FAQ Accordion Open States
   const [openFaq, setOpenFaq] = useState({});
@@ -88,37 +82,12 @@ export default function PricingPage({ onNavigate }) {
   if (selectedModules.song) selectedModuleIds.push('song-selection');
   if (selectedModules.guestAi) selectedModuleIds.push('guest-photo-ai');
 
-  // Authoritative calculation via shared config with coupon
-  const planSummary = calculatePlanSummary(selectedModuleIds, selectedStorage, appliedCoupon);
+  // Authoritative calculation via shared config
+  const planSummary = calculatePlanSummary(selectedModuleIds, selectedStorage);
   const selectedCount = planSummary.selectedCount;
   const baseStorageGB = planSummary.baseStorageGb;
   const totalStorageGB = planSummary.totalStorageGb;
   const totalPrice = planSummary.totalPrice;
-
-  const handleApplyCoupon = (e) => {
-    if (e) e.preventDefault();
-    const clean = couponInput.trim().toUpperCase();
-    if (!clean) {
-      setCouponError('Please enter a coupon code.');
-      return;
-    }
-    const res = validateAndApplyCoupon(planSummary.subtotalPaise, clean);
-    if (!res.isValidCoupon) {
-      setCouponError(res.error || 'Invalid coupon code');
-      setAppliedCoupon('');
-    } else {
-      setAppliedCoupon(clean);
-      setCouponError(null);
-      handleShowToast(`Applied ${res.coupon.code}: ${res.coupon.discountPercent}% discount!`);
-    }
-  };
-
-  const handleRemoveCoupon = () => {
-    setAppliedCoupon('');
-    setCouponInput('');
-    setCouponError(null);
-    handleShowToast('Coupon removed');
-  };
 
   // Razorpay Checkout Handler
   const handleCheckout = async () => {
@@ -148,8 +117,7 @@ export default function PricingPage({ onNavigate }) {
         body: JSON.stringify({
           modules: selectedModuleIds,
           selectedStorageId: selectedStorage,
-          studioId: studio?.studioId,
-          couponCode: appliedCoupon || null
+          studioId: studio?.studioId
         })
       });
 
@@ -1048,63 +1016,11 @@ export default function PricingPage({ onNavigate }) {
                     <strong>{totalStorageGB} GB</strong> Total Shared Storage
                   </span>
                 </div>
-                {/* Coupon Code Section */}
-                <div className="summary-coupon-container">
-                  <div className="summary-coupon-input-wrap">
-                    <input 
-                      type="text" 
-                      className="summary-coupon-input"
-                      placeholder="Coupon (e.g. TEST10)"
-                      value={couponInput}
-                      onChange={(e) => {
-                        setCouponInput(e.target.value.toUpperCase());
-                        setCouponError(null);
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          e.preventDefault();
-                          if (appliedCoupon) handleRemoveCoupon();
-                          else handleApplyCoupon();
-                        }
-                      }}
-                      disabled={Boolean(appliedCoupon)}
-                    />
-                    {appliedCoupon ? (
-                      <button type="button" className="summary-coupon-btn btn-remove" onClick={handleRemoveCoupon}>
-                        Remove
-                      </button>
-                    ) : (
-                      <button type="button" className="summary-coupon-btn btn-apply" onClick={handleApplyCoupon}>
-                        Apply
-                      </button>
-                    )}
-                  </div>
-                  {couponError && (
-                    <span className="summary-coupon-err">
-                      <AlertCircle size={12} /> {couponError}
-                    </span>
-                  )}
-                  {appliedCoupon && planSummary.coupon && (
-                    <span className="summary-coupon-success">
-                      <Sparkles size={12} /> {planSummary.coupon.code}: {planSummary.coupon.discountPercent}% off applied!
-                    </span>
-                  )}
-                </div>
 
                 <div className="summary-total-price">
                   <span className="summary-price-lbl">Monthly Total:</span>
-                  {planSummary.discountAmount > 0 && (
-                    <span className="summary-original-price">
-                      ₹{planSummary.originalPrice.toLocaleString()}
-                    </span>
-                  )}
                   <span className="summary-price-num">₹{totalPrice.toLocaleString()}</span>
                   <span className="summary-price-period">/ month</span>
-                  {planSummary.discountAmount > 0 && (
-                    <span className="summary-discount-pill">
-                      Save ₹{planSummary.discountAmount.toLocaleString()}
-                    </span>
-                  )}
                 </div>
               </div>
 
