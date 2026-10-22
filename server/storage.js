@@ -121,12 +121,12 @@ export class LocalStorageDriver {
  */
 export class S3StorageDriver {
   constructor(config = {}) {
-    this.endpoint = config.endpoint || process.env.R2_ENDPOINT;
-    this.bucket = config.bucket || process.env.R2_BUCKET_NAME || 'managestudio-client-photos';
-    this.accessKeyId = config.accessKeyId || process.env.R2_ACCESS_KEY_ID;
-    this.secretAccessKey = config.secretAccessKey || process.env.R2_SECRET_ACCESS_KEY;
-    this.region = config.region || process.env.R2_REGION || 'auto';
-    this.publicUrl = config.publicUrl || process.env.R2_PUBLIC_URL || (this.endpoint ? `${this.endpoint}/${this.bucket}` : '');
+    this.endpoint = config.endpoint || process.env.R2_ENDPOINT || process.env.CLOUDFLARE_R2_ENDPOINT;
+    this.bucket = config.bucket || process.env.R2_BUCKET_NAME || process.env.CLOUDFLARE_R2_BUCKET || 'managestudio-client-photos';
+    this.accessKeyId = config.accessKeyId || process.env.R2_ACCESS_KEY_ID || process.env.CLOUDFLARE_R2_ACCESS_KEY_ID;
+    this.secretAccessKey = config.secretAccessKey || process.env.R2_SECRET_ACCESS_KEY || process.env.CLOUDFLARE_R2_SECRET_ACCESS_KEY;
+    this.region = config.region || process.env.R2_REGION || process.env.CLOUDFLARE_R2_REGION || 'auto';
+    this.publicUrl = config.publicUrl || process.env.R2_PUBLIC_URL || process.env.CLOUDFLARE_R2_PUBLIC_URL || (this.endpoint ? `${this.endpoint}/${this.bucket}` : '');
 
     if (this.accessKeyId && this.secretAccessKey && this.endpoint) {
       this.client = new S3Client({
@@ -213,7 +213,12 @@ export class S3StorageDriver {
  * Storage Service Factory
  */
 export function getStorageDriver() {
-  if (process.env.STORAGE_PROVIDER === 'r2' || process.env.R2_ACCESS_KEY_ID) {
+  if (
+    process.env.STORAGE_PROVIDER === 'r2' ||
+    process.env.STORAGE_PROVIDER === 's3' ||
+    process.env.R2_ACCESS_KEY_ID ||
+    process.env.CLOUDFLARE_R2_ACCESS_KEY_ID
+  ) {
     return new S3StorageDriver();
   }
   return new LocalStorageDriver();
