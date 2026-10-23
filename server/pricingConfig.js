@@ -296,7 +296,7 @@ export function calculatePlanSummary(
   selectedModuleIds = [], 
   selectedStorageId = null, 
   couponCode = null, 
-  isProduction = (process.env.NODE_ENV === 'production' && !process.env.ENABLE_TEST_COUPONS)
+  isProduction = Boolean(process.env.RAZORPAY_KEY_ID?.startsWith('rzp_live_') && !process.env.ENABLE_TEST_COUPONS)
 ) {
   // Normalize module IDs (support both canonical IDs and legacy keys like photoSelection)
   const MODULE_KEY_MAP = {
