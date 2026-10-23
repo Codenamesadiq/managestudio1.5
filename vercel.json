@@ -2,15 +2,19 @@
   "version": 2,
   "rewrites": [
     {
-      "source": "/api/:match*",
-      "destination": "https://studio-manager-saas.onrender.com/api/:match*"
+      "source": "/api/(.*)",
+      "destination": "/api"
+    },
+    {
+      "source": "/api",
+      "destination": "/api"
     },
     {
       "source": "/storage/:match*",
       "destination": "https://studio-manager-saas.onrender.com/storage/:match*"
     },
     {
-      "source": "/((?!assets/|favicon\\.ico|.*\\..*).*)",
+      "source": "/((?!api/|storage/|assets/|favicon\\.ico|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]

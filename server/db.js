@@ -3,9 +3,39 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import crypto from 'node:crypto';
 
+import fs from 'node:fs';
+import os from 'node:os';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const dbPath = path.join(__dirname, 'data', 'studio_select.db');
+
+// In serverless environments (Vercel, AWS Lambda), the deployment directory is read-only.
+// We resolve the SQLite database in /tmp if running in a serverless environment.
+const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+let dbPath;
+
+if (isServerless) {
+  const tmpDbPath = path.join(os.tmpdir(), 'studio_select.db');
+  const sourceDbPath = path.join(__dirname, 'data', 'studio_select.db');
+  if (!fs.existsSync(tmpDbPath) && fs.existsSync(sourceDbPath)) {
+    try {
+      fs.copyFileSync(sourceDbPath, tmpDbPath);
+    } catch (e) {
+      console.warn('[DB] Could not copy seed DB to /tmp:', e.message);
+    }
+  }
+  dbPath = tmpDbPath;
+} else {
+  const dataDir = path.join(__dirname, 'data');
+  if (!fs.existsSync(dataDir)) {
+    try {
+      fs.mkdirSync(dataDir, { recursive: true });
+    } catch (e) {
+      console.warn('[DB] Could not create data directory:', e.message);
+    }
+  }
+  dbPath = path.join(dataDir, 'studio_select.db');
+}
 
 export const db = new DatabaseSync(dbPath);
 

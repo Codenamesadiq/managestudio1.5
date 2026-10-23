@@ -6,4 +6,4 @@
  *   or custom VITE_API_URL override if provided.
  */
 
-export const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? '' : 'https://studio-manager-saas.onrender.com');
+export const API_BASE_URL = import.meta.env.VITE_API_URL || '';

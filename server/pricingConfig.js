@@ -60,6 +60,33 @@ export const AVAILABLE_COUPONS = {
     testOnly: true,
     minCartAmount: 1
   },
+  'TEST20': {
+    code: 'TEST20',
+    type: 'percentage',
+    discountPercent: 20,
+    description: '20% Test Discount',
+    enabled: true,
+    testOnly: true,
+    minCartAmount: 1
+  },
+  'TEST25': {
+    code: 'TEST25',
+    type: 'percentage',
+    discountPercent: 25,
+    description: '25% Test Discount',
+    enabled: true,
+    testOnly: true,
+    minCartAmount: 1
+  },
+  'TEST50': {
+    code: 'TEST50',
+    type: 'percentage',
+    discountPercent: 50,
+    description: '50% Test Discount',
+    enabled: true,
+    testOnly: true,
+    minCartAmount: 1
+  },
   'TEST99': {
     code: 'TEST99',
     type: 'percentage',
@@ -68,13 +95,98 @@ export const AVAILABLE_COUPONS = {
     enabled: true,
     testOnly: true,
     minCartAmount: 1
+  },
+  'SAVE10': {
+    code: 'SAVE10',
+    type: 'percentage',
+    discountPercent: 10,
+    description: '10% Savings Offer',
+    enabled: true,
+    testOnly: false,
+    minCartAmount: 1
+  },
+  'SAVE15': {
+    code: 'SAVE15',
+    type: 'percentage',
+    discountPercent: 15,
+    description: '15% Savings Offer',
+    enabled: true,
+    testOnly: false,
+    minCartAmount: 1
+  },
+  'SAVE20': {
+    code: 'SAVE20',
+    type: 'percentage',
+    discountPercent: 20,
+    description: '20% Savings Offer',
+    enabled: true,
+    testOnly: false,
+    minCartAmount: 1
+  },
+  'SAVE50': {
+    code: 'SAVE50',
+    type: 'percentage',
+    discountPercent: 50,
+    description: '50% Savings Offer',
+    enabled: true,
+    testOnly: false,
+    minCartAmount: 1
+  },
+  'STUDIO10': {
+    code: 'STUDIO10',
+    type: 'percentage',
+    discountPercent: 10,
+    description: '10% Studio Partner Discount',
+    enabled: true,
+    testOnly: false,
+    minCartAmount: 1
+  },
+  'STUDIO15': {
+    code: 'STUDIO15',
+    type: 'percentage',
+    discountPercent: 15,
+    description: '15% Studio Partner Discount',
+    enabled: true,
+    testOnly: false,
+    minCartAmount: 1
+  },
+  'STUDIO50': {
+    code: 'STUDIO50',
+    type: 'percentage',
+    discountPercent: 50,
+    description: '50% Studio Partner Discount',
+    enabled: true,
+    testOnly: false,
+    minCartAmount: 1
+  },
+  'LAUNCH10': {
+    code: 'LAUNCH10',
+    type: 'percentage',
+    discountPercent: 10,
+    description: '10% Launch Promotion',
+    enabled: true,
+    testOnly: false,
+    minCartAmount: 1
+  },
+  'LAUNCH50': {
+    code: 'LAUNCH50',
+    type: 'percentage',
+    discountPercent: 50,
+    description: '50% Launch Promotion',
+    enabled: true,
+    testOnly: false,
+    minCartAmount: 1
   }
 };
 
 /**
  * Validates and calculates discount on server side
  */
-export function validateAndApplyCoupon(subtotalPaise, couponCode, isProduction = (process.env.NODE_ENV === 'production' && !process.env.ENABLE_TEST_COUPONS)) {
+export function validateAndApplyCoupon(
+  subtotalPaise, 
+  couponCode, 
+  isProduction = Boolean(process.env.RAZORPAY_KEY_ID?.startsWith('rzp_live_') && !process.env.ENABLE_TEST_COUPONS)
+) {
   if (!couponCode) {
     return {
       isValidCoupon: false,
@@ -186,7 +298,19 @@ export function calculatePlanSummary(
   couponCode = null, 
   isProduction = (process.env.NODE_ENV === 'production' && !process.env.ENABLE_TEST_COUPONS)
 ) {
-  const validModuleIds = (selectedModuleIds || []).filter(id => Boolean(PAID_MODULES[id]));
+  // Normalize module IDs (support both canonical IDs and legacy keys like photoSelection)
+  const MODULE_KEY_MAP = {
+    'photoSelection': 'album-selection',
+    'photo-selection': 'album-selection',
+    'songSelection': 'song-selection',
+    'songs': 'song-selection',
+    'guestFinder': 'guest-photo-ai',
+    'guest-finder': 'guest-photo-ai'
+  };
+
+  const canonicalIds = (selectedModuleIds || []).map(id => MODULE_KEY_MAP[id] || id);
+  // Filter only valid paid modules and remove any duplicates
+  const validModuleIds = [...new Set(canonicalIds.filter(id => Boolean(PAID_MODULES[id])))];
   
   let modulesPrice = 0;
   validModuleIds.forEach(id => {
@@ -199,8 +323,20 @@ export function calculatePlanSummary(
   let additionalStorageGb = 0;
   let validStorageAddon = null;
 
-  if (selectedStorageId && STORAGE_ADDONS[selectedStorageId]) {
-    validStorageAddon = STORAGE_ADDONS[selectedStorageId];
+  const STORAGE_KEY_MAP = {
+    '50': '50gb',
+    '50gb': '50gb',
+    '200': '200gb',
+    '200gb': '200gb',
+    '500': '500gb',
+    '500gb': '500gb',
+    '1000': '1tb',
+    '1tb': '1tb'
+  };
+  const normalizedStorageId = selectedStorageId ? (STORAGE_KEY_MAP[String(selectedStorageId).toLowerCase()] || selectedStorageId) : null;
+
+  if (normalizedStorageId && STORAGE_ADDONS[normalizedStorageId]) {
+    validStorageAddon = STORAGE_ADDONS[normalizedStorageId];
     storagePrice = validStorageAddon.price;
     additionalStorageGb = validStorageAddon.storageGb;
   }

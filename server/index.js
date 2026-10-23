@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import path from 'node:path';
 import fs from 'node:fs';
+import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import crypto from 'node:crypto';
 import multer from 'multer';
@@ -16,6 +17,7 @@ import {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
 
 // Initialize DB
 initDB();
@@ -23,10 +25,16 @@ initDB();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Storage configuration
-const storageDir = path.join(__dirname, 'storage', 'uploads');
-if (!fs.existsSync(storageDir)) {
-  fs.mkdirSync(storageDir, { recursive: true });
+// Storage configuration (safe for serverless read-only environments)
+const storageDir = isServerless
+  ? path.join(os.tmpdir(), 'storage', 'uploads')
+  : path.join(__dirname, 'storage', 'uploads');
+try {
+  if (!fs.existsSync(storageDir)) {
+    fs.mkdirSync(storageDir, { recursive: true });
+  }
+} catch (e) {
+  console.warn('[Storage] Read-only environment warning:', e.message);
 }
 
 const storage = multer.diskStorage({
@@ -111,7 +119,7 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.includes(origin) || (origin && origin.endsWith('.vercel.app'))) {
       callback(null, true);
     } else {
       callback(new Error(`CORS policy blocked access from origin: ${origin}`));
@@ -191,6 +199,25 @@ async function resolveUserFromReq(req) {
     return null;
   }
 }
+
+// ==========================================
+// 0. HEALTH & STATUS ENDPOINTS
+// ==========================================
+app.get('/api', (req, res) => {
+  res.json({
+    name: 'ManageStudio API',
+    status: 'healthy',
+    version: '1.0.0',
+    mode: process.env.NODE_ENV || 'development'
+  });
+});
+
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'healthy',
+    timestamp: new Date().toISOString()
+  });
+});
 
 // ==========================================
 // 1. DASHBOARD STATS
@@ -1197,6 +1224,11 @@ if (fs.existsSync(clientDist)) {
   });
 }
 
+// 404 Handler for unmatched /api routes (guarantee JSON, never HTML)
+app.all('/api/*', (req, res) => {
+  res.status(404).json({ error: `API route ${req.method} ${req.path} not found.` });
+});
+
 // Global production-safe error handler
 app.use((err, req, res, next) => {
   console.error('[Unhandled Server Error]:', err.message);
@@ -1213,7 +1245,7 @@ const isDirectRun = process.argv[1] && (
   process.argv[1].endsWith('server/index.js')
 );
 
-if (isDirectRun || (process.env.NODE_ENV !== 'test' && !process.env.TEST_SUITE)) {
+if (!isServerless && (isDirectRun || (process.env.NODE_ENV !== 'test' && !process.env.TEST_SUITE))) {
   app.listen(PORT, () => {
     console.log(`[STUDIO SELECT 1.0 Server] Running on http://localhost:${PORT}`);
   });

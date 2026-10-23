@@ -147,30 +147,17 @@ export default function PricingPage({ onNavigate }) {
         'song-selection': 'songSelection',
         'guest-photo-ai': 'guestFinder'
       };
-
-      const backendModules = selectedModuleIds.map(id => moduleKeyMap[id] || id);
-      const allModules = [...new Set([
-        ...selectedModuleIds,
-        ...backendModules,
-        ...selectedModuleIds.length > 0 ? ['gallery'] : []
-      ])];
-
-      let storageGbNumber = 50;
+      let storageGbNumber = 0;
       if (selectedStorage === '1tb') storageGbNumber = 1000;
       else if (selectedStorage === '500gb') storageGbNumber = 500;
       else if (selectedStorage === '200gb') storageGbNumber = 200;
       else if (selectedStorage === '50gb') storageGbNumber = 50;
 
-      const totalCalculatedStorage = (selectedModuleIds.length * 5) + storageGbNumber;
-
+      // Clean authoritative module payload (never include free 'gallery' as a billable module)
       const orderPayload = {
-        modules: allModules,
-        selectedModules: allModules,
-        upgradeModules: backendModules,
-        currentActiveModules: [],
-        currentStorageGb: 0,
-        isUpgrade: true,
-        storageGb: totalCalculatedStorage,
+        modules: selectedModuleIds,
+        selectedModules: selectedModuleIds,
+        storageGb: totalStorageGB,
         selectedStorageGb: storageGbNumber,
         selectedStorageId: selectedStorage,
         storageId: selectedStorage,
@@ -200,6 +187,12 @@ export default function PricingPage({ onNavigate }) {
         throw new Error(orderData.error || orderData.message || 'Failed to create payment order');
       }
 
+      // Authoritative pricing check: Ensure Razorpay order matches final payable amount exactly
+      if (orderData.amount && orderData.amount !== planSummary.amountInPaise) {
+        console.error(`[Checkout Pricing Mismatch]: Gateway returned ${orderData.amount} paise, expected ${planSummary.amountInPaise} paise.`);
+        throw new Error(`Pricing mismatch detected: Gateway returned ₹${(orderData.amount / 100).toFixed(2)}, expected ₹${(planSummary.amountInPaise / 100).toFixed(2)}. Please contact support.`);
+      }
+
       // 2. Dynamically load Razorpay SDK
       const loadScript = () => new Promise((resolve) => {
         if (window.Razorpay) return resolve(true);
@@ -226,8 +219,8 @@ export default function PricingPage({ onNavigate }) {
           signature: 'test_sandbox_signature',
           razorpay_signature: 'test_sandbox_signature',
           studioId: studio?.studioId || `std_${currentUser.uid.slice(0, 8)}`,
-          modules: allModules,
-          storageGb: totalCalculatedStorage
+          modules: selectedModuleIds,
+          storageGb: totalStorageGB
         };
 
         const verifyRes = await fetch(`${API_BASE_URL}/api/payments/verify`, {
@@ -282,8 +275,8 @@ export default function PricingPage({ onNavigate }) {
               signature: response.razorpay_signature,
               razorpay_signature: response.razorpay_signature,
               studioId: studio?.studioId || `std_${currentUser.uid.slice(0, 8)}`,
-              modules: allModules,
-              storageGb: totalCalculatedStorage
+              modules: selectedModuleIds,
+              storageGb: totalStorageGB
             };
 
             const verifyRes = await fetch(`${API_BASE_URL}/api/payments/verify`, {

@@ -38,6 +38,11 @@ export async function createSubscriptionOrder({ user, studioId, modules, storage
     throw new Error('Please select at least one valid paid module.');
   }
 
+  // Reject invalid or unauthorized coupon codes (Requirements 2 & 4)
+  if (couponCode && (!planSummary.coupon || planSummary.couponError)) {
+    throw new Error(planSummary.couponError || `Coupon "${couponCode}" is invalid or unauthorized.`);
+  }
+
   const amountPaise = planSummary.amountInPaise;
   const originalAmountPaise = planSummary.originalAmountInPaise || planSummary.subtotalPaise;
   const discountPaise = planSummary.discountPaise || 0;
