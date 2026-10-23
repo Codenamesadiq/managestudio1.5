@@ -59,7 +59,8 @@ async function runLiveVerification() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
+        'x-authorization': `Bearer ${token}`
       },
       body: JSON.stringify(orderPayload)
     });
@@ -99,7 +100,8 @@ async function runLiveVerification() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
+        'x-authorization': `Bearer ${token}`
       },
       body: JSON.stringify(invalidCouponPayload)
     });
@@ -130,7 +132,8 @@ async function runLiveVerification() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
+        'x-authorization': `Bearer ${token}`
       },
       body: JSON.stringify(verifyPayload)
     });

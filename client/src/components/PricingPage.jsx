@@ -171,7 +171,8 @@ export default function PricingPage({ onNavigate }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'x-authorization': `Bearer ${token}`
         },
         body: JSON.stringify(orderPayload)
       });
@@ -227,7 +228,8 @@ export default function PricingPage({ onNavigate }) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
+            'x-authorization': `Bearer ${token}`
           },
           body: JSON.stringify(verifyPayload)
         });
@@ -283,7 +285,8 @@ export default function PricingPage({ onNavigate }) {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                'x-authorization': `Bearer ${token}`
               },
               body: JSON.stringify(verifyPayload)
             });

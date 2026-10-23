@@ -90,7 +90,10 @@ export async function verifyFirebaseIdToken(idToken) {
  * Express middleware to enforce authentication
  */
 export async function requireAuth(req, res, next) {
-  const authHeader = req.headers.authorization;
+  let authHeader = req.headers.authorization || req.headers['x-authorization'] || req.headers['x-firebase-token'];
+  if (!authHeader && req.query && req.query.token) {
+    authHeader = `Bearer ${req.query.token}`;
+  }
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ error: 'Authentication required. Missing or malformed Bearer token.' });
   }

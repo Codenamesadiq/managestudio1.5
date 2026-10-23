@@ -187,7 +187,7 @@ export function getActiveSubscription(userUid) {
 
 async function resolveUserFromReq(req) {
   if (req.user) return req.user;
-  const authHeader = req.headers.authorization;
+  const authHeader = req.headers.authorization || req.headers['x-authorization'] || req.headers['x-firebase-token'];
   if (!authHeader || !authHeader.startsWith('Bearer ')) return null;
   const token = authHeader.slice(7).trim();
   if (!token) return null;
@@ -826,7 +826,7 @@ const paymentLimiter = createRateLimiter(60000, 25); // 25 requests per minute
 app.post('/api/payments/create-order', paymentLimiter, requireAuth, async (req, res) => {
   try {
     const { modules, storageGb, selectedStorageId, storageAddon, storageId, studioId, couponCode } = req.body || {};
-    const authHeader = req.headers.authorization;
+    const authHeader = req.headers.authorization || req.headers['x-authorization'] || req.headers['x-firebase-token'];
     const userToken = authHeader && authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : null;
 
     // Support both storageGb number, selectedStorageId, storageAddon, or storageId key
